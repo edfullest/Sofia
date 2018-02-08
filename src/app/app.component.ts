@@ -7,6 +7,8 @@ import { FuseNavigationService } from './core/components/navigation/navigation.s
 import { FuseNavigationModel } from './navigation/navigation.model';
 import { locale as navigationEnglish } from './navigation/i18n/en';
 import { locale as navigationTurkish } from './navigation/i18n/tr';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
     selector   : 'fuse-root',
@@ -15,13 +17,16 @@ import { locale as navigationTurkish } from './navigation/i18n/tr';
 })
 export class AppComponent
 {
+    courses: Observable<any[]>;
     constructor(
         private fuseNavigationService: FuseNavigationService,
         private fuseSplashScreen: FuseSplashScreenService,
         private translate: TranslateService,
-        private translationLoader: FuseTranslationLoaderService
+        private translationLoader: FuseTranslationLoaderService,
+        db: AngularFirestore
     )
     {
+            this.courses = db.collection('courses').valueChanges();
         // Add languages
         this.translate.addLangs(['en', 'tr']);
 
