@@ -15,7 +15,6 @@ const routes = [
         path     : 'createGame',
         component: CreateGameComponentComponent
     },
-
 ];
 
 @NgModule({

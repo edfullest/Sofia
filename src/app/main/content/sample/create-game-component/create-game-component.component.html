@@ -15,7 +15,7 @@
       </mat-form-field>
       <br>
 
-      <button mat-button color="secondary" (click)="addQuestion()">Añadir Pregunta</button>
+      <button mat-button class="mat-raised-button mat-accent" color="accent" (click)="addQuestion()">Añadir Pregunta</button>
 
       <form [formGroup]="questionsForm">
             <div formArrayName="questions">
@@ -34,19 +34,19 @@
                       [colspan]="1"
                       [rowspan]="1"
                       [style.background]="lightgreen">
-                    <button mat-button color="secondary" (click)="addQuestion()">Borrar</button>
+                    <button mat-button class="mat-warn-bg mat-button" color="warn" (click)="addQuestion()">Borrar</button>
                   </mat-grid-tile>
                   <mat-grid-tile
                       [colspan]="1"
                       [rowspan]="1"
                       [style.background]="lightgreen">
-                    <button mat-button color="secondary" (click)="addQuestion()">Editar</button>
+                    <button mat-button class="mat-indigo-bg mat-button" color="indigo" (click)="addQuestion()">Editar</button>
                   </mat-grid-tile>
                   <mat-grid-tile
                       [colspan]="1"
                       [rowspan]="1"
                       [style.background]="lightgreen">
-                    <button mat-button color="secondary" (click)="addAnswer(i)">+</button>
+                    <button mat-button mat-button class="mat-lime-bg mat-button" color="lime" (click)="addAnswer(i)">+</button>
                   </mat-grid-tile>
                   <mat-grid-tile
                       [colspan]="1"
