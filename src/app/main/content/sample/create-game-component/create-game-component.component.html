@@ -1,0 +1,97 @@
+<mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>{{activityName}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content style="height: 100%; overflow-y: auto">
+    <form class="example-form">
+        <mat-form-field style="width: 1000px">
+            <input [(ngModel)] = "activityName" matInput placeholder="Título del juego" [ngModelOptions]="{standalone: true}">
+        </mat-form-field>
+        <br>
+
+      <mat-form-field style="width: 1000px">
+        <textarea matInput placeholder="Añadir descripción"></textarea>
+      </mat-form-field>
+      <br>
+
+      <button mat-button color="secondary" (click)="addQuestion()">Añadir Pregunta</button>
+
+      <form [formGroup]="questionsForm">
+            <div formArrayName="questions">
+              <div [formGroupName] = "i" *ngFor="let question of questionsForm.controls.questions.controls; let i = index; let l = last"  >
+                  <!-- <mat-grid-list cols="4" rowHeight="100px">
+  <mat-grid-tile
+      *ngFor="let tile of tiles"
+      [colspan]="tile.cols"
+      [rowspan]="tile.rows"
+      [style.background]="tile.color">
+    {{tile.text}}
+  </mat-grid-tile>
+</mat-grid-list> -->
+                <mat-grid-list cols="9" rowHeight="100px">
+                    <mat-grid-tile
+                      [colspan]="1"
+                      [rowspan]="1"
+                      [style.background]="lightgreen">
+                    <button mat-button color="secondary" (click)="addQuestion()">Borrar</button>
+                  </mat-grid-tile>
+                  <mat-grid-tile
+                      [colspan]="1"
+                      [rowspan]="1"
+                      [style.background]="lightgreen">
+                    <button mat-button color="secondary" (click)="addQuestion()">Editar</button>
+                  </mat-grid-tile>
+                  <mat-grid-tile
+                      [colspan]="1"
+                      [rowspan]="1"
+                      [style.background]="lightgreen">
+                    <button mat-button color="secondary" (click)="addAnswer(i)">+</button>
+                  </mat-grid-tile>
+                  <mat-grid-tile
+                      [colspan]="1"
+                      [rowspan]="1"
+                      [style.background]="lightgreen">
+                    {{i + 1}}.
+                  </mat-grid-tile>
+                  <mat-grid-tile
+                      [colspan]="3"
+                      [rowspan]="1"
+                      [style.background]="lightblue">
+                      <mat-form-field style="width: 1000px">
+                                <input  matInput formControlName="question" placeholder="Título de la pregunta" >
+                      </mat-form-field>
+                  </mat-grid-tile>
+                </mat-grid-list>
+
+<!-- <mat-list>
+ <mat-list-item> Pepper </mat-list-item>
+ <mat-list-item> Salt </mat-list-item>
+ <mat-list-item> Paprika </mat-list-item>
+</mat-list> -->
+            <mat-list formArrayName="answers">
+              <div [formGroupName]="j"  *ngFor="let answer of question.controls.answers.controls; let j = index">
+                <mat-list-item>
+                    <mat-checkbox formControlName = "is_correct">
+                      <mat-form-field style="width: 1000px">
+                                <input  matInput formControlName="description" placeholder="Introduce Respuesta {{j + 1}}" >
+                      </mat-form-field>
+                      <br>
+                    </mat-checkbox>
+                </mat-list-item>
+                
+              </div>
+            </mat-list>
+           
+              </div>
+
+            </div>
+        </form>
+      <pre>form value: <br>{{questionsForm.value | json}}</pre>
+</form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button>LIKE</button>
+    <button mat-button>SHARE</button>
+  </mat-card-actions>
+</mat-card>

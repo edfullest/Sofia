@@ -18,7 +18,6 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
 import { environment } from '../environments/environment';
-
 const appRoutes: Routes = [
     {
         path      : '**',
@@ -29,7 +28,7 @@ const appRoutes: Routes = [
 @NgModule({
     declarations: [
         AppComponent
-    ],
+     ],
     imports     : [
         BrowserModule,
         HttpClientModule,

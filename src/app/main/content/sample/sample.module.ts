@@ -4,17 +4,24 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from '../../../core/modules/shared.module';
 
 import { FuseSampleComponent } from './sample.component';
+import { CreateGameComponentComponent } from './create-game-component/create-game-component.component';
 
 const routes = [
     {
         path     : 'sample',
         component: FuseSampleComponent
-    }
+    },
+    {
+        path     : 'createGame',
+        component: CreateGameComponentComponent
+    },
+
 ];
 
 @NgModule({
     declarations: [
-        FuseSampleComponent
+        FuseSampleComponent,
+        CreateGameComponentComponent
     ],
     imports     : [
         SharedModule,
