@@ -78,3 +78,9 @@ if ( typeof SVGElement.prototype.contains === 'undefined' )
 {
     SVGElement.prototype.contains = HTMLDivElement.prototype.contains;
 }
+
+
+/**
+ * Needed for Stepper Angular Material
+ */
+import 'hammerjs';
