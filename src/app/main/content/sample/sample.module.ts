@@ -5,6 +5,7 @@ import { SharedModule } from '../../../core/modules/shared.module';
 
 import { FuseSampleComponent } from './sample.component';
 import { CreateGameComponentComponent } from './create-game-component/create-game-component.component';
+import { ViewGameComponentComponent } from './view-game-component/view-game-component.component';
 
 const routes = [
     {
@@ -15,12 +16,17 @@ const routes = [
         path     : 'createGame',
         component: CreateGameComponentComponent
     },
+    {
+        path     : 'viewGame',
+        component: ViewGameComponentComponent
+    },
 ];
 
 @NgModule({
     declarations: [
         FuseSampleComponent,
-        CreateGameComponentComponent
+        CreateGameComponentComponent,
+        ViewGameComponentComponent
     ],
     imports     : [
         SharedModule,
