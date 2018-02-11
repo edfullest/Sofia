@@ -5,6 +5,7 @@ import { SharedModule } from '../../../core/modules/shared.module';
 
 import { FuseSampleComponent } from './sample.component';
 import { CreateGameComponentComponent } from './create-game-component/create-game-component.component';
+import { FuseWidgetModule } from '../../../core/components/widget/widget.module';
 
 const routes = [
     {
@@ -24,7 +25,8 @@ const routes = [
     ],
     imports     : [
         SharedModule,
-        RouterModule.forChild(routes)
+        RouterModule.forChild(routes),
+        FuseWidgetModule,
     ],
     exports     : [
         FuseSampleComponent

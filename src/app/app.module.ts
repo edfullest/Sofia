@@ -13,6 +13,7 @@ import { FuseNavigationService } from './core/components/navigation/navigation.s
 import { FuseSampleModule } from './main/content/sample/sample.module';
 import { TranslateModule } from '@ngx-translate/core';
 
+
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -46,7 +47,7 @@ const appRoutes: Routes = [
         FuseSplashScreenService,
         FuseConfigService,
         FuseNavigationService,
-        AngularFireDatabase, 
+        AngularFireDatabase,
         AngularFireDatabaseModule
     ],
     bootstrap   : [

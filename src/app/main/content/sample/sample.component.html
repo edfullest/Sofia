@@ -1,23 +1,70 @@
+<div class="page-layout simple fullwidth" fusePerfectScrollbar>
 
+    <!-- HEADER -->
+    <div class="header mat-accent-bg p-24 h-160" fxLayout="row" fxLayoutAlign="start center">
 
-<!-- <div class="page-layout blank p-24" fusePerfectScrollbar>
-
-    
-</div> -->
-
-<div class="page-layout blank grey-100-bg ps ps--active-y">
-<h2>{{'SAMPLE.HELLO' | translate}}</h2>
-    <ul>
-    <li class="text" *ngFor="let course of courses | async">
-      {{course.name}}
-    
-    </li>
-</ul>
-
-<div class="fuse-card auto-width">
-    <div style="width: 1000000px">
-               saljksdaljjklasdkljasdkjldaskjldaskjldsakajsldksajldsajkldaksljsdkjladskjladskjlsdljk
     </div>
-</div>
+    <!-- / HEADER -->
 
- </div>
+    <!-- CONTENT -->
+    <div class="content">
+
+
+        <mat-tab-group dynamicHeight>
+          <mat-tab label="Juegos">
+
+            <div class="widget-group p-12" fxLayout="row" fxFlex="100" fxLayoutWrap *fuseIfOnDom [@animateStagger]="{value:'50'}">
+
+
+              <fuse-widget *ngFor="let course of courses | async" [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxLayout="column" fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-md="25">
+
+                  <!-- Front -->
+                  <div class="fuse-widget-front mat-white-bg mat-elevation-z2">
+                      <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="space-between center">
+
+                          <button mat-icon-button fuseWidgetToggle aria-label="more">
+                              <mat-icon>more_vert</mat-icon>
+                          </button>
+                      </div>
+
+                      <div class="pt-8 pb-32" fxLayout="column" fxLayoutAlign="center center">
+                          <button mat-fab>
+                              <mat-icon class="mat-24" aria-label="Example icon-button with a heart icon">favorite</mat-icon>
+                          </button>
+                          <br>
+                          <div class="h3 secondary-text font-weight-500">{{course.name}}</div>
+                      </div>
+
+                      <div class="p-16 grey-50-bg border-top" fxLayout="row" fxLayoutAlign="start center">
+
+                          <span class="h4 ml-8">This is a description</span>
+                      </div>
+                  </div>
+                  <!-- / Front -->
+
+                  <!-- Back -->
+                  <div class="fuse-widget-back p-16 pt-32 mat-white-bg mat-elevation-z2">
+                      <button mat-icon-button fuseWidgetToggle class="fuse-widget-flip-button"
+                              aria-label="Flip widget">
+                          <mat-icon class="s-16">close</mat-icon>
+                      </button>
+
+                      <div>
+                          Detail
+                      </div>
+                  </div>
+                  <!-- / Back -->
+
+              </fuse-widget>
+
+
+
+            </div>
+
+          </mat-tab>
+      </mat-tab-group>
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>
