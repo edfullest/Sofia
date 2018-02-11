@@ -1,0 +1,170 @@
+<div class="page-layout blank grey-100-bg ps ps--active-y" fuseperfectscrollbar>
+  <mat-card class="createGameCard">
+  <mat-card-header [style.backgroundColor]="'orange'" [style.color]="'white'" >
+    <mat-card-title>
+      <div class="layout-row layout-align-end-start">
+        <h1> {{activityName}}</h1>
+      </div>
+</mat-card-title>
+  </mat-card-header>
+<mat-horizontal-stepper #stepper="matHorizontalStepper">
+
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+
+        <h2>This is the Question</h2>
+
+        <mat-grid-list cols="2" rowHeight="400px">
+
+          <mat-grid-tile>
+            <mat-card class="question-card">
+              <img mat-card-image src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Dhoni_ODI_Graph.jpg" alt="Graph">
+              <mat-card-content>
+                <p>
+                  This is one possible correct answer.
+                </p>
+              </mat-card-content>
+              <mat-card-actions>
+                  <mat-checkbox></mat-checkbox>
+              </mat-card-actions>
+            </mat-card>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <mat-card class="question-card">
+              <img mat-card-image src="http://www.glowscript.org/docs/VPythonDocs/images/graph.png" alt="Graph">
+              <mat-card-content>
+                <p>
+                  This is one possible correct answer.
+                </p>
+              </mat-card-content>
+              <mat-card-actions>
+                <mat-checkbox></mat-checkbox>
+              </mat-card-actions>
+            </mat-card>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <mat-card class="question-card">
+              <img mat-card-image src="http://csas.ei.columbia.edu/files/2016/09/Fig.-1.-A-Better-Graph-620x442.png" alt="Graph">
+                  <mat-card-content>
+                    <p>
+                      This is one possible correct answer.
+                    </p>
+                  </mat-card-content>
+                  <mat-card-actions>
+                      <mat-checkbox></mat-checkbox>
+                  </mat-card-actions>
+                </mat-card>
+              </mat-grid-tile>
+
+              <mat-grid-tile>
+                  <mat-card class="question-card">
+                    <img mat-card-image src="https://cdn.images.express.co.uk/img/dynamic/22/590x/secondary/price-earnings-ration-graph-990817.jpg" alt="Graph">
+                    <mat-card-content>
+                      <p>
+                        This is one possible correct answer.
+                      </p>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <mat-checkbox></mat-checkbox>
+                    </mat-card-actions>
+                  </mat-card>
+                </mat-grid-tile>
+
+
+        </mat-grid-list>
+
+      <div>
+        <button mat-button matStepperNext type="button"><img src="assets/icons/sofia/right_nav.png" alt="sup" width="30" height="30" border="0"></button>
+
+      </div>
+    </form>
+  </mat-step>
+
+
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+
+        <h2>This is the Question</h2>
+
+        <mat-grid-list cols="2" rowHeight="400px">
+
+          <mat-grid-tile>
+            <mat-card class="question-card">
+              <img mat-card-image src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Dhoni_ODI_Graph.jpg" alt="Graph">
+              <mat-card-content>
+                <p>
+                  This is one possible correct answer.
+                </p>
+              </mat-card-content>
+              <mat-card-actions>
+                  <mat-checkbox></mat-checkbox>
+              </mat-card-actions>
+            </mat-card>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <mat-card class="question-card">
+              <img mat-card-image src="http://www.glowscript.org/docs/VPythonDocs/images/graph.png" alt="Graph">
+              <mat-card-content>
+                <p>
+                  This is one possible correct answer.
+                </p>
+              </mat-card-content>
+              <mat-card-actions>
+                <mat-checkbox></mat-checkbox>
+              </mat-card-actions>
+            </mat-card>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <mat-card class="question-card">
+              <img mat-card-image src="http://csas.ei.columbia.edu/files/2016/09/Fig.-1.-A-Better-Graph-620x442.png" alt="Graph">
+                  <mat-card-content>
+                    <p>
+                      This is one possible correct answer.
+                    </p>
+                  </mat-card-content>
+                  <mat-card-actions>
+                      <mat-checkbox></mat-checkbox>
+                  </mat-card-actions>
+                </mat-card>
+              </mat-grid-tile>
+
+              <mat-grid-tile>
+                  <mat-card class="question-card">
+                    <img mat-card-image src="https://cdn.images.express.co.uk/img/dynamic/22/590x/secondary/price-earnings-ration-graph-990817.jpg" alt="Graph">
+                    <mat-card-content>
+                      <p>
+                        This is one possible correct answer.
+                      </p>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <mat-checkbox></mat-checkbox>
+                    </mat-card-actions>
+                  </mat-card>
+                </mat-grid-tile>
+
+
+        </mat-grid-list>
+      <div>
+        <button mat-button matStepperPrevious type="button"><img src="assets/icons/sofia/left_nav.png" alt="sup" width="30" height="30" border="0"></button>
+        <button mat-button matStepperNext type="button"><img src="assets/icons/sofia/right_nav.png" alt="sup" width="30" height="30" border="0"></button>
+      </div>
+    </form>
+  </mat-step>
+
+
+  <mat-step>
+    You are now done.
+    <div>
+      <button mat-button matStepperPrevious type="button"><img src="assets/icons/sofia/left_nav.png" alt="sup" width="30" height="30" border="0"></button>
+      <button mat-button (click)="stepper.reset()"><img src="assets/icons/sofia/repetir.png" alt="sup" width="30" height="30" border="0"></button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
+
+</mat-card>
+<p></p>
+</div>
