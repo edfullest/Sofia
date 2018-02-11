@@ -8,15 +8,9 @@ import { FormsModule, ReactiveFormsModule, AbstractControl } from '@angular/form
   styleUrls: ['./create-game-component.component.scss']
 })
 export class CreateGameComponentComponent implements OnInit {
-  activityName : string = "Título de la actividad";
+  activityName : string = "";
   questionsForm: FormGroup;
   answersForm: FormGroup;
-  tiles = [
-    {text: 'One', cols: 3, rows: 1, color: 'lightblue'},
-    {text: 'Two', cols: 1, rows: 2, color: 'lightgreen'},
-    {text: 'Three', cols: 1, rows: 1, color: 'lightpink'},
-    {text: 'Four', cols: 2, rows: 1, color: '#DDBDF1'},
-  ];
   constructor(private fb: FormBuilder) { 
 
   }
@@ -31,6 +25,19 @@ export class CreateGameComponentComponent implements OnInit {
           ])
           
         }));
+  }
+
+  deleteQuestion(selectedQuestionIndex){
+    const control = <FormArray>this.questionsForm.get('questions')
+    // remove the chosen row
+    control.removeAt(selectedQuestionIndex);
+  }
+
+  deleteAnswer(currentQuestionIndex, selectedAnswerIndex){
+    var questionsArray : FormArray = <FormArray>this.questionsForm.get('questions')
+    var selectedQuestion : FormGroup = <FormGroup> questionsArray.controls[currentQuestionIndex]
+    var answersArray = <FormArray> selectedQuestion.get('answers')
+    answersArray.removeAt(selectedAnswerIndex)
   }
 
   addAnswer(selectedQuestionIndex){
