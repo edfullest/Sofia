@@ -5,8 +5,16 @@
     overflow-y: auto; 
     width: 80%;
     padding: 0px;
+    overflow-x: hidden;
 }
 
 .button{
     cursor: pointer;
+    margin-right: 15px;
 }
+
+mat-checkbox{
+    margin-right: 15px;
+    margin-left: 20%;
+}
+

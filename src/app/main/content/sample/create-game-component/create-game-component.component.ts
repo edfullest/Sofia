@@ -9,18 +9,18 @@ import { FormsModule, ReactiveFormsModule, AbstractControl } from '@angular/form
 })
 export class CreateGameComponentComponent implements OnInit {
   activityName : string = "";
-  questionsForm: FormGroup;
+  gameForm: FormGroup;
   answersForm: FormGroup;
   constructor(private fb: FormBuilder) { 
 
   }
   addQuestion(){
-    (<FormArray>this.questionsForm.get('questions')).push(this.fb.group({
+    (<FormArray>this.gameForm.get('questions')).push(this.fb.group({
           question: [null, Validators.required],
           answers : this.fb.array([
                 this.fb.group({
-                  description: ['', Validators.required],
-                  is_correct: [false,Validators.required]
+                  answer: ['', Validators.required],
+                  isCorrect: [false,Validators.required]
               })
           ])
           
@@ -28,34 +28,38 @@ export class CreateGameComponentComponent implements OnInit {
   }
 
   deleteQuestion(selectedQuestionIndex){
-    const control = <FormArray>this.questionsForm.get('questions')
+    const control = <FormArray>this.gameForm.get('questions')
     // remove the chosen row
     control.removeAt(selectedQuestionIndex);
   }
 
   deleteAnswer(currentQuestionIndex, selectedAnswerIndex){
-    var questionsArray : FormArray = <FormArray>this.questionsForm.get('questions')
+    var questionsArray : FormArray = <FormArray>this.gameForm.get('questions')
     var selectedQuestion : FormGroup = <FormGroup> questionsArray.controls[currentQuestionIndex]
     var answersArray = <FormArray> selectedQuestion.get('answers')
     answersArray.removeAt(selectedAnswerIndex)
   }
 
   addAnswer(selectedQuestionIndex){
-    var questionsArray : FormArray = <FormArray>this.questionsForm.get('questions')
+    var questionsArray : FormArray = <FormArray>this.gameForm.get('questions')
     var selectedQuestion : FormGroup = <FormGroup> questionsArray.controls[selectedQuestionIndex]
     var answersArray = <FormArray> selectedQuestion.get('answers')
      answersArray.push(this.fb.group({
-                  description: ['', Validators.required],
-                  is_correct: [false,Validators.required]
+                  answer: ['', Validators.required],
+                  isCorrect: [false,Validators.required]
               }))
 
   }
 
   ngOnInit() {
-      this.questionsForm = this.fb.group({
-      questions: this.fb.array([
-        
-      ])
+      this.gameForm = this.fb.group({
+        name: [null, Validators.required],
+        description: [null, Validators.required],
+        isPublic: [false, Validators.required],
+        questions: this.fb.array([
+          
+        ])
+
     });
   }
 

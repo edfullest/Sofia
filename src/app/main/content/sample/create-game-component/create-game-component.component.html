@@ -1,84 +1,102 @@
 <div class="page-layout blank grey-100-bg ps ps--active-y" fuseperfectscrollbar>
+  <div style="float: left; width: 80%;"></div>
+  <div style="float: right; width: 20%; ">
+    <mat-expansion-panel expanded="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Añadir pregunta
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-list>
+       <mat-list-item>
+         <a mat-button class="mat-raised-button mat-accent" color="accent" (click)="addQuestion()">Opción Multiple</a>
+       </mat-list-item>
+       <mat-list-item>
+        <a mat-button class="mat-raised-button mat-warn" color="warn" (click)="addQuestion()">Fill in the blank</a>
+      </mat-list-item>
+      </mat-list>
+  </mat-expansion-panel>
+  </div>
   <mat-card class="createGameCard">
-  <mat-card-header [style.backgroundColor]="'orange'" [style.color]="'white'" >
-    <mat-card-title>
-      <div class="layout-row layout-align-end-start">
-        <h1> {{activityName}}</h1>
-      </div>
-</mat-card-title>
-  </mat-card-header>
-    <form [formGroup]="questionsForm">
-      <mat-card-content style="padding: 20px;">
+    <mat-card-header [style.backgroundColor]="'orange'" [style.color]="'white'" >
+      <mat-card-title>
+        <div class="layout-row layout-align-end-start">
+          <h1>Crear Juego</h1>
+          
+        </div>
+      </mat-card-title>
+    </mat-card-header>
+      <form [formGroup]="gameForm">
+        <mat-card-content style="padding: 40px;">
+              <mat-form-field style="width: 100%">
+                  <input formControlName="name" matInput placeholder="Título del juego">
+              </mat-form-field>
+              <br>
             <mat-form-field style="width: 100%">
-                <input [(ngModel)] = "activityName" matInput placeholder="Título del juego" [ngModelOptions]="{standalone: true}">
+              <textarea matInput formControlName="description" placeholder="Añadir descripción"></textarea>
             </mat-form-field>
             <br>
-          <mat-form-field style="width: 100%">
-            <textarea matInput placeholder="Añadir descripción"></textarea>
-          </mat-form-field>
-          <br>
-          <a mat-button class="mat-raised-button mat-accent" color="accent" (click)="addQuestion()">Añadir Pregunta</a>
-                <div formArrayName="questions">
-                  <div [formGroupName] = "i" *ngFor="let question of questionsForm.controls.questions.controls; let i = index; let l = last"  >
+            <div formArrayName="questions">
+              <div [formGroupName] = "i" *ngFor="let question of gameForm.controls.questions.controls; let i = index; let l = last"  >
+                <mat-grid-list cols="8" rowHeight="100px">
+                    <mat-grid-tile
+                      [colspan]="1"
+                      [rowspan]="1"
+                      [style.background]="lightgreen">           
+                    <a class = "button" (click)="deleteQuestion(i)">
+                      <img src="assets/icons/sofia/delete.png" alt="sup" width="30" height="30" border="0">
+                    </a>
+                    <a class = "button" (click)="addAnswer(i)">
+                      <img src="assets/icons/sofia/add_nofill.png" alt="sup" width="30" height="30" border="0">
+                    </a>
+                  </mat-grid-tile>
+                  <mat-grid-tile
+                      [colspan]="1"
+                      [rowspan]="1">
+                      <h2>{{i + 1}}.</h2>
+                  </mat-grid-tile>
+                  <mat-grid-tile
+                      [colspan]="6"
+                      [rowspan]="1"
+                      [style.background]="lightblue">
+                      <mat-form-field style="width: 100%">
+                                 <input  matInput formControlName="question" placeholder="Título de la pregunta" >
+                      </mat-form-field>
+                  </mat-grid-tile>
+                </mat-grid-list>
+                <mat-list formArrayName="answers" style="width:80%;">
+                  <div [formGroupName]="j"  *ngFor="let ans of question.controls.answers.controls; let j = index">
                     <mat-grid-list cols="8" rowHeight="100px">
-                        <mat-grid-tile
-                          [colspan]="1"
-                          [rowspan]="1"
-                          [style.background]="lightgreen">           
-                        <a class = "button" (click)="deleteQuestion(i)">
-                          <img src="assets/icons/sofia/delete.png" alt="sup" width="60" height="60" border="0">
-                        </a>
-                        <a class = "button" (click)="addAnswer(i)">
-                          <img src="assets/icons/sofia/add.png" alt="sup" width="20" height="20" border="0">
-                        </a>     
+                      <mat-grid-tile
+                          [colspan]="7"
+                          [rowspan]="1">
+                          <mat-checkbox formControlName = "isCorrect"></mat-checkbox>
+                          <mat-form-field style="width: 100%">
+                                <input  matInput formControlName="answer" placeholder="Respuesta {{j + 1}}" >
+                          </mat-form-field>
                       </mat-grid-tile>
                       <mat-grid-tile
                           [colspan]="1"
                           [rowspan]="1">
-                          <p>{{i + 1}}.</p>
-                      </mat-grid-tile>
-                      <mat-grid-tile
-                          [colspan]="5"
-                          [rowspan]="1"
-                          [style.background]="lightblue">
-                          <mat-form-field style="width: 100%">
-                                     <input  matInput formControlName="question" placeholder="Título de la pregunta" >
-                          </mat-form-field>
+                          <a class = "button" (click)="deleteAnswer(i,j)">
+                            <img src="assets/icons/sofia/delete_x.png" alt="sup" width="30" height="30" border="0">
+                          </a>
                       </mat-grid-tile>
                     </mat-grid-list>
-                    <mat-list formArrayName="answers" style="width:80%;">
-                      <div [formGroupName]="j"  *ngFor="let answer of question.controls.answers.controls; let j = index">
-                        <mat-grid-list cols="3" rowHeight="100px">
-                            <mat-grid-tile
-                              [colspan]="1"
-                              [rowspan]="1">
-                              <mat-checkbox formControlName = "is_correct"></mat-checkbox>
-                            </mat-grid-tile>
-                          <mat-grid-tile
-                              [colspan]="1"
-                              [rowspan]="1">
-                              <mat-form-field style="width: 100%">
-                                        <input  matInput formControlName="description" placeholder="Introduce Respuesta {{j + 1}}" >
-                              </mat-form-field>
-                          </mat-grid-tile>
-                          <mat-grid-tile
-                              [colspan]="1"
-                              [rowspan]="1">
-                              <a class = "button" (click)="deleteAnswer(i,j)">
-                                <img src="assets/icons/sofia/delete.png" alt="sup" width="60" height="60" border="0">
-                              </a>
-                          </mat-grid-tile>
-                        </mat-grid-list>
-                      </div>
-                    </mat-list>
                   </div>
-                </div>
-          <pre>form value: <br>{{questionsForm.value | json}}</pre>
-      </mat-card-content>
-    <mat-card-actions align="end" style="padding: 20px;">
-      <button mat-button type="submit" class="mat-raised-button mat-primary" color="primary">Mandar</button>
-    </mat-card-actions>
-  </form>
-</mat-card>
-<p></p>
+                </mat-list>
+                <mat-divider></mat-divider>
+              </div>
+            </div>
+            <pre>form value: <br>{{gameForm.value | json}}</pre>
+        </mat-card-content>
+      <mat-card-actions align="end" style="padding: 40px;">
+        <div matTooltip="Cualquier persona puede realizar un juego público, aún sin estar inscrito al curso!" matTooltipPosition="above" style = "margin-right: 15px; margin-top: 10px;">
+          <mat-checkbox formControlName = "isPublic">¿Público?</mat-checkbox>
+        </div>
+        <button mat-button type="submit" class="mat-raised-button mat-primary" color="primary">Mandar</button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+
 </div>
