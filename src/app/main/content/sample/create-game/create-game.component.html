@@ -4,15 +4,15 @@
     <mat-expansion-panel expanded="true">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          Añadir pregunta
+          {{'CREATEGAME.ADDQUESTION' | translate}}
         </mat-panel-title>
       </mat-expansion-panel-header>
       <mat-list>
        <mat-list-item>
-         <a mat-button class="mat-raised-button mat-accent" color="accent" (click)="addQuestion()">Opción Multiple</a>
+         <a mat-button class="mat-raised-button mat-accent" color="accent" (click)="addQuestion()">{{'CREATEGAME.MULTIPLECHOICE' | translate}}</a>
        </mat-list-item>
        <mat-list-item>
-        <a mat-button class="mat-raised-button mat-warn" color="warn" (click)="addQuestion()">Fill in the blank</a>
+        <a mat-button class="mat-raised-button mat-warn" color="warn" (click)="addQuestion()">{{'CREATEGAME.FILLINTHEBLANK' | translate}}</a>
       </mat-list-item>
       </mat-list>
   </mat-expansion-panel>
@@ -21,19 +21,25 @@
     <mat-card-header [style.backgroundColor]="'orange'" [style.color]="'white'" >
       <mat-card-title>
         <div class="layout-row layout-align-end-start">
-          <h1>Crear Juego</h1>
+           <div *ngIf="this.currentState == ComponentState.IsCreating">
+              <h1>{{'CREATEGAME.TITLE' | translate}}</h1>
+           </div>
+           <div *ngIf="this.currentState == ComponentState.IsEditing">
+              <h1>{{'EDITGAME.TITLE' | translate}}</h1>
+           </div>
+          
           
         </div>
       </mat-card-title>
     </mat-card-header>
-      <form [formGroup]="gameForm">
+      <form [formGroup]="gameForm" (ngSubmit)="onSubmit()">
         <mat-card-content style="padding: 40px;">
               <mat-form-field style="width: 100%">
-                  <input formControlName="name" matInput placeholder="Título del juego">
+                  <input formControlName="name" matInput placeholder="{{'CREATEGAME.GAMETITLE' | translate}}">
               </mat-form-field>
               <br>
             <mat-form-field style="width: 100%">
-              <textarea matInput formControlName="description" placeholder="Añadir descripción"></textarea>
+              <textarea matInput formControlName="description" placeholder="{{'CREATEGAME.GAMEDESCRIPTION' | translate}}"></textarea>
             </mat-form-field>
             <br>
             <div formArrayName="questions">
@@ -60,7 +66,7 @@
                       [rowspan]="1"
                       [style.background]="lightblue">
                       <mat-form-field style="width: 100%">
-                                 <input  matInput formControlName="question" placeholder="Título de la pregunta" >
+                                 <input  matInput formControlName="question" placeholder="{{'CREATEGAME.QUESTION' | translate}} {{i + 1}}" >
                       </mat-form-field>
                   </mat-grid-tile>
                 </mat-grid-list>
@@ -72,7 +78,7 @@
                           [rowspan]="1">
                           <mat-checkbox formControlName = "isCorrect"></mat-checkbox>
                           <mat-form-field style="width: 100%">
-                                <input  matInput formControlName="answer" placeholder="Respuesta {{j + 1}}" >
+                                <input  matInput formControlName="answer" placeholder="{{'CREATEGAME.ANSWER' | translate}} {{j + 1}}" >
                           </mat-form-field>
                       </mat-grid-tile>
                       <mat-grid-tile
@@ -91,10 +97,16 @@
             <pre>form value: <br>{{gameForm.value | json}}</pre>
         </mat-card-content>
       <mat-card-actions align="end" style="padding: 40px;">
-        <div matTooltip="Cualquier persona puede realizar un juego público, aún sin estar inscrito al curso!" matTooltipPosition="above" style = "margin-right: 15px; margin-top: 10px;">
-          <mat-checkbox formControlName = "isPublic">¿Público?</mat-checkbox>
+        <div matTooltip="{{'CREATEGAME.TOOLTIP' | translate}}" matTooltipPosition="above" style = "margin-right: 15px; margin-top: 10px;">
+          <mat-checkbox formControlName = "isPublic">{{'CREATEGAME.PUBLIC' | translate}}</mat-checkbox>
         </div>
-        <button mat-button type="submit" class="mat-raised-button mat-primary" color="primary">Mandar</button>
+        <div *ngIf="this.currentState == ComponentState.IsCreating">
+              <h1>{{'CREATEGAME.SEND' | translate}}</h1>
+           </div>
+           <div *ngIf="this.currentState == ComponentState.IsEditing">
+              <button mat-button type="submit" class="mat-raised-button mat-primary" color="primary">{{'EDITGAME.SEND' | translate}}</button>
+           </div>
+        
       </mat-card-actions>
     </form>
   </mat-card>

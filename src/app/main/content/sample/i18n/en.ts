@@ -3,6 +3,7 @@ export const locale = {
     data: {
         'SAMPLE': {
             'HELLO': 'Hello, World!'
-        }
+        },
+        
     }
 };

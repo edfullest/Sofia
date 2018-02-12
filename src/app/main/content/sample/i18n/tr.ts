@@ -2,7 +2,10 @@ export const locale = {
     lang: 'tr',
     data: {
         'SAMPLE': {
-            'HELLO': 'Merhaba Dünya!'
+            'HELLO': 'Hola Mundo!'
+        },
+        'CREATEGAME' : {
+            'TITLE' : 'Crear Juego'
         }
     }
 };
