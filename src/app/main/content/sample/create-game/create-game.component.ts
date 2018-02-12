@@ -29,19 +29,19 @@ export class CreateGameComponent implements OnInit {
   public currentState : ComponentState = ComponentState.IsCreating;
 
   // The current document we will be working on
-  currentCourseFB : AngularFirestoreDocument<any> = this.db.collection('courses').doc('AROBb11WpOPFwPQu7xrT'); 
+  currentCourseFB : AngularFirestoreDocument<any> = this.db.collection('courses').doc('AROBb11WpOPFwPQu7xrT');
   // The subcollection that lies in the previous document
   gamesFB : AngularFirestoreCollection<any> = this.currentCourseFB.collection('games');
   // currentGame in case there is a game that is being edited!
   currentGame : AngularFirestoreDocument<any>;
 
-  constructor(private fb: FormBuilder, 
-              private db: AngularFirestore, 
+  constructor(private fb: FormBuilder,
+              private db: AngularFirestore,
               public snackBar: MatSnackBar,
               private translationLoader: FuseTranslationLoaderService,
               private route: ActivatedRoute,
               private router: Router,
-              private ngZone:NgZone) { 
+              private ngZone:NgZone) {
     this.translationLoader.loadTranslations(english, turkish);
   }
   addQuestion(){
@@ -53,7 +53,7 @@ export class CreateGameComponent implements OnInit {
                   isCorrect: [false,Validators.required]
               })
           ])
-          
+
         }));
 
   }
@@ -94,7 +94,7 @@ export class CreateGameComponent implements OnInit {
         })
       }
       this.resetForm();
-    } 
+    }
   }
 
   deleteAnswer(currentQuestionIndex, selectedAnswerIndex){
@@ -128,7 +128,7 @@ export class CreateGameComponent implements OnInit {
             this.currentGame = this.gamesFB.doc(this.gameID);
             const doc: Observable<any> = this.currentGame.valueChanges()
             doc.subscribe(data => {
-              this.dataToForm(data) 
+              this.dataToForm(data)
             })
          });
       }
@@ -145,8 +145,8 @@ export class CreateGameComponent implements OnInit {
     data.questions.forEach(q => {
         (<FormArray>this.gameForm.get('questions')).push(this.fb.group({
           question: [q.question, Validators.required],
-          answers : this.fb.array([   
-          ]) 
+          answers : this.fb.array([
+          ])
         }));
     });
 
@@ -171,11 +171,10 @@ export class CreateGameComponent implements OnInit {
         description: [null, Validators.required],
         isPublic: [false, Validators.required],
         questions: this.fb.array([
-          
+
         ])
 
     });
   }
 
 }
-

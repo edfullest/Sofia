@@ -16,28 +16,30 @@
             <div class="widget-group p-12" fxLayout="row" fxFlex="100" fxLayoutWrap *fuseIfOnDom [@animateStagger]="{value:'50'}">
 
 
-              <fuse-widget *ngFor="let course of courses | async" [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxLayout="column" fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-md="25">
+              <fuse-widget *ngFor="let game of games | async" [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxLayout="column" fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-md="25">
 
                   <!-- Front -->
                   <div class="fuse-widget-front mat-white-bg mat-elevation-z2">
-                      <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="space-between center">
+                      <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="end center">
 
-                          <button mat-icon-button fuseWidgetToggle aria-label="more">
-                              <mat-icon>more_vert</mat-icon>
+                          <button matTooltipPosition = "above" matTooltip="Edit / Delete" mat-icon-button fuseWidgetToggle aria-label="more" >
+                                  <mat-icon>more_vert</mat-icon>
                           </button>
+
                       </div>
 
                       <div class="pt-8 pb-32" fxLayout="column" fxLayoutAlign="center center">
                           <button mat-fab>
-                              <mat-icon class="mat-24" aria-label="Example icon-button with a heart icon">favorite</mat-icon>
+                              <mat-icon class="mat-24" aria-label="Example icon-button with a heart icon">play_arrow</mat-icon>
+
                           </button>
                           <br>
-                          <div class="h3 secondary-text font-weight-500">{{course.name}}</div>
+                          <div class="h3 secondary-text font-weight-500">{{game.name}}</div>
                       </div>
 
                       <div class="p-16 grey-50-bg border-top" fxLayout="row" fxLayoutAlign="start center">
 
-                          <span class="h4 ml-8">This is a description</span>
+                          <span class="h4 ml-8">{{game.description}}</span>
                       </div>
                   </div>
                   <!-- / Front -->
@@ -49,9 +51,24 @@
                           <mat-icon class="s-16">close</mat-icon>
                       </button>
 
-                      <div>
-                          Detail
+                      <div class="button-row" fxLayoutAlign="center center">
+                        <button mat-raised-button color="basic">
+                          <mat-icon>mode_edit</mat-icon>
+                          Edit
+                        </button>
                       </div>
+
+                      <br>
+
+                      <div class="button-row" fxLayoutAlign="center center">
+                        <button mat-raised-button color="warn">
+                          <mat-icon>delete_forever</mat-icon>
+                          Delete
+                        </button>
+                      </div>
+
+
+
                   </div>
                   <!-- / Back -->
 
