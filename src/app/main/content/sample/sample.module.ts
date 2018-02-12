@@ -13,7 +13,7 @@ import { ViewGameComponentComponent } from './view-game-component/view-game-comp
 
 const routes = [
     {
-        path     : 'sample',
+        path     : 'games',
         component: FuseSampleComponent
     },
     {

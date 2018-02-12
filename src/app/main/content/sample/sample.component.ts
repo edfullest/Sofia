@@ -5,6 +5,7 @@ import { FuseTranslationLoaderService } from '../../../core/services/translation
 import { locale as english } from './i18n/en';
 import { locale as turkish } from './i18n/tr';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import {Router} from "@angular/router";
 import { Observable } from 'rxjs/Observable';
 import { fuseAnimations } from '../../../core/animations';
 import {MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipDefaultOptions} from '@angular/material';
@@ -26,20 +27,25 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
     {provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: myCustomTooltipDefaults}
   ],
 })
-export class FuseSampleComponent  implements OnInit{
-
-
-
-
+export class FuseSampleComponent{
 
     games: Observable<any[]>;
 
-    constructor(private translationLoader: FuseTranslationLoaderService, db: AngularFirestore)
+
+    constructor(private translationLoader: FuseTranslationLoaderService, db: AngularFirestore, router: Router)
     {
         this.translationLoader.loadTranslations(english, turkish);
-        this.games = db.collection('courses').doc('AROBb11WpOPFwPQu7xrT').collection('games').valueChanges();
+        this.games = db.collection('courses').doc('AROBb11WpOPFwPQu7xrT').collection('games').snapshotChanges().map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          });
+        });
+    }
 
+    editRoute(gameId: String){
 
-
+      console.log(router);
     }
 }

@@ -3,6 +3,14 @@
     <!-- HEADER -->
     <div class="header mat-accent-bg p-24 h-160" fxLayout="row" fxLayoutAlign="start center">
 
+      <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="end center">
+
+          <button [routerLink]="['../game/create']" matTooltipPosition = "above" matTooltip="New Game" mat-icon-button>
+                  <mat-icon>add</mat-icon>
+          </button>
+
+      </div>
+
     </div>
     <!-- / HEADER -->
 
@@ -52,14 +60,13 @@
                       </button>
 
                       <div class="button-row" fxLayoutAlign="center center">
-                        <button mat-raised-button color="basic">
+                        <button mat-raised-button color="basic" [routerLink]="['../game/edit/', game.id]">
                           <mat-icon>mode_edit</mat-icon>
                           Edit
                         </button>
                       </div>
 
                       <br>
-
                       <div class="button-row" fxLayoutAlign="center center">
                         <button mat-raised-button color="warn">
                           <mat-icon>delete_forever</mat-icon>

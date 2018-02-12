@@ -1,4 +1,32 @@
 <div class="page-layout blank grey-100-bg ps ps--active-y" fuseperfectscrollbar>
+
+  <div class="header mat-accent-bg p-24 h-160" fxLayout="row" fxLayoutAlign="start center">
+
+    <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="end center">
+
+
+        <div *ngIf="this.currentState == ComponentState.IsCreating">
+            <button [routerLink]="['../../games']" matTooltipPosition = "above" matTooltip="Back" mat-icon-button>
+                    <mat-icon>keyboard_backspace</mat-icon>
+            </button>
+        </div>
+
+        <div *ngIf="this.currentState == ComponentState.IsEditing">
+          <button [routerLink]="['../../../games']" matTooltipPosition = "above" matTooltip="Back" mat-icon-button>
+                  <mat-icon>keyboard_backspace</mat-icon>
+          </button>
+        </div>
+        <div *ngIf="this.currentState == ComponentState.IsCreating">
+
+           <h1>{{'CREATEGAME.TITLE' | translate}}</h1>
+        </div>
+        <div *ngIf="this.currentState == ComponentState.IsEditing">
+           <h1>{{'EDITGAME.TITLE' | translate}}</h1>
+        </div>
+
+    </div>
+  </div>
+
   <div style="float: left; width: 80%;"></div>
   <div style="float: right; width: 20%; ">
     <mat-expansion-panel expanded="true">
@@ -19,18 +47,6 @@
   </div>
   <mat-card class="createGameCard">
     <mat-card-header [style.backgroundColor]="'orange'" [style.color]="'white'" >
-      <mat-card-title>
-        <div class="layout-row layout-align-end-start">
-           <div *ngIf="this.currentState == ComponentState.IsCreating">
-              <h1>{{'CREATEGAME.TITLE' | translate}}</h1>
-           </div>
-           <div *ngIf="this.currentState == ComponentState.IsEditing">
-              <h1>{{'EDITGAME.TITLE' | translate}}</h1>
-           </div>
-          
-          
-        </div>
-      </mat-card-title>
     </mat-card-header>
       <form [formGroup]="gameForm" (ngSubmit)="onSubmit()">
         <mat-card-content style="padding: 40px;">
@@ -48,7 +64,7 @@
                     <mat-grid-tile
                       [colspan]="1"
                       [rowspan]="1"
-                      [style.background]="lightgreen">           
+                      [style.background]="lightgreen">
                     <a class = "button" (click)="deleteQuestion(i)">
                       <img src="assets/icons/sofia/delete.png" alt="sup" width="30" height="30" border="0">
                     </a>
@@ -106,7 +122,7 @@
            <div *ngIf="this.currentState == ComponentState.IsEditing">
               <button mat-button type="submit" class="mat-raised-button mat-primary" color="primary">{{'EDITGAME.SEND' | translate}}</button>
            </div>
-        
+
       </mat-card-actions>
     </form>
   </mat-card>
