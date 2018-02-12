@@ -101,7 +101,7 @@
           <mat-checkbox formControlName = "isPublic">{{'CREATEGAME.PUBLIC' | translate}}</mat-checkbox>
         </div>
         <div *ngIf="this.currentState == ComponentState.IsCreating">
-              <h1>{{'CREATEGAME.SEND' | translate}}</h1>
+          <button mat-button type="submit" class="mat-raised-button mat-primary" color="primary">{{'CREATEGAME.SEND' | translate}}</button>
            </div>
            <div *ngIf="this.currentState == ComponentState.IsEditing">
               <button mat-button type="submit" class="mat-raised-button mat-primary" color="primary">{{'EDITGAME.SEND' | translate}}</button>

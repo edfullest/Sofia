@@ -5,7 +5,6 @@ import { SharedModule } from '../../../core/modules/shared.module';
 
 import { FuseSampleComponent } from './sample.component';
 import { CreateGameComponent } from './create-game/create-game.component';
-import { EditGameComponent } from './edit-game/edit-game.component';
 
 
 
@@ -37,8 +36,7 @@ const routes = [
     declarations: [
         FuseSampleComponent,
         CreateGameComponent,
-        ViewGameComponentComponent,
-        EditGameComponent
+        ViewGameComponentComponent
     ],
     imports     : [
         SharedModule,
