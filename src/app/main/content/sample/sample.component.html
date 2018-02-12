@@ -68,7 +68,7 @@
 
                       <br>
                       <div class="button-row" fxLayoutAlign="center center">
-                        <button mat-raised-button color="warn">
+                        <button (click) = "deleteDocument(game.id)" mat-raised-button color="warn">
                           <mat-icon>delete_forever</mat-icon>
                           Delete
                         </button>

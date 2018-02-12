@@ -30,12 +30,14 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
 export class FuseSampleComponent{
 
     games: Observable<any[]>;
+    db:any;
 
 
     constructor(private translationLoader: FuseTranslationLoaderService, db: AngularFirestore, router: Router)
     {
+        this.db = db;
         this.translationLoader.loadTranslations(english, turkish);
-        this.games = db.collection('courses').doc('AROBb11WpOPFwPQu7xrT').collection('games').snapshotChanges().map(actions => {
+        this.games = this.db.collection('courses').doc('AROBb11WpOPFwPQu7xrT').collection('games').snapshotChanges().map(actions => {
           return actions.map(a => {
             const data = a.payload.doc.data();
             const id = a.payload.doc.id;
@@ -44,8 +46,10 @@ export class FuseSampleComponent{
         });
     }
 
-    editRoute(gameId: String){
+    deleteDocument(id: String){
 
-      console.log(router);
+         this.db.collection('courses').doc('AROBb11WpOPFwPQu7xrT').collection('games').doc(id).delete();
+
+
     }
 }
