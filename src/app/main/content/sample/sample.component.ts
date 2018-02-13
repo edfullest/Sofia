@@ -3,7 +3,7 @@ import { FuseTranslationLoaderService } from '../../../core/services/translation
 
 
 import { locale as english } from './i18n/en';
-import { locale as turkish } from './i18n/tr';
+import { locale as spanish } from './i18n/es';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import {Router} from "@angular/router";
 import { Observable } from 'rxjs/Observable';
@@ -36,7 +36,7 @@ export class FuseSampleComponent{
     constructor(private translationLoader: FuseTranslationLoaderService, db: AngularFirestore, router: Router)
     {
         this.db = db;
-        this.translationLoader.loadTranslations(english, turkish);
+        this.translationLoader.loadTranslations(english, spanish);
         this.games = this.db.collection('courses').doc('AROBb11WpOPFwPQu7xrT').collection('games').snapshotChanges().map(actions => {
           return actions.map(a => {
             const data = a.payload.doc.data();

@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 
 import { locale as english } from './i18n/en';
-import { locale as turkish } from './i18n/tr';
+import { locale as spanish } from './i18n/es';
 
 enum ComponentState {IsEditing, IsCreating}
 @Component({
@@ -42,7 +42,7 @@ export class CreateGameComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private ngZone:NgZone) {
-    this.translationLoader.loadTranslations(english, turkish);
+    this.translationLoader.loadTranslations(english, spanish);
   }
   addQuestion(){
     (<FormArray>this.gameForm.get('questions')).push(this.fb.group({

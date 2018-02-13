@@ -4,6 +4,12 @@ export const locale = {
         'SAMPLE': {
             'HELLO': 'Hello, World!'
         },
+        'GAMES' : {
+            'TITLE' : 'Games',
+            'EDITBUTTON' : 'Edit',
+            'DELETEBUTTON' : 'Delete',
+            'TOOLTIP' : 'Edit / Delete'
+        }
         
     }
 };

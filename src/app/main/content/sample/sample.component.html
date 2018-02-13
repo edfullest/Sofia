@@ -19,7 +19,7 @@
 
 
         <mat-tab-group dynamicHeight>
-          <mat-tab label="Juegos">
+          <mat-tab label="{{'GAMES.TITLE' | translate }}">
 
             <div class="widget-group p-12" fxLayout="row" fxFlex="100" fxLayoutWrap *fuseIfOnDom [@animateStagger]="{value:'50'}">
 
@@ -30,14 +30,14 @@
                   <div class="fuse-widget-front mat-white-bg mat-elevation-z2">
                       <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="end center">
 
-                          <button matTooltipPosition = "above" matTooltip="Edit / Delete" mat-icon-button fuseWidgetToggle aria-label="more" >
+                          <button matTooltipPosition = "above" matTooltip="{{'GAMES.TOOLTIP' | translate }}" mat-icon-button fuseWidgetToggle aria-label="more" >
                                   <mat-icon>more_vert</mat-icon>
                           </button>
 
                       </div>
 
                       <div class="pt-8 pb-32" fxLayout="column" fxLayoutAlign="center center">
-                          <button mat-fab>
+                          <button mat-fab [routerLink]="['../game/view/', game.id]">
                               <mat-icon class="mat-24" aria-label="Example icon-button with a heart icon">play_arrow</mat-icon>
 
                           </button>
@@ -62,7 +62,7 @@
                       <div class="button-row" fxLayoutAlign="center center">
                         <button mat-raised-button color="basic" [routerLink]="['../game/edit/', game.id]">
                           <mat-icon>mode_edit</mat-icon>
-                          Edit
+                          {{'GAMES.EDITBUTTON' | translate }}
                         </button>
                       </div>
 
@@ -70,7 +70,7 @@
                       <div class="button-row" fxLayoutAlign="center center">
                         <button (click) = "deleteDocument(game.id)" mat-raised-button color="warn">
                           <mat-icon>delete_forever</mat-icon>
-                          Delete
+                          {{'GAMES.DELETEBUTTON' | translate }}
                         </button>
                       </div>
 
