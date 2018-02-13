@@ -128,6 +128,7 @@ export class CreateGameComponent implements OnInit {
             this.currentGame = this.gamesFB.doc(this.gameID);
             const doc: Observable<any> = this.currentGame.valueChanges()
             doc.subscribe(data => {
+              console.log(data)
               this.dataToForm(data)
             })
          });

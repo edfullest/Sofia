@@ -8,11 +8,11 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import {Router} from "@angular/router";
 import { Observable } from 'rxjs/Observable';
 import { fuseAnimations } from '../../../core/animations';
-import {MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipDefaultOptions} from '@angular/material';
+// import {MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipDefaultOptions} from '@angular/material';
 
 
 /** Custom options the configure the tooltip's default show/hide delays. */
-export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
+export const myCustomTooltipDefaults = {
   showDelay: 1000,
   hideDelay: 1000,
   touchendHideDelay: 0,
@@ -24,7 +24,7 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
     styleUrls  : ['./sample.component.scss'],
     animations   : fuseAnimations,
     providers: [
-    {provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: myCustomTooltipDefaults}
+    // {provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: myCustomTooltipDefaults}
   ],
 })
 export class FuseSampleComponent{

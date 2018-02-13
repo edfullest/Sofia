@@ -1,5 +1,5 @@
 export const locale = {
-    lang: 'tr',
+    lang: 'es',
     data: {
         'SAMPLE': {
             'HELLO': 'Hola Mundo!'
