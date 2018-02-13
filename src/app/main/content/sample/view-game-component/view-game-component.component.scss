@@ -1,4 +1,6 @@
-.createGameCard{
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+.viewGameCard{
   margin-left: auto;
   margin-right: auto;
   height: 100%;
@@ -10,8 +12,6 @@
 .button{
   cursor: pointer;
 }
-
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 body {
   font-family: Roboto, Arial, sans-serif;
@@ -38,5 +38,8 @@ form {
 
 h2{
   padding-bottom: 40px;
+}
 
+input{
+  text-align: center;
 }
