@@ -14,11 +14,11 @@ import { locale as spanish } from './i18n/es';
 
 enum ComponentState {IsEditing, IsCreating}
 @Component({
-  selector: 'app-create-game',
-  templateUrl: './create-game.component.html',
-  styleUrls: ['./create-game.component.scss']
+  selector: 'app-game',
+  templateUrl: './game.component.html',
+  styleUrls: ['./game.component.scss']
 })
-export class CreateGameComponent implements OnInit {
+export class GameComponent implements OnInit {
 
   // The game id of the current game, if there is one. This is actually the hash of the document
   gameID: string;

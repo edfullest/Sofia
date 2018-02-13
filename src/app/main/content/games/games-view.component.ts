@@ -19,15 +19,15 @@ export const myCustomTooltipDefaults = {
 };
 
 @Component({
-    selector   : 'fuse-sample',
-    templateUrl: './sample.component.html',
-    styleUrls  : ['./sample.component.scss'],
+    selector   : 'games-view',
+    templateUrl: './games-view.component.html',
+    styleUrls  : ['./games-view.component.scss'],
     animations   : fuseAnimations,
     providers: [
     // {provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: myCustomTooltipDefaults}
   ],
 })
-export class FuseSampleComponent{
+export class GamesViewComponent{
 
     games: Observable<any[]>;
     db:any;

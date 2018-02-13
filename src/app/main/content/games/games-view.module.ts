@@ -3,8 +3,8 @@ import { RouterModule } from '@angular/router';
 
 import { SharedModule } from '../../../core/modules/shared.module';
 
-import { FuseSampleComponent } from './sample.component';
-import { CreateGameComponent } from './create-game/create-game.component';
+import { GamesViewComponent } from './games-view.component';
+import { GameComponent } from './game/game.component';
 
 
 
@@ -14,15 +14,15 @@ import { ViewGameComponentComponent } from './view-game-component/view-game-comp
 const routes = [
     {
         path     : 'games',
-        component: FuseSampleComponent
+        component: GamesViewComponent
     },
     {
         path     : 'game/create',
-        component: CreateGameComponent
+        component: GameComponent
     },
     {
         path     : 'game/edit/:game_id',
-        component: CreateGameComponent
+        component: GameComponent
     },
     {
         path     : 'game/view/:game_id',
@@ -34,8 +34,8 @@ const routes = [
 
 @NgModule({
     declarations: [
-        FuseSampleComponent,
-        CreateGameComponent,
+        GamesViewComponent,
+        GameComponent,
         ViewGameComponentComponent
     ],
     imports     : [
@@ -44,10 +44,10 @@ const routes = [
         FuseWidgetModule,
     ],
     exports     : [
-        FuseSampleComponent
+        GamesViewComponent
     ]
 })
 
-export class FuseSampleModule
+export class GamesViewModule
 {
 }
