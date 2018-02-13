@@ -53,18 +53,20 @@ export class FuseToolbarComponent
 
         this.languages = [
             {
+                'id'   : 'es',
+                'title': 'Español',
+                'flag' : 'mx'
+            },
+            {
                 'id'   : 'en',
                 'title': 'English',
                 'flag' : 'us'
-            },
-            {
-                'id'   : 'tr',
-                'title': 'Turkish',
-                'flag' : 'tr'
             }
+            
         ];
 
         this.selectedLanguage = this.languages[0];
+        this.setLanguage(this.selectedLanguage)
 
         router.events.subscribe(
             (event) => {
