@@ -110,11 +110,14 @@
                 <mat-divider></mat-divider>
               </div>
             </div>
-<!--             <pre>form value: <br>{{gameForm.value | json}}</pre>
- -->        </mat-card-content>
+            <pre>form value: <br>{{gameForm.value | json}}</pre>
+        </mat-card-content>
       <mat-card-actions align="end" style="padding: 40px;">
         <div matTooltip="{{'CREATEGAME.TOOLTIP' | translate}}" matTooltipPosition="above" style = "margin-right: 15px; margin-top: 10px;">
-          <mat-checkbox formControlName = "isPublic">{{'CREATEGAME.PUBLIC' | translate}}</mat-checkbox>
+            <mat-slide-toggle
+              formControlName = "isPublic">
+            {{'CREATEGAME.PUBLIC' | translate}}
+          </mat-slide-toggle>
         </div>
         <div *ngIf="this.currentState == ComponentState.IsCreating">
           <button mat-button type="submit" class="mat-raised-button mat-primary" color="primary">{{'CREATEGAME.SEND' | translate}}</button>

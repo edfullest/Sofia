@@ -47,9 +47,6 @@ export class GamesViewComponent{
     }
 
     deleteDocument(id: String){
-
          this.db.collection('courses').doc('AROBb11WpOPFwPQu7xrT').collection('games').doc(id).delete();
-
-
     }
 }

@@ -40,7 +40,6 @@ export class ViewGameComponentComponent implements OnInit {
   ngOnInit() {
     // The form is reset to empty values
     this.resetForm();
-
     // We get the game ID from the RESTFUL URL
         this.route.params.subscribe(params => {
             this.gameID = params['game_id'];

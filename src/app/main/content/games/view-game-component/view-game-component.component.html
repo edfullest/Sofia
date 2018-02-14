@@ -25,10 +25,9 @@
                 </mat-grid-tile>
               </mat-grid-list>
               <div>
-                <button mat-button matStepperNext type="button"><img src="assets/icons/sofia/right_nav.png" alt="sup" width="30" height="30" border="0"></button>
-              </div>
-              <div *ngIf="i >= 1">
-                <button mat-button matStepperPrevious type="button"><img src="assets/icons/sofia/left_nav.png" alt="sup" width="30" height="30" border="0"></button>
+                <button *ngIf="i >= 1" mat-button matStepperPrevious type="button"><img src="assets/icons/sofia/left_nav.png" alt="sup" width="30" height="30" border="0"></button>
+                <button *ngIf="i < gameData.questions.length - 1" mat-button matStepperNext type="button"><img src="assets/icons/sofia/right_nav.png" alt="sup" width="30" height="30" border="0"></button>
+
               </div>
             </mat-step>
           </mat-horizontal-stepper>
