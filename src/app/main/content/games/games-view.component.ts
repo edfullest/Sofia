@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FuseTranslationLoaderService } from '../../../core/services/translation-loader.service';
 import { RecentQuestionsModule } from '../recent-questions/recent-questions.module'
 import { RecentQuestionsComponent } from '../recent-questions/recent-questions.component'
-
+import {AddQuestionComponent} from '../recent-questions/add-question/add-question.component'
 
 import { locale as english } from './i18n/en';
 import { locale as spanish } from './i18n/es';
