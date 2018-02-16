@@ -89,6 +89,13 @@
       </mat-tab-group>
 
     </div>
+    <div *ngIf = "isPressed">
+      <!--     <app-create-question></app-create-question>
+ -->
+    </div>
+    <div *ngIf = "!isPressed">
+          <app-recent-questions></app-recent-questions>
+    </div>
     <!-- / CONTENT -->
 
 </div>

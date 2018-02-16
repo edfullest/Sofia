@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { FuseTranslationLoaderService } from '../../../core/services/translation-loader.service';
+import { RecentQuestionsModule } from '../recent-questions/recent-questions.module'
+import { RecentQuestionsComponent } from '../recent-questions/recent-questions.component'
 
 
 import { locale as english } from './i18n/en';
 import { locale as spanish } from './i18n/es';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
-import {Router} from "@angular/router";
+import { Router } from "@angular/router";
 import { Observable } from 'rxjs/Observable';
 import { fuseAnimations } from '../../../core/animations';
 // import {MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipDefaultOptions} from '@angular/material';
@@ -30,23 +32,21 @@ export const myCustomTooltipDefaults = {
 export class GamesViewComponent{
 
     games: Observable<any[]>;
-    db:any;
+    isPressed : boolean = false;
 
-
-    constructor(private translationLoader: FuseTranslationLoaderService, db: AngularFirestore, router: Router)
+    constructor(private translationLoader: FuseTranslationLoaderService, private db: AngularFirestore, router: Router)
     {
-        this.db = db;
         this.translationLoader.loadTranslations(english, spanish);
-        this.games = this.db.collection('courses').doc('AROBb11WpOPFwPQu7xrT').collection('games').snapshotChanges().map(actions => {
-          return actions.map(a => {
-            const data = a.payload.doc.data();
-            const id = a.payload.doc.id;
+        this.games = this.db.collection('courses').doc('AROBb11WpOPFwPQu7xrT').collection('games').snapshotChanges().map(document => {
+          return document.map(documentData => {
+            const data = documentData.payload.doc.data();
+            const id = documentData.payload.doc.id;
             return { id, ...data };
           });
         });
     }
 
-    deleteDocument(id: String){
+    deleteDocument(id: string){
          this.db.collection('courses').doc('AROBb11WpOPFwPQu7xrT').collection('games').doc(id).delete();
     }
 }

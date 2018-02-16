@@ -1,0 +1,20 @@
+<div style="margin-left: 20px">
+    <h1>Preguntas Frecuentes</h1>
+    <mat-chip-list >
+        <div *ngFor = "let hashtag of hashtags | async">
+            <mat-chip (click) = "filterByHashtag(hashtag)" >{{hashtag.hashtag}}</mat-chip>
+        </div>
+    </mat-chip-list>
+
+    <div *ngFor="let question of questions | async">
+        <div *ngFor = "let hashtag of question.hashtagsArray">
+            {{hashtag}}
+        </div>
+       
+        <br>
+        {{question.question}}
+        <br>
+        {{question.respuesta}}
+    </div>
+</div>
+

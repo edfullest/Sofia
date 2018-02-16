@@ -5,7 +5,7 @@ import { SharedModule } from '../../../core/modules/shared.module';
 
 import { GamesViewComponent } from './games-view.component';
 import { GameComponent } from './game/game.component';
-
+import { RecentQuestionsModule } from '../recent-questions/recent-questions.module'
 
 
 import { FuseWidgetModule } from '../../../core/components/widget/widget.module';
@@ -30,8 +30,6 @@ const routes = [
     },
 ];
 
-
-
 @NgModule({
     declarations: [
         GamesViewComponent,
@@ -42,6 +40,7 @@ const routes = [
         SharedModule,
         RouterModule.forChild(routes),
         FuseWidgetModule,
+        RecentQuestionsModule
     ],
     exports     : [
         GamesViewComponent
