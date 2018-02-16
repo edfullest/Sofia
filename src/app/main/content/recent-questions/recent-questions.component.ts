@@ -37,6 +37,7 @@ export class RecentQuestionsComponent implements OnInit {
        this.questionCollectionReference = this.db.collection('courses').doc('AROBb11WpOPFwPQu7xrT')
                                 .collection('questions', ref => 
                                 ref.where("hashtags." + hashtagObj.hashtag, '==', true))
+       this.triggerQuestionChanges()
    }
 
   ngOnInit() {

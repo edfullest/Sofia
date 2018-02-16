@@ -2,7 +2,7 @@
     <h1>Preguntas Frecuentes</h1>
     <mat-chip-list >
         <div *ngFor = "let hashtag of hashtags | async">
-            <mat-chip (click) = "filterByHashtag(hashtag)" >{{hashtag.hashtag}}</mat-chip>
+            <mat-chip color="accent" selected="true" (click) = "filterByHashtag(hashtag)" >{{hashtag.hashtag}}</mat-chip>
         </div>
     </mat-chip-list>
 
