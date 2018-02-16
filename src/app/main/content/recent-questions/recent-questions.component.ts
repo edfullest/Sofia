@@ -11,32 +11,14 @@ export class RecentQuestionsComponent implements OnInit {
 
   questions : Observable<any[]>;
   hashtags : Observable<any[]>;
+  questionCollectionReference : AngularFirestoreCollection<any> = 
+                  this.db.collection('courses').doc('AROBb11WpOPFwPQu7xrT').collection('questions');
   constructor(private db: AngularFirestore) {
 
   }
 
-  filterByHashtag(hashtagObj){
-      console.log(hashtagObj.hashtag)
-        this.questions = this.db.collection('courses').doc('AROBb11WpOPFwPQu7xrT')
-                                .collection('questions', ref => 
-                                ref.where("hashtags.Sofia", '==', 'true'))
-                                .snapshotChanges().map(document => {
-                                  return document.map(documentData => {
-                                    const data = documentData.payload.doc.data();
-                                    const id = documentData.payload.doc.id;
-                                    const hashtagsArray = []
-                                    const hashtags = data.hashtags
-                                    for (var key in hashtags) {
-                                      hashtagsArray.push(JSON.parse(key))
-                                    }
-                                    return { id,hashtagsArray,...data };
-                                  });
-                                });
-    
-  }
-
-  ngOnInit() {
-      this.questions = this.db.collection('courses').doc('AROBb11WpOPFwPQu7xrT').collection('questions').snapshotChanges().map(document => {
+  triggerQuestionChanges(){
+      this.questions = this.questionCollectionReference.snapshotChanges().map(document => {
           return document.map(documentData => {
             const data = documentData.payload.doc.data();
             const id = documentData.payload.doc.id;
@@ -48,6 +30,17 @@ export class RecentQuestionsComponent implements OnInit {
             return { id,hashtagsArray,...data };
           });
         });
+   }
+
+   filterByHashtag(hashtagObj){
+       console.log(hashtagObj.hashtag)
+       this.questionCollectionReference = this.db.collection('courses').doc('AROBb11WpOPFwPQu7xrT')
+                                .collection('questions', ref => 
+                                ref.where("hashtags." + hashtagObj.hashtag, '==', true))
+    }
+
+  ngOnInit() {
+      this.triggerQuestionChanges()
       this.hashtags = this.db.collection('courses').doc('AROBb11WpOPFwPQu7xrT').collection('hashtags').snapshotChanges().map(document => {
           return document.map(documentData => {
             const data = documentData.payload.doc.data();
@@ -59,3 +52,18 @@ export class RecentQuestionsComponent implements OnInit {
   }
 
 }
+
+
+[string]
+
+{
+    hashtags : {
+        Ecuacion 1 : true,
+        Sofia : true
+    },
+    question : "Question",
+    respuesta : ""
+
+}
+
+

@@ -108,7 +108,7 @@ export class GameComponent implements OnInit {
     var questionsArray : FormArray = <FormArray>this.gameForm.get('questions')
     var selectedQuestion : FormGroup = <FormGroup> questionsArray.controls[selectedQuestionIndex]
     var answersArray = <FormArray> selectedQuestion.get('answers')
-   answersArray.push(this.fb.group({
+    answersArray.push(this.fb.group({
       answer: ['', Validators.required],
       isCorrect: [false,Validators.required]
     }))
