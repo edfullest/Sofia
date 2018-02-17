@@ -16,7 +16,7 @@
                             <div class ="question">
                                 <mat-chip-list >
                                     <div *ngFor = "let hashtag of question.hashtagsArray" style="margin: 5px 0px 5px 5px; margin-bottom: 10px;">
-                                        <mat-chip color="accent" selected="true" (click) = "filterByHashtag(hashtag)" style="cursor: pointer !important">{{hashtag}}</mat-chip>
+                                        <mat-basic-chip class="mat-light-blue-900-bg" selected="true" (click) = "filterByHashtag(hashtag)" style="cursor: pointer !important; padding: 7px; border-radius: 24px;">{{hashtag}}</mat-basic-chip>
                                     </div>
                                 </mat-chip-list>
                                 <div class = "comment" fxflexfill="" fxlayout="row" style="height: 100%; margin: 0px; min-height: 100%; min-width: 100%; width: 100%; flex-direction: row; box-sizing: border-box; display: flex;">
