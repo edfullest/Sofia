@@ -11,6 +11,7 @@ export class RecentQuestionsComponent implements OnInit {
 
   questions : Observable<any[]>;
   hashtags : Observable<any[]>;
+  answers: [any];
   questionCollectionReference : AngularFirestoreCollection<any> = 
                   this.db.collection('courses').doc('AROBb11WpOPFwPQu7xrT').collection('questions');
   constructor(private db: AngularFirestore) {
@@ -24,20 +25,29 @@ export class RecentQuestionsComponent implements OnInit {
             const id = documentData.payload.doc.id;
             const hashtagsArray = []
             const hashtags = data.hashtags
+            const originalAnswer = data.answer
             for (var key in hashtags) {
               hashtagsArray.push(key)
             }
-            return { id,hashtagsArray,...data };
+            return { id,hashtagsArray,originalAnswer,...data };
           });
         });
    }
 
-   filterByHashtag(hashtagObj){
-       console.log(hashtagObj.hashtag)
+   filterByHashtag(hashtag){
        this.questionCollectionReference = this.db.collection('courses').doc('AROBb11WpOPFwPQu7xrT')
                                 .collection('questions', ref => 
-                                ref.where("hashtags." + hashtagObj.hashtag, '==', true))
+                                ref.where("hashtags." + hashtag, '==', true))
        this.triggerQuestionChanges()
+   }
+
+   sendAnswer(question){
+     this.db.collection('courses').doc('AROBb11WpOPFwPQu7xrT')
+                                  .collection('questions')
+                                  .doc(question.id).update({
+                                    answer: question.answer
+                                   })
+
    }
 
   ngOnInit() {
