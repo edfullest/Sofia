@@ -40,11 +40,6 @@ import { AngularFireDatabase } from 'angularfire2/database';
 
     }
 
-    findCategory(ref: any){
-      console.log(ref.get().toString());
-    }
-
-
   }
 
 
