@@ -9,7 +9,7 @@ import { locale as spanish } from './i18n/es';
 import { FirebaseDatabase } from '@firebase/database-types';
 import { FuseIfOnDomDirective } from '../../../core/directives/fuse-if-on-dom/fuse-if-on-dom.directive';
 import { FirebaseApp, FirebaseAppProvider } from 'angularfire2';
-import { FirebaseFirestore } from '@firebase/firestore-types';
+import { FirebaseFirestore, DocumentReference } from '@firebase/firestore-types';
 import { AngularFireDatabase } from 'angularfire2/database';
 
 
@@ -28,6 +28,8 @@ import { AngularFireDatabase } from 'angularfire2/database';
     categoriesCollection: AngularFirestoreCollection<any[]>;
     categories: Observable<any[]>;
 
+    categorySelected = 'ALL';
+
     constructor(private translationLoader: FuseTranslationLoaderService, private db: AngularFirestore, router: Router)
     {
       this.translationLoader.loadTranslations(english, spanish);
@@ -35,10 +37,11 @@ import { AngularFireDatabase } from 'angularfire2/database';
       this.courses = this.coursesCollection.valueChanges();
       this.categoriesCollection = this.db.collection('categories');
       this.categories = this.categoriesCollection.valueChanges();
+
     }
 
-    findReference(ref: any){
-
+    findCategory(ref: any){
+      console.log(ref.get().toString());
     }
 
 

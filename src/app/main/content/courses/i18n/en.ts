@@ -5,7 +5,7 @@ export const locale = {
           'TITLE' : 'My Courses',
           'SLOGAN' : 'KEEP SHARING MORE KNOWLEDGE',
           'CREATEBUTTON' : 'Create Course',
-          'CATEGORTY_ALL' : 'All courses',
+          'CATEGORY_ALL' : 'All courses',
           'TOOLTIP' : 'Edit / Delete',
           'SELECT_CATEGORY' : 'Choice a category',
           'EDITBUTTON' : 'Edit',
