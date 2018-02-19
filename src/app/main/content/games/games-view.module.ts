@@ -5,7 +5,8 @@ import { SharedModule } from '../../../core/modules/shared.module';
 
 import { GamesViewComponent } from './games-view.component';
 import { GameComponent } from './game/game.component';
-import { RecentQuestionsModule } from '../recent-questions/recent-questions.module'
+import { RecentQuestionsModule } from '../recent-questions/recent-questions.module';
+import { CoursesComponent } from '../courses/courses.component';
 
 
 import { FuseWidgetModule } from '../../../core/components/widget/widget.module';
@@ -28,13 +29,18 @@ const routes = [
         path     : 'game/view/:game_id',
         component: ViewGameComponentComponent
     },
+    {
+      path     : 'courses',
+      component: CoursesComponent
+  },
 ];
 
 @NgModule({
     declarations: [
         GamesViewComponent,
         GameComponent,
-        ViewGameComponentComponent
+        ViewGameComponentComponent,
+        CoursesComponent
     ],
     imports     : [
         SharedModule,
