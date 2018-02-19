@@ -9,7 +9,11 @@ import { locale as spanish } from './i18n/es';
 import { FirebaseDatabase } from '@firebase/database-types';
 import { FuseIfOnDomDirective } from '../../../core/directives/fuse-if-on-dom/fuse-if-on-dom.directive';
 import { FirebaseApp, FirebaseAppProvider } from 'angularfire2';
+<<<<<<< HEAD
 import { FirebaseFirestore } from '@firebase/firestore-types';
+=======
+import { FirebaseFirestore, DocumentReference } from '@firebase/firestore-types';
+>>>>>>> e9d79b2fe6732f9564ae3bf14b119401422ba917
 import { AngularFireDatabase } from 'angularfire2/database';
 
 
@@ -28,6 +32,11 @@ import { AngularFireDatabase } from 'angularfire2/database';
     categoriesCollection: AngularFirestoreCollection<any[]>;
     categories: Observable<any[]>;
 
+<<<<<<< HEAD
+=======
+    categorySelected = 'ALL';
+
+>>>>>>> e9d79b2fe6732f9564ae3bf14b119401422ba917
     constructor(private translationLoader: FuseTranslationLoaderService, private db: AngularFirestore, router: Router)
     {
       this.translationLoader.loadTranslations(english, spanish);
@@ -35,6 +44,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
       this.courses = this.coursesCollection.valueChanges();
       this.categoriesCollection = this.db.collection('categories');
       this.categories = this.categoriesCollection.valueChanges();
+<<<<<<< HEAD
     }
 
     findReference(ref: any){
@@ -43,3 +53,11 @@ import { AngularFireDatabase } from 'angularfire2/database';
 
 
   }
+=======
+
+    }
+
+  }
+
+
+>>>>>>> e9d79b2fe6732f9564ae3bf14b119401422ba917

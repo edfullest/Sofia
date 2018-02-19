@@ -14,9 +14,8 @@ import { GamesViewModule } from './main/content/games/games-view.module';
 import { CoursesViewModule } from './main/content/courses/courses-view.module'
 import { TranslateModule } from '@ngx-translate/core';
 
-
 import { AngularFireModule } from 'angularfire2';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFirestoreModule, AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
 import { environment } from '../environments/environment';
