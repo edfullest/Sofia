@@ -112,7 +112,7 @@
             <app-recent-questions style="width:100%; height: 95%"></app-recent-questions>
           </div>
           <div *ngIf = "isPressed">
-            <app-add-question style="width:100%;" [isBackButtonPressed] = "isPressed" ></app-add-question>
+            <app-add-question style="width:100%;" [isBackButtonPressed] = "isPressed" (outputEvent)="pressButton()" ></app-add-question>
           </div>
 
         </div>                           
