@@ -56,7 +56,7 @@ export class CourseComponent implements OnInit {
             description : data.description,
             difficulty : data.group.value,
             category : this.category,
-            author : "Test Author"
+            author : "Test Author",
             price: data.price,
           })
           this.snackBar.open("¡Se ha creado el curso con éxito!",'',{
@@ -77,7 +77,7 @@ export class CourseComponent implements OnInit {
       //     verticalPosition:'top'
       //   })
       // }
-      this.resetForm();
+      // this.resetForm();
     }
   }
 

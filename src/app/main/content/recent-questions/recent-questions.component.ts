@@ -20,6 +20,7 @@ export class RecentQuestionsComponent implements OnInit {
 
   triggerQuestionChanges(){
       this.questions = this.questionCollectionReference.snapshotChanges().map(document => {
+          console.log(document)
           return document.map(documentData => {
             const data = documentData.payload.doc.data();
             const id = documentData.payload.doc.id;

@@ -6,7 +6,7 @@
       <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="end center">
 
           <button [routerLink]="['../game/create']" matTooltipPosition = "above" matTooltip="New Game" mat-icon-button>
-                  <mat-icon>add</mat-icon>
+                  <mat-icon >add</mat-icon>
           </button>
 
       </div>
@@ -89,27 +89,37 @@
       </mat-tab-group>
 
     </div>
-    <div *ngIf = "!isPressed">
+    <div>
       <fuse-widget class="widget widget5 ng-trigger ng-trigger-animate" fxflex="100" fxlayout="row" style="flex: 1 1 100%; box-sizing: border-box; flex-direction: row; display: flex; max-width: 100%; width: 100%">
         <div class="fuse-widget-front mat-white-bg mat-elevation-z2">
-          <div _ngcontent-c92="" class="p-16" fxlayout="row" fxlayoutalign="space-between center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center space-between; align-items: center;">
+          <div  class="p-16" fxlayout="row" fxlayoutalign="space-between center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center space-between; align-items: center;">
+              <button *ngIf = "isPressed" (click)="pressButton()" matTooltipPosition = "above" matTooltip="Back" mat-icon-button>
+                    <mat-icon>keyboard_backspace</mat-icon>
+              </button>
               <div class="pr-16">
-                  <div class="h1 font-weight-300">Preguntas Frecuentes</div>
+                  <div *ngIf = "!isPressed" class="h1 font-weight-300">Preguntas Frecuentes</div>
+                  <div *ngIf = "isPressed" class="h1 font-weight-300">Agregar Pregunta</div>
+
               </div>
 
               <div class="ng-tns-c92-425">
-                  <button matTooltipPosition = "above" matTooltip="Nueva Pregunta" mat-icon-button>
+                  <button matTooltipPosition = "above" matTooltip="Nueva Pregunta" (click)="pressButton()" mat-icon-button>
                     <mat-icon>add</mat-icon>
                   </button> 
               </div>
           </div>
-          <app-recent-questions style="width:100%; height: 95%"></app-recent-questions>
+          <div *ngIf = "!isPressed">
+            <app-recent-questions style="width:100%; height: 95%"></app-recent-questions>
+          </div>
+          <div *ngIf = "isPressed">
+            <app-add-question style="width:100%;" [isBackButtonPressed] = "isPressed" ></app-add-question>
+          </div>
+
         </div>                           
       </fuse-widget>
     </div>
-    
+
     <div *ngIf = "isPressed">
-      <app-add-question></app-add-question>
     </div>
     <!-- / CONTENT -->
 

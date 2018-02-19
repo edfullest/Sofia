@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import {MatChipInputEvent} from '@angular/material';
-import {ENTER, COMMA} from '@angular/cdk/keycodes';
+import {ENTER, COMMA, SPACE} from '@angular/cdk/keycodes';
 import 'rxjs/add/operator/first';
 
 @Component({
@@ -16,11 +16,11 @@ export class AddQuestionComponent implements OnInit {
   removable: boolean = true;
   addOnBlur: boolean = true;
   pregunta: string = "";
-    
-  separatorKeysCodes = [ENTER, COMMA];
+  @Input() isBackButtonPressed : boolean;
+  @Output() outputEvent:EventEmitter<boolean>=new EventEmitter<boolean>();
+  separatorKeysCodes = [ENTER, COMMA, SPACE];
   //hashtags : Observable<any[]>;
   hashtags = [
-    { name: 'testHashtag' },
   ];
     
   constructor(private db: AngularFirestore) { }
@@ -30,7 +30,6 @@ export class AddQuestionComponent implements OnInit {
   }
   
  submit(){
-      //console.log('submitted');
       this.addQuestion();
   }
   
@@ -78,6 +77,8 @@ export class AddQuestionComponent implements OnInit {
       var question = {answer:"", hashtags:hashtagObj, question: this.pregunta}
       this.db.collection('courses').doc('AROBb11WpOPFwPQu7xrT')
            .collection('questions').add(question);
+      // Return to questions
+      this.outputEvent.emit(false)
   }
   
   add(event: MatChipInputEvent): void {

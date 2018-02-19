@@ -6,6 +6,7 @@ import { SharedModule } from '../../../core/modules/shared.module';
 import { GamesViewComponent } from './games-view.component';
 import { GameComponent } from './game/game.component';
 import { RecentQuestionsModule } from '../recent-questions/recent-questions.module';
+import { CoursesViewModule } from '../courses/courses-view.module';
 import { CoursesComponent } from '../courses/courses.component';
 
 
@@ -39,8 +40,7 @@ const routes = [
     declarations: [
         GamesViewComponent,
         GameComponent,
-        ViewGameComponentComponent,
-        CoursesComponent
+        ViewGameComponentComponent
     ],
     imports     : [
         SharedModule,
