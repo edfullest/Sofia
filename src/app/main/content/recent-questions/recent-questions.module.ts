@@ -7,6 +7,7 @@ import { AddQuestionComponent } from './add-question/add-question.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import {MatInputModule} from '@angular/material/input';
     MatChipsModule,
     MatFormFieldModule,
     MatIconModule,
-    MatInputModule
+    MatInputModule,
+    FormsModule
   ],
   declarations: [RecentQuestionsComponent, AddQuestionComponent],
   exports: [RecentQuestionsComponent, AddQuestionComponent]

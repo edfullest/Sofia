@@ -15,9 +15,8 @@
            (matChipInputTokenEnd)="add($event)" />
   </mat-chip-list>
 </mat-form-field>
-    
   <mat-form-field>
-    <input matInput placeholder="Pregunta">
+    <input [(ngModel)]="pregunta" matInput placeholder="Pregunta">
   </mat-form-field>
     <!-- [formControl]="questionFormControl"
              [errorStateMatcher]="matcher">
