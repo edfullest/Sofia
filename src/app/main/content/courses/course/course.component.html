@@ -1,0 +1,122 @@
+<div class="page-layout simple fullwidth" fusePerfectScrollbar>
+
+
+  <div class="header mat-accent-bg p-24 h-160" fxLayout="row" fxLayoutAlign="start center">
+
+    <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="end center">
+
+
+        <div *ngIf="this.currentState == ComponentState.IsCreating">
+            <button [routerLink]="['../../games']" matTooltipPosition = "above" matTooltip="Back" mat-icon-button>
+                    <mat-icon>keyboard_backspace</mat-icon>
+            </button>
+        </div>
+
+        <div *ngIf="this.currentState == ComponentState.IsEditing">
+          <button [routerLink]="['../../../games']" matTooltipPosition = "above" matTooltip="Back" mat-icon-button>
+                  <mat-icon>keyboard_backspace</mat-icon>
+          </button>
+        </div>
+        <div *ngIf="this.currentState == ComponentState.IsCreating">
+
+           <h1>{{'CREATEGAME.TITLE' | translate}}</h1>
+        </div>
+        <div *ngIf="this.currentState == ComponentState.IsEditing">
+           <h1>{{'EDITGAME.TITLE' | translate}}</h1>
+        </div>
+
+    </div>
+  </div>
+
+<mat-card class="coursesCard">
+
+  <form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
+
+    <h2>Seleccione la categoria de su curso</h2>
+
+    <h1>Categoria seleccionada: {{category}}</h1>
+
+    <div class="categories">
+      <div class="category">
+        <button style="background-image: url(/assets/icons/sofia/translate.png); background-repeat: no-repeat; background-position: center"type='button'class="category-btn" value="hR1E1PIen1LmHKLSueJb" (click)="setCategory('Idiomas')"></button>
+        <p style="margin: auto;">Idiomas</p>
+      </div>
+
+      <div class="category">
+        <button style="background-image: url(/assets/icons/sofia/pi.png); background-size: 50px 50px; background-repeat: no-repeat; background-position: center"type='button' class="category-btn" value="mwk63FCD6Af27ST0maXt" (click)="setCategory('Matemáticas')"></button>
+        <p style="margin: auto;">Matemáticas</p>
+      </div>
+    </div>
+
+    <!-- <button style="margin-top: 20px; margin-left: auto;" mat-raised-button color="primary" >Siguiente</button> -->
+
+    <mat-form-field style="width: 100%">
+        <input formControlName="courseName" matInput placeholder="{{'CREATEGAME.GAMETITLE' | translate}}">
+    </mat-form-field>
+    <br>
+    <mat-form-field style="width: 100%">
+      <textarea matInput formControlName="description" placeholder="{{'CREATEGAME.GAMEDESCRIPTION' | translate}}"></textarea>
+    </mat-form-field>
+
+
+    <div style="width: 100%" class="courseData">
+
+      <div class="imageUpload">
+        <p style="margin: auto;">Imagen del curso</p>
+        <img src="./assets/images/cards/card2-large.jpg">
+        <button mat-raised-button color="accent">Accent</button>
+      </div>
+
+      <div class="rightParams">
+
+        <p style="margin: auto;">Dificultad</p>
+        <br>
+        <mat-button-toggle-group #group="matButtonToggleGroup">
+          <mat-button-toggle value="1">
+            <img src="./assets/icons/sofia/difficulty_low.jpg">
+          </mat-button-toggle>
+          <mat-button-toggle value="2">
+            <img src="./assets/icons/sofia/difficulty_medium.jpg">
+          </mat-button-toggle>
+          <mat-button-toggle value="3">
+            <img src="./assets/icons/sofia/difficulty_high.jpg">
+          </mat-button-toggle>
+
+        </mat-button-toggle-group>
+        <br>
+        <p style="margin: auto;">Duracion aproximada</p>
+        <br>
+        <div >
+          <mat-form-field style="width: 15%">
+            <input style="width 20px" formControlName="time" matInput placeholder="{{'CREATEGAME.GAMETITLE' | translate}}">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-select formControlName="time_unit" placeholder="unidad de tiempo">
+              <mat-option value="hora">Horas</mat-option>
+              <mat-option value="dia">Dias</mat-option>
+              <mat-option value="mes">Meses</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <br>
+        <p style="margin: auto;">Costo</p>
+        <div class="costParams">
+          <mat-slide-toggle [checked]= "true" >Curso gratuito</mat-slide-toggle>
+          <mat-form-field style="width: 50%">
+            <input formControlName="price" matInput placeholder="{{'CREATEGAME.GAMETITLE' | translate}}">
+          </mat-form-field>
+        </div>
+
+      </div>
+    </div>
+
+    <button style="margin-top: 20px; margin-left: auto;" mat-raised-button color="primary" >Siguiente</button>
+
+
+
+
+</form>
+
+</mat-card>
+
+</div>

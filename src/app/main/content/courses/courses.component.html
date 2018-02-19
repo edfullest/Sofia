@@ -1,0 +1,132 @@
+<div class="page-layout simple fullwidth" fusePerfectScrollbar>
+
+  <!-- HEADER -->
+  <div class="header mat-accent-bg p-24 h-160" fxLayout="row" fxLayoutAlign="center center">
+
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <img src="assets/icons/sofia/books.png" alt="sup" width="45" height="45" border="0">
+      <h1>  {{ 'COURSES.SLOGAN' | translate }}</h1>
+    </div>
+
+    <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="end center">
+      <button [routerLink]="['../course/create']" matTooltipPosition = "above" matTooltip="{{ 'COURSES.CREATEBUTTON' | translate }}" mat-icon-button>
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+
+  </div>
+  <!-- / HEADER -->
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <div>
+        <br>
+        <h1 fxLayoutAlign="center center">{{ 'COURSES.TITLE' | translate }}</h1>
+
+        <mat-form-field fxLayoutAlign="end start" fxLayoutGap="100px">
+            <mat-select placeholder= "{{ 'COURSES.SELECT_CATEGORY' | translate }}" [(value)]="categorySelected">
+              <mat-option value="ALL">{{'COURSES.CATEGORY_ALL' | translate}}</mat-option>
+              <mat-option *ngFor="let category of categories | async" [value]="category.name">
+                {{category.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+    </div>
+
+
+    <mat-tab-group dynamicHeight>
+
+      <mat-tab label="{{categorySelected}}">
+
+        <div *ngFor="let course of courses | async">
+
+          <div class="widget-group p-12" fxLayout="row" fxFlex="100" fxLayoutWrap *fuseIfOnDom [@animateStagger]="{value: '50'}">
+
+            <fuse-widget *ngIf="(course.category == categorySelected) || categorySelected == 'ALL' " [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxLayout="column" fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-md="25">
+
+              <!-- Front -->
+              <div class="fuse-widget-front mat-white-bg mat-elevation-z2">
+                <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="end center">
+                  <button matTooltipPosition = "above" matTooltip="{{'COURSES.TOOLTIP' | translate }}" mat-icon-button fuseWidgetToggle aria-label="more" >
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                </div>
+                <div class="pt-8 pb-32" fxLayout="column" fxLayoutAlign="center center">
+                  <button mat-fab [routerLink]="['../games']">
+                    <mat-icon class="mat-24" aria-label="Example icon-button with a heart icon">play_arrow</mat-icon>
+                  </button>
+                </div>
+
+                <div class="p-16 grey-50-bg border-top" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="200px">
+
+                  <div fxLayout="row" fxLayoutAlign="start end" class="h3 secondary-text font-weight-500">{{course.name}}</div>
+
+                  <div fxLayout="row" fxLayoutAlign="end end">
+                    <span class="h4 ml-8" *ngIf="course.difficulty == 1">
+                      <img src="assets/icons/sofia/difficulty_low.jpg" alt="sup" width="30" height="30" border="0">
+                    </span>
+                    <span class="h4 ml-8" *ngIf="course.difficulty == 2">
+                      <img src="assets/icons/sofia/difficulty_medium.jpg" alt="sup" width="30" height="30" border="0">
+                    </span>
+                    <span class="h4 ml-8" *ngIf="course.difficulty == 3">
+                      <img src="assets/icons/sofia/difficulty_high.jpg" alt="sup" width="30" height="30" border="0">
+                    </span>
+                  </div>
+
+                </div>
+
+                <div fxLayout="column" fxLayoutGap="20px">
+
+                  <div fxLayout="column" fxLayoutAlign="start start" >
+                    <span class="h4 ml-8">{{course.author}}</span>
+                  </div>
+                  <div fxLayout="column" fxLayoutAlign="start start">
+                    <span class="h4 ml-8"> <mat-icon>thumb_up_outline</mat-icon> {{course.rating.positive}} <mat-icon>thumb_down_outline</mat-icon> {{course.rating.negative}}</span>
+                  </div>
+                  <div fxLayout="column" fxLayoutAlign="center end">
+                    <span class="h4 ml-8">${{course.price}}</span>
+                  </div>
+
+                </div>
+              </div>
+              <!-- / Front -->
+
+
+              <!-- Back -->
+              <div class="fuse-widget-back p-16 pt-32 mat-white-bg mat-elevation-z2">
+                <button mat-icon-button fuseWidgetToggle class="fuse-widget-flip-button" aria-label="Flip widget">
+                  <mat-icon class="s-16">close</mat-icon>
+                </button>
+
+                <div class="button-row" fxLayoutAlign="center center">
+                  <button mat-raised-button color="basic">
+                    <mat-icon>mode_edit</mat-icon>
+                      {{'COURSES.EDITBUTTON' | translate }}
+                  </button>
+                </div>
+
+                <br>
+                <div class="button-row" fxLayoutAlign="center center">
+                  <button mat-raised-button color="warn">
+                    <mat-icon>delete_forever</mat-icon>
+                      {{'COURSES.DELETEBUTTON' | translate }}
+                  </button>
+                </div>
+              </div>
+              <!-- / Back -->
+
+              </fuse-widget>
+
+          </div>
+
+        </div>
+
+      </mat-tab>
+
+    </mat-tab-group>
+
+  </div>
+  <!-- / CONTENT -->
+
+</div>

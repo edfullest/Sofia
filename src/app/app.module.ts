@@ -11,6 +11,7 @@ import { FuseSplashScreenService } from './core/services/splash-screen.service';
 import { FuseConfigService } from './core/services/config.service';
 import { FuseNavigationService } from './core/components/navigation/navigation.service';
 import { GamesViewModule } from './main/content/games/games-view.module';
+import { CoursesViewModule } from './main/content/courses/courses-view.module'
 import { TranslateModule } from '@ngx-translate/core';
 
 
@@ -80,6 +81,7 @@ const appRoutes: Routes = [
         TranslateModule.forRoot(),
         FuseMainModule,
         GamesViewModule,
+        CoursesViewModule,
         AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule,
         AngularFireAuthModule,

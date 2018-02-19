@@ -1,0 +1,49 @@
+.category-btn {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  background-color: #4CAF50;
+  display: inline;
+  margin: auto;
+  background-image: url(/assets/icons/sofia/translate.png);
+}
+
+.coursesCard {
+  margin-right: auto;
+  margin-left: auto;
+  width: 80%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.categories {
+  margin-left: auto;
+  margin-top: auto;
+}
+
+.category{
+  display: inline-block;
+  margin: 30px;
+  text-align: center;
+}
+
+.courseData{
+  margin-left: auto;
+  margin-right: auto;
+  display: inline-block;
+}
+
+.imageUpload{
+  width: 50%;
+}
+
+.rightParams{
+  display: inline-block;
+  text-align: center;
+  width: 50%;
+  float: right;
+}
+
+.costParams{
+  display: flex;
+}
