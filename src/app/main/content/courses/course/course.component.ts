@@ -4,6 +4,7 @@ import { FuseTranslationLoaderService } from '../../../../core/services/translat
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { OnInit } from '@angular/core';
 import { fuseAnimations } from '../../../../core/animations';
+import {MatSnackBar} from '@angular/material';
 
 //routing
 import { ActivatedRoute, Router } from '@angular/router';
@@ -35,6 +36,10 @@ export class CourseComponent implements OnInit {
   public ComponentState = ComponentState;
   public currentState : ComponentState = ComponentState.IsCreating;
 
+//This references the whole collection
+  courseCollectionFB:  AngularFirestoreCollection<any> = this.db.collection('courses');
+
+//This references the document itself
   currentCourseFB : AngularFirestoreDocument<any>;
 
   //Couse variables
@@ -42,18 +47,18 @@ export class CourseComponent implements OnInit {
 
 
   model = {
-    author:"New Course",
+    author:"",
     category: "",
-    description: "This is a description",
+    description: "",
     difficulty: 1,
-    name: "This is a test name",
-    price: "9000000000",
+    name: "",
+    price: "",
     rating: {
       negative: 0,
       positive: 0
     },
     timeEstimate: {
-      scale : "meses",
+      scale : "",
       time: 0
     }
 
@@ -70,7 +75,8 @@ export class CourseComponent implements OnInit {
               private _formBuilder: FormBuilder,
               private db: AngularFirestore,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              public snackBar: MatSnackBar) {
 
     this.translationLoader.loadTranslations(english, spanish);
 
@@ -100,15 +106,35 @@ export class CourseComponent implements OnInit {
     }
 
     dataToModel(data: any){
-
-      console.log("This is the data I've got");
-      console.log(data);
-
+      this.model = data;
     }
 
 
     setCategory(category: String){
       this.model.category = category;
+    }
+
+
+    onSubmit(){
+      if (this.currentState == ComponentState.IsCreating){
+        let data = this.model;
+          this.courseCollectionFB.add(data);
+          this.snackBar.open("¡Se ha creado el juego con éxito!",'',{
+            duration: 2000,
+            verticalPosition:'top'
+          });
+      }else{
+        if(this.currentState == ComponentState.IsEditing){
+
+            let data = this.model;
+            this.courseCollectionFB.doc(this.courseID).set(data);
+            this.snackBar.open("¡Se ha editado exitosamente el juego con éxito!",'',{
+              duration: 2000,
+              verticalPosition:'top'
+            });
+
+        }
+      }
     }
 
 

@@ -23,7 +23,7 @@
                 <fuse-widget *ngFor="let category of categories | async" [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxLayout="column" fxFlex="200" fxFlex.gt-xs="500" fxFlex.gt-md="500">
 
                     <!-- Front -->
-                    <div class="fuse-widget-front mat-white-bg mat-elevation-z2">
+                    <div class="fuse-widget-front mat-white-bg mat-elevation-z0">
 
                         <div class="pt-8 pb-32" fxLayout="column" fxLayoutAlign="center center">
 
@@ -48,9 +48,11 @@
                 <mat-form-field class="form-component-full-width">
                    <input matInput placeholder="Course Title" [(ngModel)]="model.name" [ngModelOptions]="{standalone: true}">
                 </mat-form-field>
+
                 <mat-form-field class="form-component-full-width">
                  <textarea matInput placeholder="Course Description">{{model.description}}</textarea>
                </mat-form-field>
+
                <mat-form-field class="form-component-half-width">
                   <input matInput placeholder="Course Length"type = "number" min="0" [(ngModel)]="model.timeEstimate.time" [ngModelOptions]="{standalone: true}">
                </mat-form-field>
@@ -72,7 +74,7 @@
 
                 <div>
                   <button mat-button matStepperPrevious>Back</button>
-                  <button mat-button matStepperNext>Save</button>
+                  <button mat-button matStepperNext (click)="onSubmit()">Save</button>
                 </div>
               </form>
             </mat-step>
