@@ -2,9 +2,10 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import {I18nSelectPipe} from '@angular/common'
 import { FuseTranslationLoaderService } from '../../../../core/services/translation-loader.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { OnInit } from '@angular/core';
+
 import { fuseAnimations } from '../../../../core/animations';
 import {MatSnackBar} from '@angular/material';
+import { Observable } from 'rxjs/Observable';
 
 //routing
 import { ActivatedRoute, Router } from '@angular/router';
@@ -26,7 +27,7 @@ enum ComponentState {IsEditing, IsCreating}
   animations   : fuseAnimations,
   providers: [
   // {provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: myCustomTooltipDefaults}
-],
+    ]
 })
 export class CourseComponent implements OnInit {
 
@@ -43,7 +44,7 @@ export class CourseComponent implements OnInit {
   currentCourseFB : AngularFirestoreDocument<any>;
 
   //Couse variables
-  courseID : String;
+  courseID : string;
 
 
   model = {
@@ -67,7 +68,7 @@ export class CourseComponent implements OnInit {
 
   //Course definition variables
 
-    category: String;
+    category: string;
 
 
   constructor(
@@ -110,7 +111,7 @@ export class CourseComponent implements OnInit {
     }
 
 
-    setCategory(category: String){
+    setCategory(category: string){
       this.model.category = category;
     }
 
