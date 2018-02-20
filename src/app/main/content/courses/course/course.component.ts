@@ -1,12 +1,17 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import {I18nSelectPipe} from '@angular/common'
-import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
-import { FormsModule, ReactiveFormsModule, AbstractControl } from '@angular/forms';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { FuseTranslationLoaderService } from '../../../../core/services/translation-loader.service';
-import { Observable } from 'rxjs/Observable';
-import {MatSnackBar} from '@angular/material';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { OnInit } from '@angular/core';
+import { fuseAnimations } from '../../../../core/animations';
+
+//routing
 import { ActivatedRoute, Router } from '@angular/router';
+
+//firestore
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+
+
 
 import { locale as english } from './i18n/en';
 import { locale as spanish } from './i18n/es';
@@ -16,69 +21,98 @@ enum ComponentState {IsEditing, IsCreating}
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
-  styleUrls: ['./course.component.scss']
+  styleUrls: ['./course.component.scss'],
+  animations   : fuseAnimations,
+  providers: [
+  // {provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: myCustomTooltipDefaults}
+],
 })
 export class CourseComponent implements OnInit {
 
-  gameID: string;
-  category: string;
-  courseForm: FormGroup;
+  categories: Observable<any[]>;
+  isLinear = false;
+
   public ComponentState = ComponentState;
   public currentState : ComponentState = ComponentState.IsCreating;
 
-  coursesFB : AngularFirestoreCollection<any> = this.db.collection('courses');
+  currentCourseFB : AngularFirestoreDocument<any>;
 
-  constructor(private fb: FormBuilder,
-              private db: AngularFirestore,
-              public snackBar: MatSnackBar,
-              private translationLoader: FuseTranslationLoaderService,
-              private route: ActivatedRoute,
-              private router: Router,
-              private ngZone:NgZone) {
-    this.translationLoader.loadTranslations(english, spanish);
-  }
+  //Couse variables
+  courseID : String;
 
-  ngOnInit() {
-    this.category = "";
-  }
 
-  setCategory(value: string){
-    this.category = value;
-  }
-
-  onSubmit() {
-    if (this.courseForm.valid){
-      // The actions for onSubmit vary depending on what the user is doing
-      if (this.currentState == ComponentState.IsCreating){
-        let data = this.courseForm.value;
-          this.coursesFB.add({
-            name : data.courseName,
-            description : data.description,
-            difficulty : data.group.value,
-            category : this.category,
-            author : "Test Author",
-            price: data.price,
-          })
-          this.snackBar.open("¡Se ha creado el curso con éxito!",'',{
-            duration: 2000,
-            verticalPosition:'top'
-          })
-      }
-      // else{
-      //   let data = this.courseForm.value;
-      //   this.courseForm.doc(this.gameID).set({
-      //     name : data.name,
-      //     description : data.description,
-      //     isPublic : data.isPublic,
-      //     questions : data.questions,
-      //   })
-      //   this.snackBar.open("¡Se ha editado exitosamente el juego con éxito!",'',{
-      //     duration: 2000,
-      //     verticalPosition:'top'
-      //   })
-      // }
-      // this.resetForm();
+  model = {
+    author:"New Course",
+    category: "",
+    description: "This is a description",
+    difficulty: 1,
+    name: "This is a test name",
+    price: "9000000000",
+    rating: {
+      negative: 0,
+      positive: 0
+    },
+    timeEstimate: {
+      scale : "meses",
+      time: 0
     }
+
+  };
+
+
+  //Course definition variables
+
+    category: String;
+
+
+  constructor(
+              private translationLoader: FuseTranslationLoaderService,
+              private _formBuilder: FormBuilder,
+              private db: AngularFirestore,
+              private route: ActivatedRoute,
+              private router: Router) {
+
+    this.translationLoader.loadTranslations(english, spanish);
+
+    this.categories = this.db.collection('categories').valueChanges();
+
   }
+    ngOnInit() {
+
+
+     if ((this.router.url).indexOf('course/edit') !== -1){
+          this.currentState = ComponentState.IsEditing;
+
+          this.route.params.subscribe(params => {
+              this.courseID = params["course_id"]
+              this.currentCourseFB = this.db.collection('courses').doc(this.courseID);
+              const doc: Observable<any> = this.currentCourseFB.valueChanges();
+
+              doc.subscribe(data => {
+                this.dataToModel(data);
+              })
+
+           });
+      }else{
+        this.currentState = ComponentState.IsCreating;
+      }
+
+    }
+
+    dataToModel(data: any){
+
+      console.log("This is the data I've got");
+      console.log(data);
+
+    }
+
+
+    setCategory(category: String){
+      this.model.category = category;
+    }
+
+
+
+
 
 }
