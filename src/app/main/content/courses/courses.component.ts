@@ -27,6 +27,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
     courses: Observable<any[]>;
     categoriesCollection: AngularFirestoreCollection<any[]>;
     categories: Observable<any[]>;
+    categorySelected = 'ALL';
 
     constructor(private translationLoader: FuseTranslationLoaderService, private db: AngularFirestore, router: Router)
     {

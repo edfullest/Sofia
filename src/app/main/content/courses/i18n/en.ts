@@ -7,9 +7,10 @@ export const locale = {
           'CREATEBUTTON' : 'Create Course',
           'CATEGORY_ALL' : 'All courses',
           'TOOLTIP' : 'Edit / Delete',
-          'SELECT_CATEGORY' : 'Choice a category',
+          'SELECT_CATEGORY' : 'Choose a category',
           'EDITBUTTON' : 'Edit',
-          'DELETEBUTTON' : 'Delete'
+          'DELETEBUTTON' : 'Delete',
+          'TOOLTIP_DIFFICULTY' : 'Difficulty of the Course'
       }
 
   }

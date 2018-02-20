@@ -9,7 +9,8 @@ export const locale = {
           'TOOLTIP' : 'Editar/Eliminar',
           'SELECT_CATEGORY' : 'Selecciona una categoría',
           'EDITBUTTON' : 'Editar',
-          'DELETEBUTTON' : 'Eliminar'
+          'DELETEBUTTON' : 'Eliminar',
+          'TOOLTIP_DIFFICULTY' : 'Dificultad del Curso'
       }
 
   }

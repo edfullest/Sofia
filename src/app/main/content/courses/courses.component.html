@@ -1,14 +1,13 @@
 <div class="page-layout simple fullwidth" fusePerfectScrollbar>
 
   <!-- HEADER -->
-  <div class="header mat-accent-bg p-24 h-160" fxLayout="row" fxLayoutAlign="center center">
+  <div class="header mat-accent-bg p-24 h-160" fxLayout="column">
 
-    <div fxLayout="row" fxLayoutAlign="center center">
-        <img src="assets/icons/sofia/books.png" alt="sup" width="45" height="45" border="0">
-      <h1>  {{ 'COURSES.SLOGAN' | translate }}</h1>
+    <div fxLayout="column" fxLayoutAlign="center center">
+      <h1> <img src="assets/icons/sofia/books.png" alt="sup" width="45" height="45" border="0">  {{ 'COURSES.SLOGAN' | translate }}</h1>
     </div>
 
-    <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="end center">
+    <div class="pl-16 pr-8 py-16 h-52" fxLayout="column" fxLayoutAlign="start start">
       <button [routerLink]="['../course/create']" matTooltipPosition = "above" matTooltip="{{ 'COURSES.CREATEBUTTON' | translate }}" mat-icon-button>
         <mat-icon>add</mat-icon>
       </button>
@@ -24,7 +23,7 @@
         <br>
         <h1 fxLayoutAlign="center center">{{ 'COURSES.TITLE' | translate }}</h1>
 
-        <mat-form-field fxLayoutAlign="end start" fxLayoutGap="100px">
+        <mat-form-field fxLayoutAlign="end end" fxLayoutGap="100px">
             <mat-select placeholder= "{{ 'COURSES.SELECT_CATEGORY' | translate }}" [(value)]="categorySelected">
               <mat-option value="ALL">{{'COURSES.CATEGORY_ALL' | translate}}</mat-option>
               <mat-option *ngFor="let category of categories | async" [value]="category.name">
@@ -63,13 +62,13 @@
                   <div fxLayout="row" fxLayoutAlign="start end" class="h3 secondary-text font-weight-500">{{course.name}}</div>
 
                   <div fxLayout="row" fxLayoutAlign="end end">
-                    <span class="h4 ml-8" *ngIf="course.difficulty == 1">
+                    <span class="h4 ml-8" matTooltipPosition = "above" matTooltip="{{ 'COURSES.TOOLTIP_DIFFICULTY' | translate }}" *ngIf="course.difficulty == 1">
                       <img src="assets/icons/sofia/difficulty_low.jpg" alt="sup" width="30" height="30" border="0">
                     </span>
-                    <span class="h4 ml-8" *ngIf="course.difficulty == 2">
+                    <span class="h4 ml-8" matTooltipPosition = "above" matTooltip="{{ 'COURSES.TOOLTIP_DIFFICULTY' | translate }}" *ngIf="course.difficulty == 2">
                       <img src="assets/icons/sofia/difficulty_medium.jpg" alt="sup" width="30" height="30" border="0">
                     </span>
-                    <span class="h4 ml-8" *ngIf="course.difficulty == 3">
+                    <span class="h4 ml-8" matTooltipPosition = "above" matTooltip="{{ 'COURSES.TOOLTIP_DIFFICULTY' | translate }}" *ngIf="course.difficulty == 3">
                       <img src="assets/icons/sofia/difficulty_high.jpg" alt="sup" width="30" height="30" border="0">
                     </span>
                   </div>
