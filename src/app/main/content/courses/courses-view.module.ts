@@ -6,10 +6,13 @@ import { CoursesComponent } from './courses.component';
 import { CourseComponent } from './course/course.component';
 import { FuseWidgetModule } from '../../../core/components/widget/widget.module';
 
+import { GamesViewComponent } from '../games/games-view.component';
+
 const routes = [
   {
-    path  : 'courses',
+    path  : 'courses', pathMatch: 'prefix',
     component : CoursesComponent
+
   },
   {
     path  : 'course/create',

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FuseTranslationLoaderService } from '../../../core/services/translation-loader.service';
 import { RecentQuestionsModule } from '../recent-questions/recent-questions.module'
 import { RecentQuestionsComponent } from '../recent-questions/recent-questions.component'
@@ -7,7 +7,7 @@ import {AddQuestionComponent} from '../recent-questions/add-question/add-questio
 import { locale as english } from './i18n/en';
 import { locale as spanish } from './i18n/es';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Observable } from 'rxjs/Observable';
 import { fuseAnimations } from '../../../core/animations';
 // import {MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipDefaultOptions} from '@angular/material';
@@ -29,29 +29,43 @@ export const myCustomTooltipDefaults = {
     // {provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: myCustomTooltipDefaults}
   ],
 })
-export class GamesViewComponent{
-
+export class GamesViewComponent implements OnInit{
     games: Observable<any[]>;
     isPressed : boolean = false;
-
-    constructor(private translationLoader: FuseTranslationLoaderService, private db: AngularFirestore, router: Router)
+    courseID : string;
+    constructor(private translationLoader: FuseTranslationLoaderService, private db: AngularFirestore, 
+                private router: Router,
+                private route : ActivatedRoute)
     {
         this.translationLoader.loadTranslations(english, spanish);
-        this.games = this.db.collection('courses').doc('AROBb11WpOPFwPQu7xrT').collection('games').snapshotChanges().map(document => {
+    }
+
+    loadGames(){
+      this.games = this.db.collection('courses').doc(this.courseID).collection('games').snapshotChanges().map(document => {
           return document.map(documentData => {
             const data = documentData.payload.doc.data();
             const id = documentData.payload.doc.id;
             return { id, ...data };
           });
-        });
+       });
     }
 
     pressButton(){
       this.isPressed = !this.isPressed;
-      console.log(this.isPressed)
     }
 
     deleteDocument(id: string){
-         this.db.collection('courses').doc('AROBb11WpOPFwPQu7xrT').collection('games').doc(id).delete();
+         this.db.collection('courses').doc(this.courseID).collection('games').doc(id).delete();
+    }
+
+    ngOnInit() {
+      this.route.params.subscribe(params => {
+          this.courseID = params["course_id"]
+          this.loadGames()
+       });
+    }
+
+    OnInit(){
+    
     }
 }

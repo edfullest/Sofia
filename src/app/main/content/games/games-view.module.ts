@@ -15,25 +15,21 @@ import { ViewGameComponentComponent } from './view-game-component/view-game-comp
 
 const routes = [
     {
-        path     : 'games',
+        path     : 'courses/:course_id/games',
         component: GamesViewComponent
     },
     {
-        path     : 'game/create',
+        path     : 'courses/:course_id/game/create',
         component: GameComponent
     },
     {
-        path     : 'game/edit/:game_id',
+        path     : 'courses/:course_id/game/edit/:game_id',
         component: GameComponent
     },
     {
-        path     : 'game/view/:game_id',
+        path     : 'courses/:course_id/game/view/:game_id',
         component: ViewGameComponentComponent
-    },
-    {
-      path     : 'courses',
-      component: CoursesComponent
-  },
+    }
 ];
 
 @NgModule({
