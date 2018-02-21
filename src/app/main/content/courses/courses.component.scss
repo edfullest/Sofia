@@ -2,3 +2,10 @@ h1{
   text-align: center;
   font-size: 34px;
 }
+
+
+.example-button-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}

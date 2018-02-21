@@ -38,19 +38,27 @@
 
       <mat-tab label="{{categorySelected}}">
 
-        <div *ngFor="let course of courses | async">
+        <div *ngFor="let course of courses | async" fxLayout="row" fxFlex="100" fxLayoutWrap>
 
-          <div class="widget-group p-12" fxLayout="row" fxFlex="100" fxLayoutWrap *fuseIfOnDom [@animateStagger]="{value: '50'}">
+          <div class="widget-group p-12"   *fuseIfOnDom [@animateStagger]="{value: '50'}">
 
-            <fuse-widget *ngIf="(course.category == categorySelected) || categorySelected == 'ALL' " [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxLayout="column" fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-md="25">
+            <fuse-widget *ngIf="(course.category == categorySelected) || categorySelected == 'ALL' " [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxLayout="column" fxFlex="100" fxFlex.gt-xs="300" fxFlex.gt-md="300">
 
               <!-- Front -->
-              <div class="fuse-widget-front mat-white-bg mat-elevation-z2">
+              <div class="fuse-widget-front mat-white-bg mat-elevation-z1">
+
+
+
                 <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="end center">
                   <button matTooltipPosition = "above" matTooltip="{{'COURSES.TOOLTIP' | translate }}" mat-icon-button fuseWidgetToggle aria-label="more" >
                     <mat-icon>more_vert</mat-icon>
                   </button>
                 </div>
+
+                <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="center center">
+                    <span class="mat-subheading-2">{{course.name}}</span>
+                </div>
+
                 <div class="pt-8 pb-32" fxLayout="column" fxLayoutAlign="center center">
                   <button mat-fab (click)="redirectToGames(course.id)">
                     <mat-icon class="mat-24" aria-label="Example icon-button with a heart icon">play_arrow</mat-icon>
