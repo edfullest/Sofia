@@ -29,18 +29,32 @@ import { AngularFireDatabase } from 'angularfire2/database';
     categories: Observable<any[]>;
     categorySelected = 'ALL';
 
-    constructor(private translationLoader: FuseTranslationLoaderService, private db: AngularFirestore, router: Router)
+    constructor(private translationLoader: FuseTranslationLoaderService, private db: AngularFirestore, private router: Router)
     {
       this.translationLoader.loadTranslations(english, spanish);
       this.coursesCollection = this.db.collection('courses');
-      this.courses = this.coursesCollection.valueChanges();
+      this.courses = this.coursesCollection.snapshotChanges().map(document => {
+          return document.map(documentData => {
+            const data = documentData.payload.doc.data();
+            const id = documentData.payload.doc.id;
+            return { id, ...data };
+          });
+       });
       this.categoriesCollection = this.db.collection('categories');
       this.categories = this.categoriesCollection.valueChanges();
 
     }
 
+    redirectToGames(courseID){
+      this.router.navigate(["courses/" +courseID + "/games"])
+    }
+
     findReference(ref: any){
 
+    }
+
+    deleteCourse(courseID: string){
+      this.db.collection('courses').doc(courseID).delete();
     }
 
  }

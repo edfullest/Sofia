@@ -27,11 +27,9 @@ export class GameComponent implements OnInit {
   answersForm: FormGroup;
   public ComponentState = ComponentState;
   public currentState : ComponentState = ComponentState.IsCreating;
-
-  // The current document we will be working on
-  currentCourseFB : AngularFirestoreDocument<any> = this.db.collection('courses').doc('AROBb11WpOPFwPQu7xrT');
+  courseID: string;
   // The subcollection that lies in the previous document
-  gamesFB : AngularFirestoreCollection<any> = this.currentCourseFB.collection('games');
+  // gamesFB : AngularFirestoreCollection<any> = this.db.collection('courses').doc(this.courseID).collection('games');
   // currentGame in case there is a game that is being edited!
   currentGame : AngularFirestoreDocument<any>;
 
@@ -65,11 +63,12 @@ export class GameComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.courseID)
     if (this.gameForm.valid){
       // The actions for onSubmit vary depending on what the user is doing
       if (this.currentState == ComponentState.IsCreating){
         let data = this.gameForm.value;
-          this.gamesFB.add({
+          this.db.collection('courses').doc(this.courseID).collection('games').add({
             name : data.name,
             description : data.description,
             isPublic : data.isPublic,
@@ -82,7 +81,8 @@ export class GameComponent implements OnInit {
       }
       else{
         let data = this.gameForm.value;
-        this.gamesFB.doc(this.gameID).set({
+
+          this.db.collection('courses').doc(this.courseID).collection('games').doc(this.gameID).set({
           name : data.name,
           description : data.description,
           isPublic : data.isPublic,
@@ -124,8 +124,10 @@ export class GameComponent implements OnInit {
         this.currentState = ComponentState.IsEditing;
         this.route.params.subscribe(params => {
             this.gameID = params["game_id"]
-            console.log(this.gameID)
-            this.currentGame = this.gamesFB.doc(this.gameID);
+            this.courseID = params['course_id']
+            console.log(params['course_id'])
+            console.log(this.courseID)
+            this.currentGame = this.db.collection('courses').doc(this.courseID).collection('games').doc(this.gameID);
             const doc: Observable<any> = this.currentGame.valueChanges()
             doc.subscribe(data => {
               console.log(data)
@@ -135,8 +137,14 @@ export class GameComponent implements OnInit {
       }
       // If it is not a game edit, we set up the course id
       else{
-
+        this.route.params.subscribe(params => {
+            this.courseID = params['course_id']            
+         });
       }
+  }
+
+  OnInit(){
+
   }
 
   // This parses the data received from Firebase to a FormGroup

@@ -52,7 +52,7 @@
                   </button>
                 </div>
                 <div class="pt-8 pb-32" fxLayout="column" fxLayoutAlign="center center">
-                  <button mat-fab [routerLink]="['../games']">
+                  <button mat-fab (click)="redirectToGames(course.id)">
                     <mat-icon class="mat-24" aria-label="Example icon-button with a heart icon">play_arrow</mat-icon>
                   </button>
                 </div>
@@ -95,7 +95,8 @@
                 </button>
 
                 <div class="button-row" fxLayoutAlign="center center">
-                  <button mat-raised-button color="basic">
+
+                  <button mat-raised-button color="basic" [routerLink]="['../course/edit/', course.id]">
                     <mat-icon>mode_edit</mat-icon>
                       {{'COURSES.EDITBUTTON' | translate }}
                   </button>
@@ -103,8 +104,8 @@
 
                 <br>
                 <div class="button-row" fxLayoutAlign="center center">
-                  <button mat-raised-button color="warn">
-                    <mat-icon>delete_forever</mat-icon>
+                  <button mat-raised-button color="warn" (click) = "deleteCourse(course.id)">
+                    <mat-icon >delete_forever</mat-icon>
                       {{'COURSES.DELETEBUTTON' | translate }}
                   </button>
                 </div>
