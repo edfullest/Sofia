@@ -57,36 +57,32 @@
                   </button>
                 </div>
 
-                <div class="p-16 grey-50-bg border-top" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="200px">
-
-                  <div fxLayout="row" fxLayoutAlign="start end" class="h3 secondary-text font-weight-500">{{course.name}}</div>
+                <div class="p-16 grey-50-bg border-top" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="200px" fxLayoutAlign="center center">
 
                   <div fxLayout="row" fxLayoutAlign="end end">
-                    <span class="h4 ml-8" matTooltipPosition = "above" matTooltip="{{ 'COURSES.TOOLTIP_DIFFICULTY' | translate }}" *ngIf="course.difficulty == 1">
+                    <span class="h4 ml-8" matTooltipPosition = "above" matTooltip="{{ 'COURSES.TOOLTIP_DIFFICULTY' | translate }}" *ngIf="course.difficulty == '1'">
                       <img src="assets/icons/sofia/difficulty_low.jpg" alt="sup" width="30" height="30" border="0">
                     </span>
-                    <span class="h4 ml-8" matTooltipPosition = "above" matTooltip="{{ 'COURSES.TOOLTIP_DIFFICULTY' | translate }}" *ngIf="course.difficulty == 2">
+                    <span class="h4 ml-8" matTooltipPosition = "above" matTooltip="{{ 'COURSES.TOOLTIP_DIFFICULTY' | translate }}" *ngIf="course.difficulty == '2'">
                       <img src="assets/icons/sofia/difficulty_medium.jpg" alt="sup" width="30" height="30" border="0">
                     </span>
-                    <span class="h4 ml-8" matTooltipPosition = "above" matTooltip="{{ 'COURSES.TOOLTIP_DIFFICULTY' | translate }}" *ngIf="course.difficulty == 3">
+                    <span class="h4 ml-8" matTooltipPosition = "above" matTooltip="{{ 'COURSES.TOOLTIP_DIFFICULTY' | translate }}" *ngIf="course.difficulty == '3'">
                       <img src="assets/icons/sofia/difficulty_high.jpg" alt="sup" width="30" height="30" border="0">
                     </span>
                   </div>
-
+                    <span class="h4 ml-8">${{course.price}}</span>
                 </div>
 
                 <div fxLayout="column" fxLayoutGap="20px">
 
                   <div fxLayout="column" fxLayoutAlign="start start" >
-                    <span class="h4 ml-8">{{course.author}}</span>
+                    <span class="h4 ml-8">Created by: {{course.author}}</span>
                   </div>
                   <div fxLayout="column" fxLayoutAlign="start start">
-                    <span class="h4 ml-8"> <mat-icon>thumb_up_outline</mat-icon> {{course.rating.positive}} <mat-icon>thumb_down_outline</mat-icon> {{course.rating.negative}}</span>
+                    <span class="h4 ml-8"> <mat-icon>thumb_up_outline</mat-icon> {{course.rating.positive}} </span>
+                    <span class="h4 ml-8"> <mat-icon>thumb_down_outline</mat-icon> {{course.rating.negative}} </span>
+                    <br>
                   </div>
-                  <div fxLayout="column" fxLayoutAlign="center end">
-                    <span class="h4 ml-8">${{course.price}}</span>
-                  </div>
-
                 </div>
               </div>
               <!-- / Front -->

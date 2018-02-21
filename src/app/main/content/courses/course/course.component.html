@@ -63,7 +63,13 @@
                            <mat-option value="dias">Días</mat-option>
                        </mat-select>
                </mat-form-field>
-
+               <mat-form-field class="form-component-half-width">
+                       <mat-select placeholder="Course Difficulty" [(ngModel)]="model.difficulty" [ngModelOptions]="{standalone: true}">
+                           <mat-option value= "1">Easy</mat-option>
+                           <mat-option value= "2"  >Medium</mat-option>
+                           <mat-option value= "3" >Hard</mat-option>
+                       </mat-select>
+               </mat-form-field>
                <mat-form-field class="form-component-half-width">
                   <input matInput placeholder="Course Price" [(ngModel)]="model.price" [ngModelOptions]="{standalone: true}">
                </mat-form-field>
