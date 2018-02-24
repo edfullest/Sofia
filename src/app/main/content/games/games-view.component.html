@@ -1,5 +1,4 @@
 <div class="page-layout simple fullwidth" fusePerfectScrollbar>
-
     <!-- HEADER -->
     <div class="header mat-accent-bg p-24 h-160" fxLayout="row" fxLayoutAlign="start center">
 
@@ -16,14 +15,9 @@
 
     <!-- CONTENT -->
     <div class="content">
-
-
         <mat-tab-group dynamicHeight>
           <mat-tab label="{{'GAMES.TITLE' | translate }}">
-
             <div class="widget-group p-12" fxLayout="row" fxFlex="100" fxLayoutWrap *fuseIfOnDom [@animateStagger]="{value:'50'}">
-
-
               <fuse-widget *ngFor="let game of games | async" [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxLayout="column" fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-md="25">
 
                   <!-- Front -->
@@ -35,7 +29,6 @@
                           </button>
 
                       </div>
-
                       <div class="pt-8 pb-32" fxLayout="column" fxLayoutAlign="center center">
                           <button mat-fab [routerLink]="['../game/view/', game.id]">
                               <mat-icon class="mat-24" aria-label="Example icon-button with a heart icon">play_arrow</mat-icon>
@@ -44,9 +37,7 @@
                           <br>
                           <div class="h3 secondary-text font-weight-500">{{game.name}}</div>
                       </div>
-
                       <div class="p-16 grey-50-bg border-top" fxLayout="row" fxLayoutAlign="start center">
-
                           <span class="h4 ml-8">{{game.description}}</span>
                       </div>
                   </div>

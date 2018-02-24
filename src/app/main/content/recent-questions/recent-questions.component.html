@@ -2,21 +2,30 @@
     <div class="mat-light-white-600-bg" style="margin-left: 10px">
         <div fxLayout="row" fxLayoutAlign="center center">
             <mat-chip-list>
-                <div *ngFor = "let hashtag of hashtags | async">
-                    <mat-chip color="accent" selected="true" (click) = "filterByHashtag(hashtag.hashtag)" style="cursor: pointer !important; ">{{hashtag.hashtag}}</mat-chip>
+                <div *ngFor = "let hashtag of hashtags | async" style="margin: 10px 0px 10px 5px;">
+                    <mat-chip class="{{hashtag.matChipClass}}" selected="true" (click) = "filterByHashtag(hashtag);" style="cursor: pointer !important; padding: 7px; border-radius: 24px;">{{hashtag.hashtag}}</mat-chip>
                 </div>
-            </mat-chip-list>  
+                <div *ngIf = "hashtags | async as hashtags">
+                    <button *ngIf = "selectedHashtags.length != 0" mat-raised-button style="cursor: pointer; margin-left: 5px;" (click) = "removeFilters(hashtags)">
+                        <mat-icon>delete_forever</mat-icon> 
+                    </button>
+                </div>
+            </mat-chip-list>
+
         </div>
     </div>
     <div style="margin-left: 20px; margin-right: 20px;">
         <div *ngIf = "questions | async as questionsReceived; else loading">
             <div *ngFor="let question of questionsReceived" style="margin-top: 10px;">
-                <div class ="question">
-                    <mat-chip-list >
-                        <div *ngFor = "let hashtag of question.hashtagsArray" style="margin: 10px 0px 10px 5px; margin-bottom: 10px;">
-                            <mat-basic-chip class="mat-light-blue-900-bg" selected="true" (click) = "filterByHashtag(hashtag)" style="cursor: pointer !important; padding: 7px; border-radius: 24px;">{{hashtag}}</mat-basic-chip>
-                        </div>
-                    </mat-chip-list>
+                <div *ngIf="shouldShowQuestion(question.hashtagsArray)" class ="question">
+                    <div style="margin: 5px 5px 5px 5px;">
+                        <mat-chip-list>
+                            <div *ngFor = "let hashtag of question.hashtagsArray" style="margin: 10px 0px 10px 5px; margin-bottom: 10px;">
+                                <mat-basic-chip class="mat-blue-bg" selected="true" style="cursor: auto !important; padding: 7px; border-radius: 6px;">{{hashtag}}</mat-basic-chip>
+                            </div>
+                        </mat-chip-list>
+
+                    </div>
                     <div class = "comment" fxflexfill="" fxlayout="row" style="height: 100%; margin: 0px; min-height: 100%; min-width: 100%; width: 100%; flex-direction: row; box-sizing: border-box; display: flex;">
                         <img  class="avatar" src="assets/images/avatars/Abbott.jpg">
 
@@ -43,7 +52,8 @@
                                     <mat-form-field style="width: 80%">
                                         <input matInput (keyup.enter)="sendAnswer(question)" [(ngModel)]="question.answer" placeholder="Respuesta">
                                     </mat-form-field>
-                                    <button class="mat-raised-button mat-accent" color="accent" mat-raised-button="" (click)="sendAnswer(question)"><span class="mat-button-wrapper">
+                                    <button class="mat-raised-button mat-accent" color="accent" mat-raised-button="" (click)="sendAnswer(question)">
+                                    <span class="mat-button-wrapper">
                                         Enviar
                                     </span><div class="mat-button-ripple mat-ripple" matripple=""></div><div class="mat-button-focus-overlay"></div></button>
                                 </div>

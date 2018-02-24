@@ -1,16 +1,11 @@
 <div class="page-layout blank grey-100-bg ps ps--active-y" fuseperfectscrollbar>
-
   <div class="header mat-accent-bg p-24 h-160" fxLayout="row" fxLayoutAlign="start center">
-
     <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="end center">
-
-
         <div *ngIf="this.currentState == ComponentState.IsCreating">
             <button [routerLink]="['../../games']" matTooltipPosition = "above" matTooltip="Back" mat-icon-button>
                     <mat-icon>keyboard_backspace</mat-icon>
             </button>
         </div>
-
         <div *ngIf="this.currentState == ComponentState.IsEditing">
           <button [routerLink]="['../../../games']" matTooltipPosition = "above" matTooltip="Back" mat-icon-button>
                   <mat-icon>keyboard_backspace</mat-icon>
@@ -23,7 +18,6 @@
         <div *ngIf="this.currentState == ComponentState.IsEditing">
            <h1>{{'EDITGAME.TITLE' | translate}}</h1>
         </div>
-
     </div>
   </div>
 

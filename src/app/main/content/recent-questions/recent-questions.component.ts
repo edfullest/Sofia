@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute, Route, Router } from "@angular/router"
+import {MatButtonModule} from '@angular/material/button';
+
 
 @Component({
   selector: 'app-recent-questions',
@@ -12,7 +14,9 @@ export class RecentQuestionsComponent implements OnInit {
   courseID : string;
   questions : Observable<any[]>;
   hashtags : Observable<any[]>;
+  unselectedHashtags : Observable<any[]>;
   answers: [any];
+  selectedHashtags : any[] = new Array();
   questionCollectionReference : AngularFirestoreCollection<any>;
   constructor(private db: AngularFirestore, private router: Router,
               private route : ActivatedRoute) {
@@ -35,10 +39,23 @@ export class RecentQuestionsComponent implements OnInit {
    }
 
    filterByHashtag(hashtag){
-       this.questionCollectionReference = this.db.collection('courses').doc(this.courseID)
-                                .collection('questions', ref => 
-                                ref.where("hashtags." + hashtag, '==', true))
-       this.triggerQuestionChanges()
+       if (hashtag.matChipClass == "mat-light-blue-900-bg" ){
+          hashtag.matChipClass = "mat-accent-bg"
+          // We remove the selected hashtag in case the user selects one that is already selected
+          this.selectedHashtags = this.selectedHashtags.filter(function(selectedHashtag) { 
+            return selectedHashtag !== hashtag.hashtag
+          })
+       }
+       else{
+          hashtag.matChipClass = "mat-light-blue-900-bg"
+          this.selectedHashtags.push(hashtag.hashtag)
+       }
+
+   }
+
+   removeFilters(hashtags){
+     this.getHashtags()
+     this.selectedHashtags.length = 0
    }
 
    sendAnswer(question){
@@ -50,6 +67,23 @@ export class RecentQuestionsComponent implements OnInit {
 
    }
 
+   isHashtagInSelectedHashtag(hashtagsArray){
+      var selectedHashtagsAsString : string = JSON.stringify(this.selectedHashtags);
+      var contains = hashtagsArray.find(function(elem){
+        return selectedHashtagsAsString.includes(elem);
+      });
+      return contains;
+  }
+
+   // We only show a question if its hashtags are 
+   shouldShowQuestion(hashtagsArray){
+     // If there are no selected hashtags, return true (aka, we show that question)
+     if (this.selectedHashtags.length == 0){
+       return true
+     }
+     return this.isHashtagInSelectedHashtag(hashtagsArray)
+   }
+
 
 
   ngOnInit() {
@@ -59,16 +93,22 @@ export class RecentQuestionsComponent implements OnInit {
     });
   }
 
-  initialize(){
-    this.questionCollectionReference = this.db.collection('courses').doc(this.courseID).collection('questions')
-    this.triggerQuestionChanges()
+  getHashtags(){
     this.hashtags = this.db.collection('courses').doc(this.courseID).collection('hashtags').snapshotChanges().map(document => {
           return document.map(documentData => {
             const data = documentData.payload.doc.data();
             const id = documentData.payload.doc.id;
-            return { id, ...data };
+            var matChipClass = "mat-accent-bg";
+            return { id,matChipClass,...data };
           });
         });
+  }
+
+  initialize(){
+    this.questionCollectionReference = this.db.collection('courses').doc(this.courseID).collection('questions')
+    this.triggerQuestionChanges()
+    this.getHashtags()
+    
   }
 
 }
