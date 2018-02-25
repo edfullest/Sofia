@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { FuseConfigService } from '../../core/services/config.service';
 import { TranslateService } from '@ngx-translate/core';
+import { FuseTranslationLoaderService } from '../../core/services/translation-loader.service';
+import { locale as english } from './i18n/en';
+import { locale as spanish } from './i18n/es';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
     selector   : 'fuse-toolbar',
@@ -20,7 +24,9 @@ export class FuseToolbarComponent
     constructor(
         private router: Router,
         private fuseConfig: FuseConfigService,
-        private translate: TranslateService
+        private translate: TranslateService,
+        private translationLoader: FuseTranslationLoaderService,
+        public auth: AuthService
     )
     {
         this.userStatusOptions = [
@@ -62,11 +68,13 @@ export class FuseToolbarComponent
                 'title': 'English',
                 'flag' : 'us'
             }
-            
+
         ];
 
         this.selectedLanguage = this.languages[0];
-        this.setLanguage(this.selectedLanguage)
+        this.setLanguage(this.selectedLanguage);
+
+        // this.translationLoader.loadTranslations(english, spanish);
 
         router.events.subscribe(
             (event) => {
@@ -83,6 +91,8 @@ export class FuseToolbarComponent
         this.fuseConfig.onSettingsChanged.subscribe((settings) => {
             this.horizontalNav = settings.layout.navigation === 'top';
         });
+
+
 
     }
 
