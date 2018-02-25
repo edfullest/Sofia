@@ -29,7 +29,7 @@ import { UserProfileComponent } from './content/user-profile/user-profile.compon
         FuseThemeOptionsComponent,
         FuseQuickPanelComponent,
         UserProfileComponent,
-      
+
     ],
     imports     : [
         SharedModule,
