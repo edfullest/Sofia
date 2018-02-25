@@ -10,7 +10,7 @@ export class UserProfileComponent {
 
   constructor(public auth: AuthService) { }
 
-  
+
 
 
 }
