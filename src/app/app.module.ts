@@ -27,6 +27,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 
 import {AuthModule} from './auth/auth.module';
+import { UserLoginModule } from './main/content/login/user-login.module';
 
 import {
   MatAutocompleteModule,
@@ -86,6 +87,7 @@ const appRoutes: Routes = [
         FuseMainModule,
         GamesViewModule,
         CoursesViewModule,
+        UserLoginModule,
         AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule,
         AngularFireAuthModule,

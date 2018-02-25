@@ -15,7 +15,6 @@ import { FuseQuickPanelComponent } from './quick-panel/quick-panel.component';
 import { FuseThemeOptionsComponent } from '../core/components/theme-options/theme-options.component';
 import { FuseShortcutsModule } from '../core/components/shortcuts/shortcuts.module';
 import { FuseSearchBarModule } from '../core/components/search-bar/search-bar.module';
-import { UserProfileComponent } from './content/user-profile/user-profile.component';
 
 @NgModule({
     declarations: [
@@ -27,8 +26,7 @@ import { UserProfileComponent } from './content/user-profile/user-profile.compon
         FuseToolbarComponent,
         FuseNavbarVerticalToggleDirective,
         FuseThemeOptionsComponent,
-        FuseQuickPanelComponent,
-        UserProfileComponent,
+        FuseQuickPanelComponent
 
     ],
     imports     : [

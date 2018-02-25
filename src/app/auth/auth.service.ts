@@ -19,42 +19,45 @@ export class AuthService {
               private afs: AngularFirestore,
               private router: Router) {
 
-      this.user = this.afAuth.authState.switchMap(user => {
-          if (user){
-              return this.afs.doc<User>('users/${user.uid}').valueChanges();
-          }else{
-            return Observable.of(null);
+      //// Get auth data, then get firestore user document || null
+      this.user = this.afAuth.authState
+        .switchMap(user => {
+          if (user) {
+            return this.afs.doc<User>(`users/${user.uid}`).valueChanges()
+          } else {
+            return Observable.of(null)
           }
-      });
-    }
+        })
+  }
 
-    googleLogin(){
-      const provider = new firebase.auth.GoogleAuthProvider();
+    googleLogin() {
+      const provider = new firebase.auth.GoogleAuthProvider()
       return this.oAuthLogin(provider);
     }
 
-    private oAuthLogin(provider){
+    private oAuthLogin(provider) {
       return this.afAuth.auth.signInWithPopup(provider)
         .then((credential) => {
-          this.updateUserData(credential.user);
-        });
+          this.updateUserData(credential.user)
+        })
     }
 
-    private updateUserData(user){
+    private updateUserData(user) {
+      // Sets user data to firestore on login
 
-      const userRef: AngularFirestoreDocument<User> = this.afs.doc('users/${user.uid}');
+      const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
 
       const data: User = {
-          uid: user.uid,
-          email: user.email,
-          displayName: user.displayName,
-          photoURL: user.photoURL,
-          roles: {
-            professor: true
-          }
-      };
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+        roles: {
+          professor: true
+        }
+      }
 
-      return userRef.set(data, { merge: true });
+      return userRef.set(data, { merge: true })
 
     }
 
