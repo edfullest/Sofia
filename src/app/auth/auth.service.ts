@@ -38,6 +38,16 @@ export class AuthService {
       return this.oAuthLogin(provider);
     }
 
+    githubLogin() {
+      const provider = new firebase.auth.GithubAuthProvider();
+      return this.oAuthLogin(provider);
+    }
+
+    twitterLogin() {
+      const provider = new firebase.auth.TwitterAuthProvider();
+      return this.oAuthLogin(provider);
+    }
+
     facebookLogin() {
       const provider = new firebase.auth.FacebookAuthProvider();
       provider.addScope('user_birthday');

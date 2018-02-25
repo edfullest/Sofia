@@ -1,32 +1,74 @@
 
-<div *ngIf="auth.user | async; then authenticated else guest">
-  <!-- template will replace this div -->
+<div  id="login" fxLayout="column" fusePerfectScrollbar>
+
+  <div id="login-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
+
+      <div id="login-form" *fuseIfOnDom [@animate]="{value:'*',params:{duration:'300ms',y:'100px'}}">
+
+          <div class="logo">
+              <!--  Here it goes the app logo -->
+          </div>
+
+          <div class="title">LOGIN TO YOUR ACCOUNT</div>
+
+          <form name="loginForm" [formGroup]="loginForm" novalidate>
+
+              <mat-form-field>
+                  <input matInput placeholder="Email" formControlName="email">
+                  <mat-error *ngIf="loginFormErrors.email.required">
+                      Email is required
+                  </mat-error>
+                  <mat-error *ngIf="!loginFormErrors.email.required && loginFormErrors.email.email">
+                      Please enter a valid email address
+                  </mat-error>
+              </mat-form-field>
+
+              <mat-form-field>
+                  <input matInput type="password" placeholder="Password" formControlName="password">
+                  <mat-error *ngIf="loginFormErrors.password.required">
+                      Password is required
+                  </mat-error>
+              </mat-form-field>
+
+              <div class="remember-forgot-password" fxLayout="row" fxLayout.xs="column"
+                   fxLayoutAlign="space-between center">
+
+                  <a class="forgot-password" [routerLink]="'/pages/auth/forgot-password'">
+                      Forgot Password?
+                  </a>
+              </div>
+
+              <button mat-raised-button color="accent" class="submit-button" aria-label="LOG IN"
+                      [disabled]="loginForm.invalid">
+                  LOGIN
+              </button>
+
+          </form>
+
+          <div class="separator">
+              <span class="text">OR</span>
+          </div>
+
+          <button mat-raised-button class="google"  (click) = "auth.googleLogin()">
+              Log in with Google
+          </button>
+
+          <button mat-raised-button class="facebook" (click) = "auth.facebookLogin()">
+              Log in with Facebook
+          </button>
+
+
+          <div class="register" fxLayout="column" fxLayoutAlign="center center">
+              <span class="text">Don't have an account?</span>
+              <a class="link" [routerLink]="'/register'">Create an account</a>
+          </div>
+
+      </div>
+
+  </div>
+
 </div>
 
 
-<!-- User NOT logged in -->
-<ng-template #guest>
-<h3>Howdy, GUEST</h3>
-<p>Login to get started...</p>
-
-<button (click)="auth.googleLogin()">
-  <i class="fa fa-google"></i> Connect Google
-</button>
-
-<button (click)="auth.facebookLogin()">
-  <i class="fa fa-google"></i> Connect Facebook
-</button>
-
-</ng-template>
 
 
-<!-- User logged in -->
-<ng-template #authenticated>
-<div *ngIf="auth.user | async as user">
-  <h3>Howdy, {{ user.displayName }}</h3>
-  <img  [src]="user.photoURL">
-  <p>UID: {{ user.uid }}</p>
-  <p>Favorite Color: {{ user?.favoriteColor }} </p>
-  <button (click)="auth.signOut()">Logout</button>
-</div>
-</ng-template>
