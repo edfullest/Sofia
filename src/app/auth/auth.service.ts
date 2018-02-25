@@ -11,6 +11,14 @@ import {Observable} from 'rxjs/Observable';
 
 
 @Injectable()
+
+export class EmailPasswordCredentials {
+  email: string;
+  password: string;
+
+
+}
+
 export class AuthService {
 
   user: Observable<User>;
@@ -37,8 +45,37 @@ export class AuthService {
 
     facebookLogin() {
       const provider = new firebase.auth.FacebookAuthProvider();
+      provider.addScope('user_birthday');
       return this.oAuthLogin(provider);
     }
+
+    twitterLogin() {
+      const provider = new firebase.auth.TwitterAuthProvider();
+      return this.oAuthLogin(provider);
+    }
+
+    githubLogin() {
+      const provider = new firebase.auth.GithubAuthProvider();
+      return this.oAuthLogin(provider);
+    }
+
+    emailSignUp(email: string, password: string) {
+      return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
+        .then((user) => {
+          return this.updateUserData(user); // if using firestore
+        })
+        .catch((error) => this.handleError(error) );
+    }
+
+    emailLogin(email: string, password: string) {
+      return this.afAuth.auth.signInWithEmailAndPassword(email, password)
+        .then((user) => {
+          return this.updateUserData(user); // if using firestore
+        })
+        .catch((error) => this.handleError(error) );
+    }
+
+    
 
     private oAuthLogin(provider) {
       return this.afAuth.auth.signInWithPopup(provider)
@@ -46,6 +83,11 @@ export class AuthService {
           this.updateUserData(credential.user);
         });
     }
+
+      // If error, console log and notify user
+  private handleError(error: Error) {
+    console.error(error);
+  }
 
     private updateUserData(user) {
       // Sets user data to firestore on login
