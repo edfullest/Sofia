@@ -5,11 +5,16 @@ import { SharedModule } from '../../../core/modules/shared.module';
 import { FuseWidgetModule } from '../../../core/components/widget/widget.module';
 
 import { UserLoginComponent } from './user-login.component';
+import { UserRegisterComponent } from './register/user-register.component';
 
 const routes = [
     {
-        path     : 'login',
-        component: UserLoginComponent,
+      path     : 'login',
+      component: UserLoginComponent,
+    },
+    {
+      path     : 'register',
+      component: UserRegisterComponent,
     }
 ];
 
@@ -22,10 +27,12 @@ const routes = [
 
   ],
   declarations: [
-    UserLoginComponent
+    UserLoginComponent,
+    UserRegisterComponent
   ],
   exports     : [
-    UserLoginComponent
+    UserLoginComponent,
+    UserRegisterComponent
   ]
 })
 export class UserLoginModule { }

@@ -2,6 +2,7 @@ export const locale = {
   lang: 'es',
   data: {
     'LOGININFO' : {
+      'REGISTER' : 'Registro',
       'FULLNAME' : 'Nombre completo',
       'EMAIL' : 'Correo electrónico',
       'PASSWORD' : 'Contraseña',
