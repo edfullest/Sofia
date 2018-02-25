@@ -15,6 +15,12 @@ export class AuthService {
 
   user: Observable<User>;
 
+  emailUserModel = {
+    email : '',
+    password: '',
+    name: '',
+  };
+
   constructor(private afAuth: AngularFireAuth,
               private afs: AngularFirestore,
               private router: Router) {
@@ -31,19 +37,20 @@ export class AuthService {
   }
 
 
-    emailSignUp(email: string, password: string) {
-      return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
+    emailSignUp(registerForm: any) {
+
+      this.emailUserModel.email = registerForm.value['email'];
+      this.emailUserModel.password = registerForm.value['password'];
+      this.emailUserModel.name = registerForm.value['name'];
+      return this.afAuth.auth.createUserWithEmailAndPassword(this.emailUserModel.email, this.emailUserModel.password)
         .then((user) => {
-          return this.updateUserData(user); // if using firestore
+          return this.updateUserEmailData(user); // if using firestore
         })
         .catch((error) => this.handleError(error) );
     }
 
     emailLogin(email: string, password: string) {
       return this.afAuth.auth.signInWithEmailAndPassword(email, password)
-        .then((user) => {
-          return this.updateUserData(user); // if using firestore
-        })
         .catch((error) => this.handleError(error) );
     }
 
@@ -103,6 +110,37 @@ export class AuthService {
       return userRef.set(data, { merge: true });
 
     }
+
+
+    private cleanModel(){
+        this.emailUserModel = {
+                    email : '',
+                    password: '',
+                    name: '',
+                  };
+    }
+
+
+    private updateUserEmailData(user) {
+      // Sets user data to firestore on login
+
+      const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
+
+      const data: User = {
+        uid: user.uid,
+        email: this.emailUserModel.email,
+        displayName: this.emailUserModel.name,
+        photoURL: user.photoURL,
+        roles: {
+          professor: true
+        }
+      };
+
+      this.cleanModel();
+      return userRef.set(data, { merge: true });
+
+    }
+
 
     signOut(){
       this.afAuth.auth.signOut();

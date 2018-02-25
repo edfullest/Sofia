@@ -64,7 +64,7 @@ export class UserRegisterComponent implements OnInit {
     }
 
     signup(): void {
-      this.auth.emailSignUp(this.registerForm.value['email'], this.registerForm.value['password']);
+      this.auth.emailSignUp(this.registerForm);
     }
 
     onRegisterFormValuesChanged()
