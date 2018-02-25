@@ -26,6 +26,8 @@ import {CdkTableModule} from '@angular/cdk/table';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 
+import {AuthModule} from './auth/auth.module';
+
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -61,6 +63,7 @@ import {
 } from '@angular/material';
 
 
+
 const appRoutes: Routes = [
     {
         path      : '**',
@@ -71,7 +74,7 @@ const appRoutes: Routes = [
 @NgModule({
     declarations: [
         AppComponent
-     ],
+      ],
     imports     : [
         BrowserModule,
         HttpClientModule,
@@ -89,6 +92,7 @@ const appRoutes: Routes = [
         AngularFireAuthModule,
         MatNativeDateModule,
         ReactiveFormsModule,
+        AuthModule,
     ],
     providers   : [
         FuseSplashScreenService,
