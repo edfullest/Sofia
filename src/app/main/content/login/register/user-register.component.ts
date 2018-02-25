@@ -49,13 +49,22 @@ export class UserRegisterComponent implements OnInit {
         this.registerForm = this.formBuilder.group({
             name : ['', Validators.required],
             email   : ['', [Validators.required, Validators.email]],
-            password: ['', Validators.required],
-            passwordConfirmation: ['', Validators.required]
+            password: ['', [
+              Validators.required,
+              Validators.minLength(6),
+              Validators.maxLength(20),
+              Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$')
+            ]],
+            passwordConfirmation: ['', [Validators.required]]
         });
 
         this.registerForm.valueChanges.subscribe(() => {
             this.onRegisterFormValuesChanged();
         });
+    }
+
+    signup(): void {
+      this.auth.emailSignUp(this.registerForm.value['email'], this.registerForm.value['password']);
     }
 
     onRegisterFormValuesChanged()

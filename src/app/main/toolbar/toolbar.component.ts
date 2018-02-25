@@ -74,7 +74,6 @@ export class FuseToolbarComponent
         this.selectedLanguage = this.languages[0];
         this.setLanguage(this.selectedLanguage);
 
-        // this.translationLoader.loadTranslations(english, spanish);
 
         router.events.subscribe(
             (event) => {
@@ -93,6 +92,7 @@ export class FuseToolbarComponent
         });
 
 
+        this.translationLoader.loadTranslations(english, spanish);
 
     }
 

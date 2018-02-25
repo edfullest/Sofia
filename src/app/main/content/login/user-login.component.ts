@@ -54,6 +54,11 @@ export class UserLoginComponent implements OnInit{
         });
     }
 
+    signin(): void
+    {
+      this.auth.emailLogin(this.loginForm.value['email'], this.loginForm.value['password']);
+    }
+
     onLoginFormValuesChanged()
     {
         for ( const field in this.loginFormErrors )

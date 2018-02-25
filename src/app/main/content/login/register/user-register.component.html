@@ -11,7 +11,7 @@
 
             <div class="title">{{'LOGININFO.REGISTER' | translate}}</div>
 
-            <form name="registerForm" [formGroup]="registerForm" novalidate>
+            <form name="registerForm" [formGroup]="registerForm" novalidate (ngSubmit)="signup()">
 
                 <mat-form-field>
                     <input matInput placeholder="{{'LOGININFO.FULLNAME' | translate}}" formControlName="name">
@@ -48,7 +48,7 @@
                     </mat-error>
                 </mat-form-field>
 
-                <button mat-raised-button color="accent" class="submit-button" aria-label="LOG IN"
+                <button mat-raised-button color="accent" type="submit" class="submit-button" aria-label="LOG IN"
                         [disabled]="registerForm.invalid">
                         {{'LOGININFO.CREATE_BUTTON' | translate}}
                 </button>

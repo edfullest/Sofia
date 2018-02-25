@@ -31,7 +31,29 @@ export class AuthService {
   }
 
 
+    emailSignUp(email: string, password: string) {
+      return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
+        .then((user) => {
+          return this.updateUserData(user); // if using firestore
+        })
+        .catch((error) => this.handleError(error) );
+    }
 
+    emailLogin(email: string, password: string) {
+      return this.afAuth.auth.signInWithEmailAndPassword(email, password)
+        .then((user) => {
+          return this.updateUserData(user); // if using firestore
+        })
+        .catch((error) => this.handleError(error) );
+    }
+
+    // Sends email allowing user to reset password
+    resetPassword(email: string) {
+      const fbAuth = firebase.auth();
+
+      return fbAuth.sendPasswordResetEmail(email)
+        .catch((error) => this.handleError(error));
+    }
 
     googleLogin() {
       const provider = new firebase.auth.GoogleAuthProvider();
@@ -84,6 +106,11 @@ export class AuthService {
 
     signOut(){
       this.afAuth.auth.signOut();
+    }
+
+    // If error, console log and notify user
+    private handleError(error: Error) {
+      console.error(error);
     }
 
 

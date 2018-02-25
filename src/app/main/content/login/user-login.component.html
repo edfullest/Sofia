@@ -11,7 +11,7 @@
 
           <div class="title">{{'LOGININFO.LOGIN' | translate}}</div>
 
-          <form name="loginForm" [formGroup]="loginForm" novalidate>
+          <form name="loginForm" [formGroup]="loginForm" novalidate (ngSubmit)="signin()">
 
               <mat-form-field>
                   <input matInput placeholder="{{'LOGININFO.EMAIL' | translate}}" formControlName="email">
@@ -40,7 +40,7 @@
                   </a>
               </div>
 
-              <button mat-raised-button color="accent" class="submit-button" aria-label="LOG IN"
+              <button mat-raised-button color="accent" type="submit" class="submit-button" aria-label="LOG IN"
                       [disabled]="loginForm.invalid">
                       {{'LOGININFO.LOGIN' | translate}}
               </button>
