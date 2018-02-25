@@ -1,26 +1,68 @@
 
-    <h1>{{'LOGININFO.REGISTER' | translate}}</h1>
-  <mat-form-field>
-    <input matInput placeholder="{{'LOGININFO.FULLNAME' | translate}}">
-  </mat-form-field>
+<div  id="login" fxLayout="column" fusePerfectScrollbar>
 
-  <mat-form-field>
-      <input matInput placeholder="{{'LOGININFO.EMAIL' | translate}}">
-  </mat-form-field>
+    <div id="login-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
 
-  <mat-form-field>
-      <input matInput placeholder="{{'LOGININFO.PASSWORD' | translate}}">
-    </mat-form-field>
+        <div id="login-form" *fuseIfOnDom [@animate]="{value:'*',params:{duration:'300ms',y:'100px'}}">
+
+            <div class="logo">
+                <!--  Here it goes the app logo -->
+            </div>
+
+            <div class="title">{{'LOGININFO.REGISTER' | translate}}</div>
+
+            <form name="registerForm" [formGroup]="registerForm" novalidate>
+
+                <mat-form-field>
+                    <input matInput placeholder="{{'LOGININFO.FULLNAME' | translate}}" formControlName="name">
+                    <span matPrefix><mat-icon>account_circle</mat-icon></span>
+                    <mat-error *ngIf="registerFormErrors.name.required">
+                        {{'LOGININFO.ERROR_NAME' | translate}}
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput placeholder="{{'LOGININFO.EMAIL' | translate}}" formControlName="email">
+                    <span matPrefix><mat-icon>mail_outline</mat-icon></span>
+                    <mat-error *ngIf="registerFormErrors.email.required">
+                        {{'LOGININFO.ERROR_EMAIL' | translate}}
+                    </mat-error>
+                    <mat-error *ngIf="!registerFormErrors.email.required && registerFormErrors.email.email">
+                        {{'LOGININFO.ERROR_EMAIL_VALID' | translate}}
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput type="password" placeholder="{{'LOGININFO.PASSWORD' | translate}}" formControlName="password">
+                    <span matPrefix><mat-icon>lock_outline</mat-icon></span>
+                    <mat-error *ngIf="registerFormErrors.password.required">
+                        {{'LOGININFO.ERROR_PASSWORD' | translate}}
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput type="password" placeholder="{{'LOGININFO.PASS_CONF' | translate}}" formControlName="passwordConfirmation">
+                    <span matPrefix><mat-icon>lock_outline</mat-icon></span>
+                    <mat-error *ngIf="registerFormErrors.passwordConfirmation.required">
+                        {{'LOGININFO.ERROR_PASSWORD_VALID' | translate}}
+                    </mat-error>
+                </mat-form-field>
+
+                <button mat-raised-button color="accent" class="submit-button" aria-label="LOG IN"
+                        [disabled]="registerForm.invalid">
+                        {{'LOGININFO.CREATE_BUTTON' | translate}}
+                </button>
+
+              </form>
+
+        </div>
+
+    </div>
+
+  </div>
 
 
-    <mat-form-field>
-        <input matInput placeholder="{{'LOGININFO.PASS_CONF' | translate}}">
-      </mat-form-field>
 
 
-
-
-
-    <button mat-button>{{'LOGININFO.CREATE_BUTTON' | translate}}</button>
 
 

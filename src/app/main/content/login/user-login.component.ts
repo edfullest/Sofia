@@ -4,6 +4,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FuseConfigService } from '../../../core/services/config.service';
 import { fuseAnimations } from '../../../core/animations';
 
+import { FuseTranslationLoaderService } from '../../../core/services/translation-loader.service';
+import { locale as english } from './i18n/en';
+import { locale as spanish } from './i18n/es';
+
 @Component({
   selector: 'app-user-login',
   templateUrl: './user-login.component.html',
@@ -15,14 +19,18 @@ export class UserLoginComponent implements OnInit{
   loginForm: FormGroup;
   loginFormErrors: any;
 
-  constructor(public auth: AuthService,
+  constructor(
+    private translationLoader: FuseTranslationLoaderService,
+    public auth: AuthService,
     private fuseConfig: FuseConfigService,
     private formBuilder: FormBuilder) {
+
+      this.translationLoader.loadTranslations(english, spanish);
 
         this.fuseConfig.setSettings({
           layout: {
               navigation: 'none',
-              toolbar   : 'none',
+              toolbar   : 'above',
               footer    : 'none'
           }
       });
