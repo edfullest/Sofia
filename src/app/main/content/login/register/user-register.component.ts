@@ -56,7 +56,7 @@ export class UserRegisterComponent implements OnInit {
               Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$')
             ]],
             passwordConfirmation: ['', [Validators.required]]
-        });
+        }, {validator: this.checkIfMatchingPasswords('password', 'passwordConfirmation')});
 
         this.registerForm.valueChanges.subscribe(() => {
             this.onRegisterFormValuesChanged();
@@ -88,8 +88,19 @@ export class UserRegisterComponent implements OnInit {
             }
         }
     }
-
-
-
+    
+    checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
+          return (group: FormGroup) => {
+            let passwordInput = group.controls[passwordKey],
+                passwordConfirmationInput = group.controls[passwordConfirmationKey];
+            if (passwordInput.value !== passwordConfirmationInput.value) {
+              return passwordConfirmationInput.setErrors({notEquivalent: true})
+            }
+            else {
+                return passwordConfirmationInput.setErrors(null);
+            }
+          }
+        }
+    
 
 }

@@ -46,9 +46,13 @@
                     <mat-error *ngIf="registerFormErrors.passwordConfirmation.required">
                         {{'LOGININFO.ERROR_PASSWORD_VALID' | translate}}
                     </mat-error>
+                    <mat-error *ngIf="registerForm.controls['passwordConfirmation'].errors?.notEquivalent && 
+                        registerForm.controls['passwordConfirmation'].touched">
+                        {{'LOGININFO.ERROR_PASSWORD_NO_MATCH' | translate}}
+                    </mat-error>
                 </mat-form-field>
 
-                <button mat-raised-button color="accent" type="submit" class="submit-button" aria-label="LOG IN"
+                  <button mat-raised-button color="accent" type="submit" class="submit-button" aria-label="LOG IN"
                         [disabled]="registerForm.invalid">
                         {{'LOGININFO.CREATE_BUTTON' | translate}}
                 </button>

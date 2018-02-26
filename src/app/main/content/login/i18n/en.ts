@@ -17,6 +17,7 @@ export const locale = {
       'ERROR_EMAIL_VALID': 'Please enter a valid email address',
       'ERROR_PASSWORD': 'Password is required',
       'ERROR_PASSWORD_VALID': 'Password confirmation is required',
+      'ERROR_PASSWORD_NO_MATCH':'Passwords do not match',
       'FORGOT_PASSWORD' : 'Forgot Password?',
       'ACCOUNT_NONEXISTENT' : 'Do not have an account?',
       'CREATE_ACCOUNT' : 'Create an account'

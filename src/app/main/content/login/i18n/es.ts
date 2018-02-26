@@ -17,6 +17,7 @@ export const locale = {
       'ERROR_EMAIL_VALID': 'Por favor da un correo electrónico válido',
       'ERROR_PASSWORD': 'Contraseña es requerida',
       'ERROR_PASSWORD_VALID': 'Confirmación de contraseña es requerida',
+      'ERROR_PASSWORD_NO_MATCH':'Las contraseñas no coinciden',
       'FORGOT_PASSWORD' : '¿Olvidaste tu contraseña?',
       'ACCOUNT_NONEXISTENT' : '¿No tienes una cuenta?',
       'CREATE_ACCOUNT' : 'Crea una cuenta'
