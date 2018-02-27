@@ -36,7 +36,6 @@ export class AuthService {
         });
   }
 
-
     emailSignUp(registerForm: any) {
 
       this.emailUserModel.email = registerForm.value['email'];
@@ -44,6 +43,10 @@ export class AuthService {
       this.emailUserModel.name = registerForm.value['name'];
       return this.afAuth.auth.createUserWithEmailAndPassword(this.emailUserModel.email, this.emailUserModel.password)
         .then((user) => {
+            let auth = firebase.auth();
+         auth.currentUser.sendEmailVerification();
+            
+            
           return this.updateUserEmailData(user); // if using firestore
         })
         .catch((error) => this.handleError(error) );
