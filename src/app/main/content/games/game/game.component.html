@@ -34,7 +34,7 @@
          <a mat-button class="mat-raised-button mat-accent" color="accent" (click)="addQuestion()">{{'CREATEGAME.MULTIPLECHOICE' | translate}}</a>
        </mat-list-item>
        <mat-list-item>
-        <a mat-button class="mat-raised-button mat-warn" color="warn" (click)="addQuestion()">{{'CREATEGAME.FILLINTHEBLANK' | translate}}</a>
+        <a mat-button class="mat-raised-button mat-warn" color="warn" (click)="addFillBlank()">{{'CREATEGAME.FILLINTHEBLANK' | translate}}</a>
       </mat-list-item>
       </mat-list>
   </mat-expansion-panel>
@@ -62,9 +62,16 @@
                     <a class = "button" (click)="deleteQuestion(i)">
                       <img src="assets/icons/sofia/delete.png" alt="sup" width="30" height="30" border="0">
                     </a>
-                    <a class = "button" (click)="addAnswer(i)">
-                      <img src="assets/icons/sofia/add_nofill.png" alt="sup" width="30" height="30" border="0">
-                    </a>
+                    <div *ngIf="question.get('type').value == 'multiple_choice'; else fillBlankAnswer" >
+                      <a class = "button" (click)="addAnswer(i)">
+                        <img src="assets/icons/sofia/add_nofill.png" alt="sup" width="30" height="30" border="0">
+                      </a>
+                    </div>
+                    <ng-template #fillBlankAnswer>
+                      <a class = "button" (click)="addFillBlank(i)">
+                        <img src="assets/icons/sofia/add_nofill.png" alt="sup" width="30" height="30" border="0">
+                      </a>
+                    </ng-template>
                   </mat-grid-tile>
                   <mat-grid-tile
                       [colspan]="1"
@@ -86,7 +93,7 @@
                       <mat-grid-tile
                           [colspan]="7"
                           [rowspan]="1">
-                          <mat-checkbox formControlName = "isCorrect"></mat-checkbox>
+                            <mat-checkbox *ngIf="question.get('type').value == 'multiple_choice'" formControlName = "isCorrect"></mat-checkbox>
                           <mat-form-field style="width: 100%">
                                 <input  matInput formControlName="answer" placeholder="{{'CREATEGAME.ANSWER' | translate}} {{j + 1}}" >
                           </mat-form-field>
