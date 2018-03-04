@@ -5,8 +5,9 @@ import { SharedModule } from '../../../core/modules/shared.module';
 import { CoursesComponent } from './courses.component';
 import { CourseComponent } from './course/course.component';
 import { FuseWidgetModule } from '../../../core/components/widget/widget.module';
-
 import { GamesViewComponent } from '../games/games-view.component';
+import { RateModule } from '../rate/rate.module';
+import { RateCourseComponent } from '../rate/rate-course/rate-course.component';
 
 const routes = [
   {
@@ -21,7 +22,12 @@ const routes = [
   {
       path     : 'course/edit/:course_id',
       component: CourseComponent
-  }
+  },
+  {
+      path     : 'course/rate/:course_id',
+      component: RateCourseComponent
+  },
+
 ]
 
 
@@ -30,7 +36,8 @@ const routes = [
     CommonModule,
     SharedModule,
     RouterModule.forChild(routes),
-    FuseWidgetModule
+    FuseWidgetModule,
+    RateModule
 
   ],
   declarations: [

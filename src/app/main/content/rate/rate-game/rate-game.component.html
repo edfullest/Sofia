@@ -1,0 +1,9 @@
+<div *ngIf = "game | async as loadedGame;">
+    <div *ngIf = "!loadedGame.isRatedByUser" fxLayout="direction" fxLayoutGap="100px" fxLayoutAlign="center center">
+        <span class="mat-title">Rate this game</span>
+    </div>
+    <div *ngIf = "!loadedGame.isRatedByUser" fxLayout="direction" fxLayoutGap="100px" fxLayoutAlign="center center">
+        <button style="cursor: pointer" (click) = "giveThumbsUp()" > <mat-icon>thumb_up_outline</mat-icon> </button>
+        <button style="cursor: pointer" (click) = "giveThumbsDown()" > <mat-icon>thumb_down_outline</mat-icon></button>
+    </div>
+</div>

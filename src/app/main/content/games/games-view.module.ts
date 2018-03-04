@@ -8,6 +8,7 @@ import { GameComponent } from './game/game.component';
 import { RecentQuestionsModule } from '../recent-questions/recent-questions.module';
 import { CoursesViewModule } from '../courses/courses-view.module';
 import { CoursesComponent } from '../courses/courses.component';
+import { RateModule } from '../rate/rate.module';
 
 
 import { FuseWidgetModule } from '../../../core/components/widget/widget.module';
@@ -40,6 +41,7 @@ const routes = [
     ],
     imports     : [
         SharedModule,
+        RateModule,
         RouterModule.forChild(routes),
         FuseWidgetModule,
         RecentQuestionsModule

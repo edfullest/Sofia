@@ -1,0 +1,23 @@
+<div class="page-layout blank grey-100-bg ps ps--active-y" fuseperfectscrollbar>
+  <mat-card class="viewGameCard">
+        <mat-card-header [style.backgroundColor]="'#039be5'" [style.color]="'white'" >
+          <mat-card-title>
+              <div class="layout-row layout-align-end-start">
+              <h1>Congratulations!</h1>
+            </div>
+          </mat-card-title>
+          <mat-card-subtitle [style.color]="'white'">
+            <h4>You finished all the games of this course!</h4>
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content style="padding: 40px;">
+            <div fxLayout="direction" fxLayoutGap="100px" fxLayoutAlign="center center">
+              <span class="mat-title">How was your experience?</span>
+          </div>
+          <div fxLayout="direction" fxLayoutGap="100px" fxLayoutAlign="center center">
+              <button style="cursor: pointer" (click) = "giveThumbsUp()" > <mat-icon>thumb_up_outline</mat-icon> </button>
+              <button style="cursor: pointer" (click) = "giveThumbsDown()" > <mat-icon>thumb_down_outline</mat-icon></button>
+          </div>
+        </mat-card-content>
+  </mat-card>
+</div>

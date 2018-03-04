@@ -5,6 +5,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { FuseTranslationLoaderService } from '../../../../core/services/translation-loader.service';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute, Router } from '@angular/router';
+import { RateGameComponent } from '../../rate/rate-game/rate-game.component';
 
 import { GameData } from '../models/gameData';
 
@@ -17,11 +18,12 @@ import { GameData } from '../models/gameData';
 export class ViewGameComponentComponent implements OnInit {
   // courseID: string;
   gameForm: FormGroup;
-
+  isRateViewActive : boolean = false
   gameCollection: AngularFirestoreCollection<GameData>;
   gameData: GameData;
   gameDoc: AngularFirestoreDocument<GameData>;
-
+  courseID : string
+  gameID : string
   constructor(private formBuilder: FormBuilder,
     private db: AngularFirestore,
     private route: ActivatedRoute,
@@ -35,11 +37,9 @@ export class ViewGameComponentComponent implements OnInit {
     this.resetForm();
     // We get the game ID from the RESTFUL URL
     this.route.params.subscribe(params => {
-        var gameID : string = params['game_id'];
-        console.log(gameID)
-        var courseID = params['course_id']
-        console.log(courseID)
-        this.gameDoc = this.db.collection('courses').doc(courseID).collection('games').doc(gameID);
+        this.gameID = params['game_id'];
+        this.courseID = params['course_id']
+        this.gameDoc = this.db.collection('courses').doc(this.courseID).collection('games').doc(this.gameID);
         const doc: Observable<GameData> = this.gameDoc.valueChanges();
         doc.subscribe(data => this.gameData = data);
         doc.subscribe(data => {

@@ -83,14 +83,17 @@
 
                 <div fxLayout="column" fxLayoutGap="20px">
 
-                  <div fxLayout="column" fxLayoutAlign="start start" >
-                    <span class="h4 ml-8">Created by: {{course.author}}</span>
+                  <div fxLayout="row" fxLayoutAlign="start start" >
+                    <span class="mat-body-2" style="margin-left: 10px">{{course.author}}</span>
                   </div>
-                  <div fxLayout="column" fxLayoutAlign="start start">
+                  <div fxLayout="row" fxLayoutAlign="end start">
                     <span class="h4 ml-8"> <mat-icon>thumb_up_outline</mat-icon> {{course.rating.positive}} </span>
                     <span class="h4 ml-8"> <mat-icon>thumb_down_outline</mat-icon> {{course.rating.negative}} </span>
                     <br>
                   </div>
+                </div>
+                <div *ngIf="!course.isRatedByUser" fxLayout="row" style="width: 100%" fxLayoutAlign="center center" >
+                    <button mat-button fxFlex="100%" [routerLink]="['../course/rate/', course.id]">Rate it ⭐️</button>
                 </div>
               </div>
               <!-- / Front -->

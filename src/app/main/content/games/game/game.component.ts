@@ -79,6 +79,7 @@ export class GameComponent implements OnInit {
 
   onSubmit() {
     console.log(this.courseID);
+    console.log(this.gameForm.valid)
     if (this.gameForm.valid){
       // The actions for onSubmit vary depending on what the user is doing
       if (this.currentState === ComponentState.IsCreating){
@@ -88,6 +89,13 @@ export class GameComponent implements OnInit {
             description : data.description,
             isPublic : data.isPublic,
             questions : data.questions,
+            rating: {
+              negative : 0,
+              positive: 0,
+            },
+            usersThatRated: {
+      
+            }
           });
           this.snackBar.open('¡Se ha creado el juego con éxito!', '', {
             duration: 2000,
@@ -96,8 +104,7 @@ export class GameComponent implements OnInit {
       }
       else{
         let data = this.gameForm.value;
-
-          this.db.collection('courses').doc(this.courseID).collection('games').doc(this.gameID).set({
+        this.db.collection('courses').doc(this.courseID).collection('games').doc(this.gameID).update({
           name : data.name,
           description : data.description,
           isPublic : data.isPublic,
@@ -176,7 +183,7 @@ export class GameComponent implements OnInit {
     // For each question, we create a form group with its controls and the answers FormArray
     data.questions.forEach(q => {
         (<FormArray>this.gameForm.get('questions')).push(this.fb.group({
-          type : ['', Validators.required],
+          type : [q.type],
           question: [q.question, Validators.required],
           answers : this.fb.array([
           ])
@@ -192,7 +199,7 @@ export class GameComponent implements OnInit {
       for (var j = 0; j < q.answers.length; j++){
         answersArray.push(this.fb.group({
           answer: [q.answers[j].answer, Validators.required],
-          isCorrect: [q.answers[j].isCorrect, Validators.required]
+          isCorrect: [q.answers[j].isCorrect, Validators.required],
         }));
       }
     }

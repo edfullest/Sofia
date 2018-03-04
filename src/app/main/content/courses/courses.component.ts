@@ -11,6 +11,7 @@ import { FuseIfOnDomDirective } from '../../../core/directives/fuse-if-on-dom/fu
 import { FirebaseApp, FirebaseAppProvider } from 'angularfire2';
 import { FirebaseFirestore, DocumentReference } from '@firebase/firestore-types';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { AuthService } from '../../../auth/auth.service';
 
 
 @Component({
@@ -29,17 +30,33 @@ import { AngularFireDatabase } from 'angularfire2/database';
     categories: Observable<any[]>;
     categorySelected = 'ALL';
 
-    constructor(private translationLoader: FuseTranslationLoaderService, private db: AngularFirestore, private router: Router)
+    constructor(private translationLoader: FuseTranslationLoaderService, 
+                private db: AngularFirestore, 
+                private router: Router,
+                public auth : AuthService)
     {
+      this.auth.user.subscribe( userData => {
+        this.coursesCollection = this.db.collection('courses');
+        this.courses = this.coursesCollection.snapshotChanges().map(document => {
+            return document.map(documentData => {
+              const data = documentData.payload.doc.data();
+              const id = documentData.payload.doc.id;
+              // We check if the user already rated that course
+              var isRatedByUser = false
+              for (var uid in data.usersThatRated) {
+                if (uid == userData.uid){
+                  isRatedByUser = true
+                  break;
+                }                    
+              }
+              return { id,isRatedByUser, ...data };
+            });
+         });
+       }
+      )
       this.translationLoader.loadTranslations(english, spanish);
-      this.coursesCollection = this.db.collection('courses');
-      this.courses = this.coursesCollection.snapshotChanges().map(document => {
-          return document.map(documentData => {
-            const data = documentData.payload.doc.data();
-            const id = documentData.payload.doc.id;
-            return { id, ...data };
-          });
-       });
+      
+
       this.categoriesCollection = this.db.collection('categories');
       this.categories = this.categoriesCollection.valueChanges();
 

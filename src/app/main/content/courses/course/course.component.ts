@@ -61,6 +61,9 @@ export class CourseComponent implements OnInit {
     timeEstimate: {
       scale : "",
       time: 0
+    },
+    usersThatRated: {
+      
     }
 
   };
