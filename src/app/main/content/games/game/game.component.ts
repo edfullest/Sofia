@@ -89,8 +89,7 @@ export class GameComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.courseID);
-    console.log(this.gameForm.valid)
+
     if (this.gameForm.valid){
       // The actions for onSubmit vary depending on what the user is doing
       if (this.currentState === ComponentState.IsCreating){

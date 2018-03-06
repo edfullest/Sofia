@@ -53,25 +53,58 @@ export class ViewGameComponentComponent implements OnInit {
     this.gameForm.patchValue(data);
     // For each question, we create a form group with its controls and the answers FormArray
     data.questions.forEach(q => {
+
+
+      if (q.type === 'multiple_choice'){
+
         (<FormArray>this.gameForm.get('questions')).push(this.formBuilder.group({
+          type : [q.type],
           question: [q.question, Validators.required],
           answers : this.formBuilder.array([
           ])
         }));
+
+      }else{
+
+        (<FormArray>this.gameForm.get('questions')).push(this.formBuilder.group({
+          type : [q.type],
+          answers : this.formBuilder.array([
+          ])
+        }));
+
+      }
+
+
+
     });
 
     // Now for each answer, we add it into the FormArray of answers
     // of each question previously created
     for (var i = 0; i < data.questions.length; i++){
-      var q: any = data.questions[i];
-      var questionGroup: FormGroup = <FormGroup>(<FormArray>this.gameForm.get('questions')).at(i);
-      var answersArray: FormArray = (<FormArray>questionGroup.get('answers'));
-      for (var j = 0; j < q.answers.length; j++){
-        answersArray.push(this.formBuilder.group({
-        answer: [q.answers[j].answer, Validators.required],
-        isCorrect: [q.answers[j].isCorrect, Validators.required]
-        }));
+      var q : any = data.questions[i];
+      var questionGroup : FormGroup = <FormGroup>(<FormArray>this.gameForm.get('questions')).at(i);
+      let answersArray : FormArray = (<FormArray>questionGroup.get('answers'));
+
+      console.log(q);
+      if (q.type === 'multiple_choice'){
+        for (let j = 0; j < q.answers.length; j++){
+          answersArray.push(this.formBuilder.group({
+            answer: [q.answers[j].answer, Validators.required],
+            isCorrect: [q.answers[j].isCorrect, Validators.required],
+          }));
+        }
+      }else{
+
+        for (let j = 0; j < q.answers.length; j++){
+          answersArray.push(this.formBuilder.group({
+            name: [q.answers[j].name],
+            isBlank: [q.answers[j].isBlank],
+            color : [q.answers[j].color]
+          }));
+        }
+
       }
+
     }
   }
 
