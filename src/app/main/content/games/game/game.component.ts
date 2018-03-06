@@ -7,6 +7,8 @@ import { FuseTranslationLoaderService } from '../../../../core/services/translat
 import { Observable } from 'rxjs/Observable';
 import {MatSnackBar} from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
+import {MatChipInputEvent} from '@angular/material';
+import {ENTER} from '@angular/cdk/keycodes';
 
 
 import { locale as english } from './i18n/en';
@@ -19,6 +21,17 @@ enum ComponentState {IsEditing, IsCreating}
   styleUrls: ['./game.component.scss']
 })
 export class GameComponent implements OnInit {
+
+  // Data used to insert fill-in-the-blank questions
+
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+
+  // Enter, comma
+  separatorKeysCodes = [ENTER];
+
 
   // The game id of the current game, if there is one. This is actually the hash of the document
   gameID: string;
@@ -42,6 +55,7 @@ export class GameComponent implements OnInit {
     this.translationLoader.loadTranslations(english, spanish);
   }
 
+
   addQuestion(){
     (<FormArray>this.gameForm.get('questions')).push(this.fb.group({
           question: [null, Validators.required],
@@ -60,15 +74,12 @@ export class GameComponent implements OnInit {
   {
 
     (<FormArray>this.gameForm.get('questions')).push(this.fb.group({
-      question: [null, Validators.required],
       answers : this.fb.array([
-        this.fb.group({
-          answer: ['', Validators.required],
-        })
       ]),
       type : 'fill_blank'
 
     }));
+
   }
 
   deleteQuestion(selectedQuestionIndex){
@@ -83,7 +94,7 @@ export class GameComponent implements OnInit {
     if (this.gameForm.valid){
       // The actions for onSubmit vary depending on what the user is doing
       if (this.currentState === ComponentState.IsCreating){
-        let data = this.gameForm.value;
+        const data = this.gameForm.value;
           this.db.collection('courses').doc(this.courseID).collection('games').add({
             name : data.name,
             description : data.description,
@@ -103,7 +114,7 @@ export class GameComponent implements OnInit {
           });
       }
       else{
-        let data = this.gameForm.value;
+        const data = this.gameForm.value;
         this.db.collection('courses').doc(this.courseID).collection('games').doc(this.gameID).update({
           name : data.name,
           description : data.description,
@@ -136,14 +147,42 @@ export class GameComponent implements OnInit {
     }));
   }
 
-  addFillAnswer(selectedQuestionIndex){
-    var questionsArray : FormArray = <FormArray> this.gameForm.get('questions');
-    var selectedQuestion : FormGroup = <FormGroup> questionsArray.controls[selectedQuestionIndex];
-    var answersArray = <FormArray> selectedQuestion.get('answers');
-    answersArray.push(this.fb.group({
-      answer: ['', Validators.required]
-    }));
+  addFillAnswer(event: MatChipInputEvent, index): void {
+    const input = event.input;
+    const value = event.value;
+
+    if ((value || '').trim()) {
+      
+      const questionsArray: FormArray = <FormArray>this.gameForm.get('questions');
+      const selectedQuestion: FormGroup = <FormGroup> questionsArray.controls[index];
+      const answersArray = <FormArray> selectedQuestion.get('answers');
+      answersArray.push(this.fb.group({
+          name: value.trim(),
+          isBlank: false,
+          color: 'warn' 
+      }));
+    }
+
+    if (input) {
+      input.value = '';
+    }
+
   }
+
+  chipSelect(currentQuestionIndex, selectedAnswerIndex){
+    let questionsArray : FormArray = <FormArray>this.gameForm.get('questions');
+    let selectedQuestion : FormGroup = <FormGroup> questionsArray.controls[currentQuestionIndex];
+    let answersArray = <FormArray> selectedQuestion.get('answers');
+    let selectedAnswer : FormGroup = <FormGroup> answersArray.controls[selectedAnswerIndex];
+
+
+    selectedAnswer.value.isBlank = !selectedAnswer.value.isBlank;
+
+    console.log(selectedAnswer);
+    
+  }
+
+
 
   ngOnInit() {
       // The form is reset to empty values
@@ -155,12 +194,9 @@ export class GameComponent implements OnInit {
         this.route.params.subscribe(params => {
             this.gameID = params['game_id'];
             this.courseID = params['course_id'];
-            console.log(params['course_id']);
-            console.log(this.courseID);
             this.currentGame = this.db.collection('courses').doc(this.courseID).collection('games').doc(this.gameID);
             const doc: Observable<any> = this.currentGame.valueChanges();
             doc.subscribe(data => {
-              console.log(data);
               this.dataToForm(data);
             });
          });
@@ -181,13 +217,32 @@ export class GameComponent implements OnInit {
   dataToForm(data: any){
     this.gameForm.patchValue(data);
     // For each question, we create a form group with its controls and the answers FormArray
+    
+
     data.questions.forEach(q => {
+
+
+      if (q.type === 'multiple_choice'){
+
         (<FormArray>this.gameForm.get('questions')).push(this.fb.group({
           type : [q.type],
           question: [q.question, Validators.required],
           answers : this.fb.array([
           ])
         }));
+
+      }else{
+
+        (<FormArray>this.gameForm.get('questions')).push(this.fb.group({
+          type : [q.type],
+          answers : this.fb.array([
+          ])
+        }));
+
+      }
+
+
+
     });
 
     // Now for each answer, we add it into the FormArray of answers
@@ -195,13 +250,28 @@ export class GameComponent implements OnInit {
     for (var i = 0; i < data.questions.length; i++){
       var q : any = data.questions[i];
       var questionGroup : FormGroup = <FormGroup>(<FormArray>this.gameForm.get('questions')).at(i);
-      var answersArray : FormArray = (<FormArray>questionGroup.get('answers'));
-      for (var j = 0; j < q.answers.length; j++){
-        answersArray.push(this.fb.group({
-          answer: [q.answers[j].answer, Validators.required],
-          isCorrect: [q.answers[j].isCorrect, Validators.required],
-        }));
+      let answersArray : FormArray = (<FormArray>questionGroup.get('answers'));
+
+      console.log(q);
+      if (q.type === 'multiple_choice'){
+        for (let j = 0; j < q.answers.length; j++){
+          answersArray.push(this.fb.group({
+            answer: [q.answers[j].answer, Validators.required],
+            isCorrect: [q.answers[j].isCorrect, Validators.required],
+          }));
+        }
+      }else{
+
+        for (let j = 0; j < q.answers.length; j++){
+          answersArray.push(this.fb.group({
+            name: [q.answers[j].name],
+            isBlank: [q.answers[j].isBlank],
+            color : [q.answers[j].color]
+          }));
+        }
+
       }
+
     }
   }
 

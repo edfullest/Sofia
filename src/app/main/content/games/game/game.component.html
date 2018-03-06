@@ -54,64 +54,107 @@
             <br>
             <div formArrayName="questions">
               <div [formGroupName] = "i" *ngFor="let question of gameForm.controls.questions.controls; let i = index; let l = last"  >
-                <mat-grid-list cols="8" rowHeight="100px">
-                    <mat-grid-tile
-                      [colspan]="1"
-                      [rowspan]="1"
-                      [style.background]="lightgreen">
-                    <a class = "button" (click)="deleteQuestion(i)">
-                      <img src="assets/icons/sofia/delete.png" alt="sup" width="30" height="30" border="0">
-                    </a>
-                    <div *ngIf="question.get('type').value == 'multiple_choice'; else fillBlankAnswer" >
-                      <a class = "button" (click)="addAnswer(i)">
-                        <img src="assets/icons/sofia/add_nofill.png" alt="sup" width="30" height="30" border="0">
-                      </a>
-                    </div>
-                    <ng-template #fillBlankAnswer>
-                      <a class = "button" (click)="addFillBlank(i)">
-                        <img src="assets/icons/sofia/add_nofill.png" alt="sup" width="30" height="30" border="0">
-                      </a>
-                    </ng-template>
-                  </mat-grid-tile>
-                  <mat-grid-tile
-                      [colspan]="1"
-                      [rowspan]="1">
-                      <h2>{{i + 1}}.</h2>
-                  </mat-grid-tile>
-                  <mat-grid-tile
-                      [colspan]="6"
-                      [rowspan]="1"
-                      [style.background]="lightblue">
-                      <mat-form-field style="width: 100%">
-                                 <input  matInput formControlName="question" placeholder="{{'CREATEGAME.QUESTION' | translate}} {{i + 1}}" >
-                      </mat-form-field>
-                  </mat-grid-tile>
-                </mat-grid-list>
-                <mat-list formArrayName="answers" style="width:80%;">
-                  <div [formGroupName]="j"  *ngFor="let ans of question.controls.answers.controls; let j = index">
-                    <mat-grid-list cols="8" rowHeight="100px">
-                      <mat-grid-tile
-                          [colspan]="7"
-                          [rowspan]="1">
-                            <mat-checkbox *ngIf="question.get('type').value == 'multiple_choice'" formControlName = "isCorrect"></mat-checkbox>
-                          <mat-form-field style="width: 100%">
-                                <input  matInput formControlName="answer" placeholder="{{'CREATEGAME.ANSWER' | translate}} {{j + 1}}" >
-                          </mat-form-field>
-                      </mat-grid-tile>
-                      <mat-grid-tile
-                          [colspan]="1"
-                          [rowspan]="1">
-                          <a class = "button" (click)="deleteAnswer(i,j)">
-                            <img src="assets/icons/sofia/delete_x.png" alt="sup" width="30" height="30" border="0">
+                <div *ngIf="question.get('type').value == 'multiple_choice'; else fillBlankAnswer" > 
+                        <mat-grid-list cols="8" rowHeight="100px">
+
+                          <mat-grid-tile
+                              [colspan]="1"
+                              [rowspan]="1"
+                              [style.background]="lightgreen">
+                            <a class = "button" (click)="deleteQuestion(i)">
+                              <img src="assets/icons/sofia/delete.png" alt="sup" width="30" height="30" border="0">
+                            </a>
+
+                              <a class = "button" (click)="addAnswer(i)">
+                                <img src="assets/icons/sofia/add_nofill.png" alt="sup" width="30" height="30" border="0">
+                              </a>
+
+
+                          </mat-grid-tile>
+                          <mat-grid-tile
+                              [colspan]="1"
+                              [rowspan]="1">
+                              <h2>{{i + 1}}.</h2>
+                          </mat-grid-tile>
+                          <mat-grid-tile
+                              [colspan]="6"
+                              [rowspan]="1"
+                              [style.background]="lightblue">
+                              <mat-form-field style="width: 100%">
+                                        <input  matInput formControlName="question" placeholder="{{'CREATEGAME.QUESTION' | translate}} {{i + 1}}" >
+                              </mat-form-field>
+                          </mat-grid-tile>
+                        </mat-grid-list>
+                        <mat-list formArrayName="answers" style="width:80%;">
+                          <div [formGroupName]="j"  *ngFor="let ans of question.controls.answers.controls; let j = index">
+                            <mat-grid-list cols="8" rowHeight="100px">
+                              <mat-grid-tile
+                                  [colspan]="7"
+                                  [rowspan]="1">
+                                    <mat-checkbox *ngIf="question.get('type').value == 'multiple_choice'" formControlName = "isCorrect"></mat-checkbox>
+                                  <mat-form-field style="width: 100%">
+                                        <input  matInput formControlName="answer" placeholder="{{'CREATEGAME.ANSWER' | translate}} {{j + 1}}" >
+                                  </mat-form-field>
+                              </mat-grid-tile>
+                              <mat-grid-tile
+                                  [colspan]="1"
+                                  [rowspan]="1">
+                                  <a class = "button" (click)="deleteAnswer(i,j)">
+                                    <img src="assets/icons/sofia/delete_x.png" alt="sup" width="30" height="30" border="0">
+                                  </a>
+                              </mat-grid-tile>
+                            </mat-grid-list>
+                          </div>
+                        </mat-list>
+                </div>
+
+                <ng-template #fillBlankAnswer>
+
+                    <mat-grid-list formArrayName="answers" cols="8" rowHeight="100px">
+
+                        <mat-grid-tile
+                            [colspan]="1"
+                            [rowspan]="1"
+                            [style.background]="lightgreen">
+                          <a class = "button" (click)="deleteQuestion(i)">
+                            <img src="assets/icons/sofia/delete.png" alt="sup" width="30" height="30" border="0">
                           </a>
-                      </mat-grid-tile>
-                    </mat-grid-list>
-                  </div>
-                </mat-list>
+
+                        </mat-grid-tile>
+                        <mat-grid-tile
+                            [colspan]="1"
+                            [rowspan]="1">
+                            <h2>{{i + 1}}.</h2>
+                        </mat-grid-tile>
+                        <mat-grid-tile
+                            [colspan]="6"
+                            [rowspan]="1"
+                            [style.background]="lightblue">
+
+                            <mat-form-field style="width: 100%">
+                                <mat-chip-list #chipList>
+                                  
+                                  <mat-chip [formGroupName]="j"  *ngFor="let answer of question.controls.answers.controls; let j = index" [selectable]="selectable"
+                                           [removable]="removable" (remove)="deleteAnswer(i,j)" (click)=chipSelect(i,j) [color]="answer.value.color" [selected]=answer.value.isBlank >
+                                    {{answer.value.name}}
+                                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                                  </mat-chip>
+                                  <input style="width: 100%" placeholder="{{'CREATEGAME.QUESTION' | translate}} {{i + 1}}"
+                                         [matChipInputFor]="chipList"
+                                         [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                         [matChipInputAddOnBlur]="addOnBlur"
+                                         (matChipInputTokenEnd)="addFillAnswer($event,i)" />
+                                </mat-chip-list>
+                              </mat-form-field>
+
+                        </mat-grid-tile>
+                      </mat-grid-list>
+
+                </ng-template>
                 <mat-divider></mat-divider>
               </div>
             </div>
-            <pre>form value: <br>{{gameForm.value | json}}</pre>
+      <!--      <pre>form value: <br>{{gameForm.value | json}}</pre> -->
         </mat-card-content>
       <mat-card-actions align="end" style="padding: 40px;">
         <div matTooltip="{{'CREATEGAME.TOOLTIP' | translate}}" matTooltipPosition="above" style = "margin-right: 15px; margin-top: 10px;">
