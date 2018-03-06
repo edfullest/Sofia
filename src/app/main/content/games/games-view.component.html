@@ -3,8 +3,10 @@
     <div class="header mat-accent-bg p-24 h-160" fxLayout="row" fxLayoutAlign="start center">
 
       <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="end center">
+          
+          <!--button *ngIf="auth.canCreate(user)" [routerLink]="['../game/create']" matTooltipPosition = "above" matTooltip="New Game" mat-icon-button-->
+          <button *ngIf="(this.auth.user | async)?.roles.professor" [routerLink]="['../game/create']" matTooltipPosition = "above" matTooltip="New Game" mat-icon-button>
 
-          <button [routerLink]="['../game/create']" matTooltipPosition = "above" matTooltip="New Game" mat-icon-button>
                   <mat-icon >add</mat-icon>
           </button>
 
@@ -23,8 +25,8 @@
                   <!-- Front -->
                   <div class="fuse-widget-front mat-white-bg mat-elevation-z2">
                       <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="end center">
-
-                          <button matTooltipPosition = "above" matTooltip="{{'GAMES.TOOLTIP' | translate }}" mat-icon-button fuseWidgetToggle aria-label="more" >
+                          <!--button *ngIf="auth.canUpdate(user)" matTooltipPosition = "above" matTooltip="{{'GAMES.TOOLTIP' | translate }}" mat-icon-button fuseWidgetToggle aria-label="more" -->
+                          <button *ngIf="(this.auth.user | async)?.roles.professor" matTooltipPosition = "above" matTooltip="{{'GAMES.TOOLTIP' | translate }}" mat-icon-button fuseWidgetToggle aria-label="more" >
                                   <mat-icon>more_vert</mat-icon>
                           </button>
 

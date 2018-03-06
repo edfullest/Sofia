@@ -10,6 +10,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { ActivatedRoute, Router } from "@angular/router";
 import { Observable } from 'rxjs/Observable';
 import { fuseAnimations } from '../../../core/animations';
+import { AuthService } from '../../../auth/auth.service';
 // import {MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipDefaultOptions} from '@angular/material';
 
 
@@ -35,7 +36,8 @@ export class GamesViewComponent implements OnInit{
     courseID : string;
     constructor(private translationLoader: FuseTranslationLoaderService, private db: AngularFirestore, 
                 private router: Router,
-                private route : ActivatedRoute)
+                private route : ActivatedRoute,
+                public auth : AuthService)
     {
         this.translationLoader.loadTranslations(english, spanish);
     }

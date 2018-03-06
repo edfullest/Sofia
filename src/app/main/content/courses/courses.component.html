@@ -8,7 +8,8 @@
     </div>
 
     <div class="pl-16 pr-8 py-16 h-52" fxLayout="column" fxLayoutAlign="start start">
-      <button [routerLink]="['../course/create']" matTooltipPosition = "above" matTooltip="{{ 'COURSES.CREATEBUTTON' | translate }}" mat-icon-button>
+      <!--<button *ngIf="auth.canCreate(user)" [routerLink]="['../course/create']" matTooltipPosition = "above" matTooltip="{{ 'COURSES.CREATEBUTTON' | translate }}" mat-icon-button>-->
+      <button *ngIf="(this.auth.user | async)?.roles.professor" [routerLink]="['../course/create']" matTooltipPosition = "above" matTooltip="{{ 'COURSES.CREATEBUTTON' | translate }}" mat-icon-button>
         <mat-icon>add</mat-icon>
       </button>
     </div>
@@ -50,7 +51,9 @@
 
 
                 <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="end center">
-                  <button matTooltipPosition = "above" matTooltip="{{'COURSES.TOOLTIP' | translate }}" mat-icon-button fuseWidgetToggle aria-label="more" >
+                    <!--button *ngIf="auth.canUpdate(user)" matTooltipPosition = "above" matTooltip="{{'COURSES.TOOLTIP' | translate }}" mat-icon-button fuseWidgetToggle aria-label="more" -->
+                    <button *ngIf="(this.auth.user | async)?.roles.professor" matTooltipPosition = "above" matTooltip="{{'COURSES.TOOLTIP' | translate }}" mat-icon-button fuseWidgetToggle aria-label="more" >
+
                     <mat-icon>more_vert</mat-icon>
                   </button>
                 </div>

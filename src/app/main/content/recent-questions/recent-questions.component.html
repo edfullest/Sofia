@@ -44,11 +44,12 @@
                         <img  class="avatar" src="assets/images/avatars/danielle.jpg">
 
                         <div class="ng-tns-c80-126" fxflex="" fxlayout="column" style="flex: 1 1 1e-09px; box-sizing: border-box; flex-direction: column; display: flex;">
-                            <div  class="ng-tns-c80-126" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;">
+                            <div class="ng-tns-c80-126" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;">
                                 <div *ngIf = 'question.originalAnswer !== "" '>
                                     <span class="mat-body-2">Creadora del curso</span>
                                 </div>
-                                <div *ngIf = 'question.originalAnswer === "" ' style="width:100%">
+                                <!--div *ngIf='question.originalAnswer === "" && auth.canUpdate(user)' style="width:100%"-->
+                                <div *ngIf='question.originalAnswer === "" && (this.auth.user | async)?.roles.professor' style="width:100%">
                                     <mat-form-field style="width: 80%">
                                         <input matInput (keyup.enter)="sendAnswer(question)" [(ngModel)]="question.answer" placeholder="Respuesta">
                                     </mat-form-field>

@@ -3,7 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute, Route, Router } from "@angular/router"
 import {MatButtonModule} from '@angular/material/button';
-
+import { AuthService } from '../../../auth/auth.service';
 
 @Component({
   selector: 'app-recent-questions',
@@ -19,7 +19,8 @@ export class RecentQuestionsComponent implements OnInit {
   selectedHashtags : any[] = new Array();
   questionCollectionReference : AngularFirestoreCollection<any>;
   constructor(private db: AngularFirestore, private router: Router,
-              private route : ActivatedRoute) {
+              private route : ActivatedRoute,
+              public auth : AuthService) {
   }
 
   triggerQuestionChanges(){

@@ -29,7 +29,7 @@ import { AuthService } from '../../../auth/auth.service';
     categoriesCollection: AngularFirestoreCollection<any[]>;
     categories: Observable<any[]>;
     categorySelected = 'ALL';
-
+    
     constructor(private translationLoader: FuseTranslationLoaderService, 
                 private db: AngularFirestore, 
                 private router: Router,
