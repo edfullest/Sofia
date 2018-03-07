@@ -48,8 +48,7 @@
                                 <div *ngIf = 'question.originalAnswer !== "" '>
                                     <span class="mat-body-2">Creadora del curso</span>
                                 </div>
-                                <!--div *ngIf='question.originalAnswer === "" && auth.canUpdate(user)' style="width:100%"-->
-                                <div *ngIf='question.originalAnswer === "" && (this.auth.user | async)?.roles.professor' style="width:100%">
+                                <div *ngIf='question.originalAnswer === ""' style="width:100%">
                                     <mat-form-field style="width: 80%">
                                         <input matInput (keyup.enter)="sendAnswer(question)" [(ngModel)]="question.answer" placeholder="Respuesta">
                                     </mat-form-field>
