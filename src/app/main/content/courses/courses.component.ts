@@ -24,19 +24,21 @@ import { AuthService } from '../../../auth/auth.service';
 
   export class CoursesComponent{
 
+    isCreator : boolean = false 
     coursesCollection: AngularFirestoreCollection<any[]>;
     courses: Observable<any[]>;
     categoriesCollection: AngularFirestoreCollection<any[]>;
     categories: Observable<any[]>;
     categorySelected = 'ALL';
     
-    constructor(private translationLoader: FuseTranslationLoaderService, 
-                private db: AngularFirestore, 
-                private router: Router,
+    constructor(public translationLoader: FuseTranslationLoaderService, 
+                public db: AngularFirestore, 
+                public router: Router,
                 public auth : AuthService)
     {
       this.auth.user.subscribe( userData => {
-        this.coursesCollection = this.db.collection('courses');
+        this.coursesCollection = this.db.collection('courses', ref => 
+                               ref.where("createdBy", '==', userData.uid));
         this.courses = this.coursesCollection.snapshotChanges().map(document => {
             return document.map(documentData => {
               const data = documentData.payload.doc.data();
@@ -63,15 +65,21 @@ import { AuthService } from '../../../auth/auth.service';
     }
 
     redirectToGames(courseID){
-      this.router.navigate(["courses/" +courseID + "/games"])
+      this.router.navigate(["/teacher/courses/" +courseID + "/games"])
     }
 
-    findReference(ref: any){
-
-    }
 
     deleteCourse(courseID: string){
-      this.db.collection('courses').doc(courseID).delete();
+      this.db.collection('courses').doc(courseID).snapshotChanges().subscribe(document => {
+        const data = document.payload.data();
+        this.auth.user.subscribe( userData => {
+          if (userData.uid == data.createdBy){
+            this.db.collection('courses').doc(courseID).delete();
+          }
+        })
+      })
+
+      
     }
 
  }

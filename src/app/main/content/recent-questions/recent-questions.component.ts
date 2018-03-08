@@ -17,6 +17,7 @@ export class RecentQuestionsComponent implements OnInit {
   unselectedHashtags : Observable<any[]>;
   answers: [any];
   selectedHashtags : any[] = new Array();
+  @Input() isCreator : boolean;
   questionCollectionReference : AngularFirestoreCollection<any>;
   constructor(private db: AngularFirestore, private router: Router,
               private route : ActivatedRoute,
@@ -60,12 +61,19 @@ export class RecentQuestionsComponent implements OnInit {
    }
 
    sendAnswer(question){
-     this.db.collection('courses').doc(this.courseID)
+     this.auth.user.subscribe( userData => {
+         this.db.collection('courses').doc(this.courseID).snapshotChanges().subscribe(doc => {
+           const data = doc.payload.data()
+           console.log(userData.uid == data.createdBy)
+           if (userData.uid == data.createdBy){
+             this.db.collection('courses').doc(this.courseID)
                                   .collection('questions')
                                   .doc(question.id).update({
                                     answer: question.answer
                                    })
-
+           }
+         })
+     })
    }
 
    isHashtagInSelectedHashtag(hashtagsArray){
@@ -92,6 +100,9 @@ export class RecentQuestionsComponent implements OnInit {
         this.courseID = params["course_id"]
         this.initialize()
     });
+    this.auth.user.subscribe( userData => {
+        console.log(userData)
+    })
   }
 
   getHashtags(){

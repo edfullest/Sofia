@@ -6,6 +6,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { fuseAnimations } from '../../../../core/animations';
 import {MatSnackBar} from '@angular/material';
 import { Observable } from 'rxjs/Observable';
+import { AuthService } from '../../../../auth/auth.service';
 
 //routing
 import { ActivatedRoute, Router } from '@angular/router';
@@ -45,6 +46,8 @@ export class CourseComponent implements OnInit {
 
   //Couse variables
   courseID : string;
+  userUID : string;
+  author : string;
 
 
   model = {
@@ -64,7 +67,11 @@ export class CourseComponent implements OnInit {
     },
     usersThatRated: {
       
-    }
+    },
+    students: {
+
+    },
+    createdBy: ''
 
   };
 
@@ -80,11 +87,16 @@ export class CourseComponent implements OnInit {
               private db: AngularFirestore,
               private route: ActivatedRoute,
               private router: Router,
-              public snackBar: MatSnackBar) {
+              public snackBar: MatSnackBar,
+              public auth: AuthService) {
 
     this.translationLoader.loadTranslations(english, spanish);
 
     this.categories = this.db.collection('categories').valueChanges();
+    this.auth.user.subscribe(userData => {
+      this.userUID = userData.uid
+      this.author = userData.displayName
+    });
 
   }
     ngOnInit() {
@@ -121,7 +133,10 @@ export class CourseComponent implements OnInit {
 
     onSubmit(){
       if (this.currentState == ComponentState.IsCreating){
+        this.model.createdBy = this.userUID
+        this.model.author = this.author
         let data = this.model;
+
           this.courseCollectionFB.add(data);
           this.snackBar.open("¡Se ha creado el juego con éxito!",'',{
             duration: 2000,

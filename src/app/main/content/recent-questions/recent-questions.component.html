@@ -34,21 +34,22 @@
                                 <span class="mat-body-2">Juan Pérez</span>
                             </div>
                             <span  class="mat-caption">Junio 10, 2018</span>
-
                             <span class="mat-body-1" style="margin: 5px 0px 5px 0px;">
                                 {{question.question}}
+
                             </span>
                         </div>
                     </div>
                     <div class = "comment" fxflexfill="" fxlayout="row" style="height: 100%; margin: 0px; min-height: 100%; min-width: 100%; width: 100%; flex-direction: row; box-sizing: border-box; display: flex; padding-left: 20px;">
-                        <img  class="avatar" src="assets/images/avatars/danielle.jpg">
+                        
+                        <img *ngIf = "isCreator" class="avatar" src="{{(auth.user | async)?.photoURL}}">
 
                         <div class="ng-tns-c80-126" fxflex="" fxlayout="column" style="flex: 1 1 1e-09px; box-sizing: border-box; flex-direction: column; display: flex;">
                             <div class="ng-tns-c80-126" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;">
                                 <div *ngIf = 'question.originalAnswer !== "" '>
-                                    <span class="mat-body-2">Creadora del curso</span>
+                                    <span class="mat-body-2">Creador</span>
                                 </div>
-                                <div *ngIf='question.originalAnswer === ""' style="width:100%">
+                                <div *ngIf='question.originalAnswer === "" && isCreator' style="width:100%">
                                     <mat-form-field style="width: 80%">
                                         <input matInput (keyup.enter)="sendAnswer(question)" [(ngModel)]="question.answer" placeholder="Respuesta">
                                     </mat-form-field>

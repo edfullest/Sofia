@@ -39,7 +39,6 @@ export class RateCourseComponent extends RateComponent implements OnInit {
                   
             // }); 
          });
-               
   }
   makeTransaction(isThumbsUp){
       this.auth.user.subscribe(userData => {

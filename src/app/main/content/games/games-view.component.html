@@ -5,13 +5,12 @@
       <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="end center">
           
           <!--button *ngIf="auth.canCreate(user)" [routerLink]="['../game/create']" matTooltipPosition = "above" matTooltip="New Game" mat-icon-button-->
-          <button [routerLink]="['../game/create']" matTooltipPosition = "above" matTooltip="New Game" mat-icon-button>
-
+          <div *ngIf = "isCreator">
+            <button [routerLink]="['../game/create']" matTooltipPosition = "above" matTooltip="New Game" mat-icon-button>
                   <mat-icon >add</mat-icon>
-          </button>
-
+            </button>
+          </div>
       </div>
-
     </div>
     <!-- / HEADER -->
 
@@ -26,15 +25,17 @@
                   <div class="fuse-widget-front mat-white-bg mat-elevation-z2">
                       <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="end center">
                           <!--button *ngIf="auth.canUpdate(user)" matTooltipPosition = "above" matTooltip="{{'GAMES.TOOLTIP' | translate }}" mat-icon-button fuseWidgetToggle aria-label="more" -->
-                          <button matTooltipPosition = "above" matTooltip="{{'GAMES.TOOLTIP' | translate }}" mat-icon-button fuseWidgetToggle aria-label="more" >
+                          <div *ngIf = "isCreator">
+                            <button matTooltipPosition = "above" matTooltip="{{'GAMES.TOOLTIP' | translate }}" mat-icon-button fuseWidgetToggle aria-label="more" >
                                   <mat-icon>more_vert</mat-icon>
-                          </button>
+                            </button>
+                          </div>
+                          
 
                       </div>
                       <div class="pt-8 pb-32" fxLayout="column" fxLayoutAlign="center center">
-                          <button mat-fab [routerLink]="['../game/view/', game.id]">
+                          <button mat-fab (click) = "redirectToGames(game.id)">
                               <mat-icon class="mat-24" aria-label="Example icon-button with a heart icon">play_arrow</mat-icon>
-
                           </button>
                           <br>
                           <div class="h3 secondary-text font-weight-500">{{game.name}}</div>
@@ -95,14 +96,14 @@
 
               </div>
 
-              <div class="ng-tns-c92-425">
+              <div *ngIf = "!isCreator" class="ng-tns-c92-425">
                   <button matTooltipPosition = "above" matTooltip="Nueva Pregunta" (click)="pressButton()" mat-icon-button>
                     <mat-icon>add</mat-icon>
                   </button> 
               </div>
           </div>
           <div *ngIf = "!isPressed">
-            <app-recent-questions style="width:100%; height: 95%"></app-recent-questions>
+            <app-recent-questions [isCreator] = "isCreator" style="width:100%; height: 95%"></app-recent-questions>
           </div>
           <div *ngIf = "isPressed">
             <app-add-question style="width:100%;" [isBackButtonPressed] = "isPressed" (outputEvent)="pressButton()" ></app-add-question>

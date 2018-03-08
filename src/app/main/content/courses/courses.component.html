@@ -9,9 +9,11 @@
 
     <div class="pl-16 pr-8 py-16 h-52" fxLayout="column" fxLayoutAlign="start start">
       <!--<button *ngIf="auth.canCreate(user)" [routerLink]="['../course/create']" matTooltipPosition = "above" matTooltip="{{ 'COURSES.CREATEBUTTON' | translate }}" mat-icon-button>-->
-      <button  [routerLink]="['../course/create']" matTooltipPosition = "above" matTooltip="{{ 'COURSES.CREATEBUTTON' | translate }}" mat-icon-button>
-        <mat-icon>add</mat-icon>
-      </button>
+        <div *ngIf = "isCreator">
+          <button  [routerLink]="['../course/create']" matTooltipPosition = "above" matTooltip="{{ 'COURSES.CREATEBUTTON' | translate }}" mat-icon-button>
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
     </div>
 
   </div>
@@ -52,10 +54,11 @@
 
                 <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="end center">
                     <!--button *ngIf="auth.canUpdate(user)" matTooltipPosition = "above" matTooltip="{{'COURSES.TOOLTIP' | translate }}" mat-icon-button fuseWidgetToggle aria-label="more" -->
-                    <button matTooltipPosition = "above" matTooltip="{{'COURSES.TOOLTIP' | translate }}" mat-icon-button fuseWidgetToggle aria-label="more" >
-
-                    <mat-icon>more_vert</mat-icon>
-                  </button>
+                    <div *ngIf = "isCreator">
+                      <button matTooltipPosition = "above" matTooltip="{{'COURSES.TOOLTIP' | translate }}" mat-icon-button fuseWidgetToggle aria-label="more" >
+                        <mat-icon>more_vert</mat-icon>
+                      </button>
+                    </div>
                 </div>
 
                 <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="center center">
@@ -95,7 +98,7 @@
                     <br>
                   </div>
                 </div>
-                <div *ngIf="!course.isRatedByUser" fxLayout="row" style="width: 100%" fxLayoutAlign="center center" >
+                <div *ngIf="!course.isRatedByUser && !isCreator" fxLayout="row" style="width: 100%" fxLayoutAlign="center center" >
                     <button mat-button fxFlex="100%" [routerLink]="['../course/rate/', course.id]">Rate it ⭐️</button>
                 </div>
               </div>

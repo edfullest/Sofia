@@ -30,13 +30,16 @@ export const myCustomTooltipDefaults = {
     // {provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: myCustomTooltipDefaults}
   ],
 })
+
 export class GamesViewComponent implements OnInit{
+   
     games: Observable<any[]>;
     isPressed : boolean = false;
     courseID : string;
-    constructor(private translationLoader: FuseTranslationLoaderService, private db: AngularFirestore, 
-                private router: Router,
-                private route : ActivatedRoute,
+    isCreator : boolean = false
+    constructor(public translationLoader: FuseTranslationLoaderService, public db: AngularFirestore, 
+                public router: Router,
+                public route : ActivatedRoute,
                 public auth : AuthService)
     {
         this.translationLoader.loadTranslations(english, spanish);
@@ -57,7 +60,14 @@ export class GamesViewComponent implements OnInit{
     }
 
     deleteDocument(id: string){
-         this.db.collection('courses').doc(this.courseID).collection('games').doc(id).delete();
+      this.db.collection('courses').doc(this.courseID).snapshotChanges().subscribe(document => {
+        const data = document.payload.data();
+        this.auth.user.subscribe( userData => {
+          if (userData.uid == data.createdBy){
+              this.db.collection('courses').doc(this.courseID).collection('games').doc(id).delete();
+          }
+        })
+      })
     }
 
     ngOnInit() {
@@ -67,7 +77,42 @@ export class GamesViewComponent implements OnInit{
        });
     }
 
+    redirectToGames(gameID : string){
+      this.router.navigate(['/courses/' + this.courseID + '/game/view/' + gameID])
+    }
     OnInit(){
     
-    }
+    } 
 }
+
+// export class CreatorGamesViewComponent extends GamesViewComponent{
+//     isCreator : boolean = true
+//     constructor(translationLoader: FuseTranslationLoaderService, db: AngularFirestore, 
+//                 router: Router,
+//                 route : ActivatedRoute,
+//                 auth : AuthService)
+//     {
+//         super(translationLoader,db,router,route,auth)
+//     }
+
+// }
+
+// export class ViewerGamesViewComponent extends GamesViewComponent{
+//     isCreator : boolean = false
+//     constructor(translationLoader: FuseTranslationLoaderService, db: AngularFirestore, 
+//                 router: Router,
+//                 route : ActivatedRoute,
+//                 auth : AuthService)
+//     {
+//         super(translationLoader,db,router,route,auth)
+//     }
+// }
+
+   // constructor(translationLoader: FuseTranslationLoaderService, db: AngularFirestore, 
+   //              router: Router,
+   //              route : ActivatedRoute,
+   //              auth : AuthService)
+   //  {
+   //      super(translationLoader,db,router,route,auth)
+   //  }
+

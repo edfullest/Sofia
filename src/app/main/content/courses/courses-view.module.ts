@@ -8,24 +8,47 @@ import { FuseWidgetModule } from '../../../core/components/widget/widget.module'
 import { GamesViewComponent } from '../games/games-view.component';
 import { RateModule } from '../rate/rate.module';
 import { RateCourseComponent } from '../rate/rate-course/rate-course.component';
+import{ AuthGuard, StudentGuard, ProfessorGuard, CanUpdateCourseGuard } from '../../../../app/auth/auth_guard/auth.guard';
+import { ViewerCoursesComponent } from './viewer-courses/viewer-courses.component';
+import { CreatorCoursesComponent } from './creator-courses/creator-courses.component';
 
 const routes = [
   {
-    path  : 'courses', pathMatch: 'prefix',
-    component : CoursesComponent
+    path  : 'teacher/courses', pathMatch: 'prefix',
+    component : CreatorCoursesComponent,
+    canActivate: [AuthGuard, ProfessorGuard]
 
   },
   {
-    path  : 'course/create',
-    component : CourseComponent
+    path  : 'teacher/course/create',
+    component : CourseComponent,
+    canActivate: [AuthGuard,
+                  ProfessorGuard]
   },
   {
-      path     : 'course/edit/:course_id',
-      component: CourseComponent
+      path     : 'teacher/course/edit/:course_id',
+      component: CourseComponent,
+      canActivate: [AuthGuard,
+                    CanUpdateCourseGuard,
+                  ]
   },
   {
       path     : 'course/rate/:course_id',
-      component: RateCourseComponent
+      component: RateCourseComponent,
+      canActivate: [AuthGuard,
+                    StudentGuard,
+                  ]
+  },
+  { 
+     path     : 'teacher/courses/reload', 
+     redirectTo: 'courses'
+  },
+   {
+    path  : 'student/courses', pathMatch: 'prefix',
+    component : ViewerCoursesComponent,
+    canActivate: [AuthGuard,
+                  StudentGuard]
+
   },
 
 ]
@@ -42,8 +65,11 @@ const routes = [
   ],
   declarations: [
     CoursesComponent,
-    CourseComponent
+    CourseComponent,
+    ViewerCoursesComponent,
+    CreatorCoursesComponent
   ],
+  providers : [AuthGuard, StudentGuard, ProfessorGuard, CanUpdateCourseGuard],
   exports     :[
     CoursesComponent
   ]

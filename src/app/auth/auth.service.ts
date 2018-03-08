@@ -105,9 +105,7 @@ export class AuthService {
         email: user.email,
         displayName: user.displayName,
         photoURL: user.photoURL,
-        roles: {
-          professor: true
-        }
+        roles: user.roles
       };
 
       return userRef.set(data, { merge: true });
@@ -134,9 +132,7 @@ export class AuthService {
         email: this.emailUserModel.email,
         displayName: this.emailUserModel.name,
         photoURL: user.photoURL,
-        roles: {
-          professor: true
-        }
+        roles: user.roles
       };
 
       this.cleanModel();
