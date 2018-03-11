@@ -12,13 +12,15 @@ import { FuseConfigService } from './core/services/config.service';
 import { FuseNavigationService } from './core/components/navigation/navigation.service';
 import { GamesViewModule } from './main/content/games/games-view.module';
 import { CoursesViewModule } from './main/content/courses/courses-view.module';
-
+import { UserprofileModule } from './main/content/userprofile/userprofile.module';
 
 import { TranslateModule } from '@ngx-translate/core';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule, AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireStorageModule } from 'angularfire2/storage';
+
 import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
 import { environment } from '../environments/environment';
 
@@ -88,8 +90,10 @@ const appRoutes: Routes = [
         GamesViewModule,
         CoursesViewModule,
         UserLoginModule,
+        UserprofileModule,
         AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule,
+        AngularFireStorageModule,
         AngularFireAuthModule,
         MatNativeDateModule,
         ReactiveFormsModule,
