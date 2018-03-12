@@ -36,6 +36,8 @@ export class ViewGameComponentComponent implements OnInit {
   score: number;
   totalScore: number;
 
+  answer_array: number[];
+
 
 
   constructor(private formBuilder: FormBuilder,
@@ -152,6 +154,32 @@ export class ViewGameComponentComponent implements OnInit {
 
     const answerForm = JSON.parse(JSON.stringify(this.gameForm.value));
 
+    this.answer_array = new Array(numQuestions);
+
+    for (let i = 0; i < this.gameData.questions.length; i++)
+    {
+      const q: any = this.gameData.questions[i];
+      let count = 0;
+
+      for (let j = 0; j < q.answers.length; j++)
+      {
+        if (q.type === 'multiple_choice' && q.answers[j].isCorrect === true)
+        {
+          count++;
+        }
+        else
+        {
+          if (q.answers[j].isBlank === true)
+          {
+            count++;
+          }
+
+        }
+      }
+
+      this.answer_array[i] = count;
+    }
+
 
     for (let i = 0; i < this.gameData.questions.length; i++)
     {
@@ -159,27 +187,28 @@ export class ViewGameComponentComponent implements OnInit {
       const qForm: any = answerForm.questions[i];
 
 
+
       for (let j = 0; j < q.answers.length; j++){
 
         if (q.type === 'multiple_choice')
         {
+
           // if the answer is not the same as the one of the teacher
           if ( !(qForm.answers[j].isCorrect === q.answers[j].isCorrect))
           {
-            this.score = this.score - ( (this.totalScore / numQuestions) / q.answers.length);
+            this.score = this.score - ( (this.totalScore / numQuestions) / this.answer_array[i]);
           }
         }
         else{
-          if (q.answers[j].isBlank === true)
+
+          const typedAnswer = qForm.answers[j].name.toUpperCase();
+          const correctAnswer = q.answers[j].name.toUpperCase();
+          // if the answer is not the same as the one of the teacher
+          if ( !(typedAnswer === correctAnswer))
           {
-            const typedAnswer = qForm.answers[j].name.toUpperCase();
-            const correctAnswer = q.answers[j].name.toUpperCase();
-            // if the answer is not the same as the one of the teacher
-            if ( !(typedAnswer === correctAnswer))
-            {
-              this.score = this.score - ( (this.totalScore / numQuestions) / q.answers.length);
-            }
+            this.score = this.score - ( (this.totalScore / numQuestions) / this.answer_array[i]);
           }
+
         }
       }
     }
