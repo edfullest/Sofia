@@ -38,7 +38,7 @@
                 </button>
 
                 <mat-menu #userMenu="matMenu">
-                  <button mat-menu-item>
+                  <button mat-menu-item routerLink="/user/{{user.uid}}">
                     <mat-icon>account_circle</mat-icon>
                     <span>{{ 'TOOLBAR.PROFILE' | translate }}</span>
                   </button>
