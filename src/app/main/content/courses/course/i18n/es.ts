@@ -3,7 +3,7 @@ export const locale = {
   data: {
       'COURSES' : {
           'TITLE' : 'Mis Cursos',
-          'SLOGAN' : 'SIGUE COMPARTIENDO MÁS CONOCIMIENTO',
+          'SLOGAN' : 'Bienvenido, ',
           'CREATEBUTTON' : 'Crear Curso',
           'CATEGORTY_ALL' : 'Todos los Cursos',
           'TOOLTIP' : 'Editar/Eliminar',

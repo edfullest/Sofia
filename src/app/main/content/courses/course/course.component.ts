@@ -47,6 +47,7 @@ export class CourseComponent implements OnInit {
 // Parameters used to upload files
   selectedFiles: FileList;
   currentUpload: Upload;
+  hasBeenUploaded = false;
 
 
 // This references the whole collection
@@ -134,7 +135,6 @@ export class CourseComponent implements OnInit {
       }else{
         this.currentState = ComponentState.IsCreating;
       }
-
     }
 
     dataToModel(data: any){
@@ -151,8 +151,17 @@ export class CourseComponent implements OnInit {
       if (this.currentState === ComponentState.IsCreating){
         this.model.createdBy = this.userUID;
         this.model.author = this.author;
-        this.model.imageData.name = this.currentUpload.name;
-        this.model.imageData.url = this.currentUpload.url;
+
+        if (this.hasBeenUploaded){
+          this.model.imageData.name = this.currentUpload.name;
+          this.model.imageData.url = this.currentUpload.url;
+        }else{
+          this.model.imageData.name = 'default_course.jpg';
+          // tslint:disable-next-line:max-line-length
+          this.model.imageData.url = 'https://firebasestorage.googleapis.com/v0/b/sofia-97b65.appspot.com/o/uploads%2Fdefault_course.jpg?alt=media&token=d0a392b9-0198-41d1-b889-474a94d2e433';
+        }
+
+
         const data = this.model;
 
           this.courseCollectionFB.add(data);
@@ -163,9 +172,15 @@ export class CourseComponent implements OnInit {
       }else{
         if (this.currentState === ComponentState.IsEditing){
 
+          if (this.hasBeenUploaded){
             this.model.imageData.name = this.currentUpload.name;
             this.model.imageData.url = this.currentUpload.url;
-            const data = this.model;
+          }
+
+
+            console.log(this.model);
+
+            let data = this.model;
             this.courseCollectionFB.doc(this.courseID).set(data);
             this.snackBar.open('¡Se ha editado exitosamente el juego con éxito!', '', {
               duration: 2000,
@@ -185,7 +200,8 @@ export class CourseComponent implements OnInit {
     const file = this.selectedFiles.item(0);
     this.currentUpload = new Upload(file);
     this.upSvc.pushUpload(this.currentUpload);
-    console.log(this.currentUpload);
+    this.hasBeenUploaded = true;
+
   }
   
 

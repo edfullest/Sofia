@@ -24,12 +24,13 @@ import { AuthService } from '../../../auth/auth.service';
 
   export class CoursesComponent{
 
-    isCreator : boolean = false 
+
+    isCreator = false ;
     coursesCollection: AngularFirestoreCollection<any[]>;
     courses: Observable<any[]>;
     categoriesCollection: AngularFirestoreCollection<any[]>;
     categories: Observable<any[]>;
-    categorySelected = 'ALL';
+    categorySelected = 'All';
     
     constructor(public translationLoader: FuseTranslationLoaderService, 
                 public db: AngularFirestore, 

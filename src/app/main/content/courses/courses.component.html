@@ -1,145 +1,169 @@
-<div class="page-layout simple fullwidth" fusePerfectScrollbar>
+<div id="dashboard-project" class="page-layout simple right-sidenav" fxLayout="row">
 
-  <!-- HEADER -->
-  <div class="header mat-accent-bg p-24 h-160" fxLayout="column">
+    <mat-sidenav-container>
 
-    <div fxLayout="column" fxLayoutAlign="center center">
-      <h1> <img src="assets/icons/sofia/books.png" alt="sup" width="45" height="45" border="0">  {{ 'COURSES.SLOGAN' | translate }}</h1>
-    </div>
+        <!-- CENTER -->
+        <div class="center" fusePerfectScrollbar>
 
-    <div class="pl-16 pr-8 py-16 h-52" fxLayout="column" fxLayoutAlign="start start">
-      <!--<button *ngIf="auth.canCreate(user)" [routerLink]="['../course/create']" matTooltipPosition = "above" matTooltip="{{ 'COURSES.CREATEBUTTON' | translate }}" mat-icon-button>-->
-        <div *ngIf = "isCreator">
-          <button  [routerLink]="['../course/create']" matTooltipPosition = "above" matTooltip="{{ 'COURSES.CREATEBUTTON' | translate }}" mat-icon-button>
-            <mat-icon>add</mat-icon>
-          </button>
-        </div>
-    </div>
+            <!-- HEADER -->
+            <div class="header mat-accent-bg p-24 pb-0" fxLayout="column" fxLayoutAlign="space-between">
 
-  </div>
-  <!-- / HEADER -->
+                <div fxLayout="row" fxLayoutAlign="space-between start">
 
-  <!-- CONTENT -->
-  <div class="content">
-
-    <div>
-        <br>
-        <h1 fxLayoutAlign="center center">{{ 'COURSES.TITLE' | translate }}</h1>
-
-        <mat-form-field fxLayoutAlign="end end" fxLayoutGap="100px">
-            <mat-select placeholder= "{{ 'COURSES.SELECT_CATEGORY' | translate }}" [(value)]="categorySelected">
-              <mat-option value="ALL">{{'COURSES.CATEGORY_ALL' | translate}}</mat-option>
-              <mat-option *ngFor="let category of categories | async" [value]="category.name">
-                {{category.name}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-    </div>
+                    <span class="mat-display-1 mb-0 welcome-message" *fuseIfOnDom [@animate]="{value:'*',params:{x:'50px'}}">
+                      
+                       <img src="assets/icons/sofia/books.png" alt="sup" width="45" height="45" border="0"> {{ 'COURSES.SLOGAN' | translate }}
+                    </span>
 
 
-    <mat-tab-group dynamicHeight>
+                </div>
 
-      <mat-tab label="{{categorySelected}}">
+                <div fxLayout="row">
 
-        <div *ngFor="let course of courses | async" fxLayout="row" fxFlex="100" fxLayoutWrap>
-
-          <div class="widget-group p-12"   *fuseIfOnDom [@animateStagger]="{value: '50'}">
-
-            <fuse-widget *ngIf="(course.category == categorySelected) || categorySelected == 'ALL' " [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxLayout="column" fxFlex="100" fxFlex.gt-xs="300" fxFlex.gt-md="300">
-
-              <!-- Front -->
-              <div class="fuse-widget-front mat-white-bg mat-elevation-z1">
-
-
-
-                <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="end center">
-                    <!--button *ngIf="auth.canUpdate(user)" matTooltipPosition = "above" matTooltip="{{'COURSES.TOOLTIP' | translate }}" mat-icon-button fuseWidgetToggle aria-label="more" -->
                     <div *ngIf = "isCreator">
-                      <button matTooltipPosition = "above" matTooltip="{{'COURSES.TOOLTIP' | translate }}" mat-icon-button fuseWidgetToggle aria-label="more" >
-                        <mat-icon>more_vert</mat-icon>
-                      </button>
+                        <button  [routerLink]="['../course/create']" matTooltipPosition = "above" matTooltip="{{ 'COURSES.CREATEBUTTON' | translate }}" mat-icon-button>
+                          <mat-icon>add</mat-icon>
+                        </button>
                     </div>
+
+                    <div class="selected-project">{{categorySelected}}</div>
+
+                    <button mat-icon-button class="project-selector" [matMenuTriggerFor]="projectsMenu" aria-label="Select project">
+                        <mat-icon>more_horiz</mat-icon>
+                    </button>
+
+                    <mat-menu #projectsMenu="matMenu">
+
+                        <button mat-menu-item (click)="categorySelected = 'All'">
+                            <span>All</span>
+                        </button>
+                        <button mat-menu-item *ngFor="let category of categories | async" (click)="categorySelected = category.name">
+                            <span>{{category.name}}</span>
+                        </button>
+                    </mat-menu>
+
+
                 </div>
+            </div>
+            <!-- / HEADER -->
 
-                <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="center center">
-                    <span class="mat-subheading-2">{{course.name}}</span>
-                </div>
+            <!-- CONTENT -->
+            <div class="content">
 
-                <div class="pt-8 pb-32" fxLayout="column" fxLayoutAlign="center center">
-                  <button mat-fab (click)="redirectToGames(course.id)">
-                    <mat-icon class="mat-24" aria-label="Example icon-button with a heart icon">play_arrow</mat-icon>
-                  </button>
-                </div>
+                <mat-tab-group dynamicHeight>
 
-                <div class="p-16 grey-50-bg border-top" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="200px" fxLayoutAlign="center center">
+                    <mat-tab label="Home">
+                        <!-- WIDGET GROUP -->
 
-                  <div fxLayout="row" fxLayoutAlign="end end">
-                    <span class="h4 ml-8" matTooltipPosition = "above" matTooltip="{{ 'COURSES.TOOLTIP_DIFFICULTY' | translate }}" *ngIf="course.difficulty == '1'">
-                      <img src="assets/icons/sofia/difficulty_low.jpg" alt="sup" width="30" height="30" border="0">
-                    </span>
-                    <span class="h4 ml-8" matTooltipPosition = "above" matTooltip="{{ 'COURSES.TOOLTIP_DIFFICULTY' | translate }}" *ngIf="course.difficulty == '2'">
-                      <img src="assets/icons/sofia/difficulty_medium.jpg" alt="sup" width="30" height="30" border="0">
-                    </span>
-                    <span class="h4 ml-8" matTooltipPosition = "above" matTooltip="{{ 'COURSES.TOOLTIP_DIFFICULTY' | translate }}" *ngIf="course.difficulty == '3'">
-                      <img src="assets/icons/sofia/difficulty_high.jpg" alt="sup" width="30" height="30" border="0">
-                    </span>
-                  </div>
-                    <span class="h4 ml-8">${{course.price}}</span>
-                </div>
+                        <div class="widget-group p-12" fxLayout="row" fxFlex="100" fxLayoutWrap *fuseIfOnDom [@animateStagger]="{value:'50'}">
 
-                <div fxLayout="column" fxLayoutGap="20px">
+                            <ng-container *ngFor="let course of courses | async">
+                              <fuse-widget *ngIf="(course.category == categorySelected) || categorySelected == 'All' "   [@animate]="{value:'*',params:{y:'100%'}}"  class="widget" fxLayout="column" fxFlex="100" fxFlex.gt-sm="50">
 
-                  <div fxLayout="row" fxLayoutAlign="start start" >
-                    <span class="mat-body-2" style="margin-left: 10px">{{course.author}}</span>
-                  </div>
-                  <div fxLayout="row" fxLayoutAlign="end start">
-                    <span class="h4 ml-8"> <mat-icon>thumb_up_outline</mat-icon> {{course.rating.positive}} </span>
-                    <span class="h4 ml-8"> <mat-icon>thumb_down_outline</mat-icon> {{course.rating.negative}} </span>
-                    <br>
-                  </div>
-                </div>
-                <div *ngIf="!course.isRatedByUser && !isCreator" fxLayout="row" style="width: 100%" fxLayoutAlign="center center" >
-                    <button mat-button fxFlex="100%" [routerLink]="['../course/rate/', course.id]">Rate it ⭐️</button>
-                </div>
-              </div>
-              <!-- / Front -->
+                                  <!-- Front -->
+                                  <div class="fuse-widget-front mat-white-bg mat-elevation-z2">
+
+                                      <div class="px-16 border-bottom" fxLayout="row" fxLayoutAlign="space-between center">
+                                          
+                                      </div>
+
+                                      <div class="h-400 media" >
 
 
-              <!-- Back -->
-              <div class="fuse-widget-back p-16 pt-32 mat-white-bg mat-elevation-z2">
-                <button mat-icon-button fuseWidgetToggle class="fuse-widget-flip-button" aria-label="Flip widget">
-                  <mat-icon class="s-16">close</mat-icon>
-                </button>
+                                          <img [src] = "course.imageData.url">
 
-                <div class="button-row" fxLayoutAlign="center center">
 
-                  <button mat-raised-button  class="cardColors"  [routerLink]="['../course/edit/', course.id]">
-                    <mat-icon>mode_edit</mat-icon>
-                      {{'COURSES.EDITBUTTON' | translate }}
-                  </button>
-                </div>
+                                      </div>
 
-                <br>
-                <div class="button-row" fxLayoutAlign="center center">
-                  <button mat-raised-button color="warn" (click) = "deleteCourse(course.id)">
-                    <mat-icon >delete_forever</mat-icon>
-                      {{'COURSES.DELETEBUTTON' | translate }}
-                  </button>
-                </div>
-              </div>
-              <!-- / Back -->
+                                      <div class="py-8 mh-16 border-top info-bar" fxLayout="row" fxLayoutAlign="center center" fxLayoutWrap>
+                                          <div class="py-8 border-right" fxLayout="column" fxLayoutAlign="center center" fxFlex="100">
+                                              <span class="mat-display-1 mb-0">{{course.name}}</span>
+                                              <span class="h4">By: {{course.author}}</span>
 
-              </fuse-widget>
+                                              <button mat-button  class="cardColors m-12"  (click)="redirectToGames(course.id)">
+                                                  <mat-icon class="mat-24">play_arrow</mat-icon> Start
+                                              </button>
+                                          </div>
+                                      </div>
 
-          </div>
+                                      <div class="py-8 mh-8 border-top info-bar" fxLayout="row" fxLayoutAlign="center center" fxLayoutWrap>
+                                          <div class="py-8 border-right" fxLayout="column" fxLayoutAlign="center center" fxFlex="100" fxFlex.gt-sm="50">
+                                              <span class="h4 ml-8"> <mat-icon>thumb_up_outline</mat-icon> {{course.rating.positive}} </span>
+                                              <span class="h4 ml-8"> <mat-icon>thumb_down_outline</mat-icon> {{course.rating.negative}} </span>
+                                          </div>
+
+                                          <div class="py-8 border-right" fxLayout="column" fxLayoutAlign="center center" fxFlex="100" fxFlex.gt-sm="50">
+                                              <div *ngIf="!course.isRatedByUser && !isCreator" fxLayout="row" style="width: 100%" fxLayoutAlign="center center" >
+                                                  <button mat-button fxFlex="100%" [routerLink]="['../course/rate/', course.id]">Rate it ⭐️</button>
+                                              </div>
+
+                                              <div *ngIf="isCreator" fxLayout="row" style="width: 100%" fxLayoutAlign="center center" >
+                                                  
+
+                                                  <button mat-raised-button  class="cardColors m-12"  [routerLink]="['../course/edit/', course.id]">
+                                                    <mat-icon>mode_edit</mat-icon>
+                                                      {{'COURSES.EDITBUTTON' | translate }}
+                                                  </button>
+
+                                                  <button mat-raised-button color="warn" (click) = "deleteCourse(course.id)">
+                                                      <mat-icon >delete_forever</mat-icon>
+                                                        {{'COURSES.DELETEBUTTON' | translate }}
+                                                  </button>
+
+                                              </div>
+                                              
+                                          </div>
+                                      </div>
+
+                                  </div>
+                                  <!-- / Front -->
+
+                              </fuse-widget>
+                            </ng-container>
+
+
+  
+                        </div>
+                        
+                        <!-- / WIDGET GROUP -->
+                    </mat-tab>
+
+
+  
+                </mat-tab-group>
+
+            </div>
+            <!-- / CONTENT -->
 
         </div>
+        <!-- / CENTER -->
 
-      </mat-tab>
+        <!-- SIDENAV -->
 
-    </mat-tab-group>
+        <div *ngIf="!isCreator" >
+        <mat-sidenav class="sidenav" align="start" mode="side" opened="true" fuseMatSidenavHelper="dashboards-left-sidenav" mat-is-locked-open="gt-md">
 
-  </div>
-  <!-- / CONTENT -->
+            <div class="sidenav-content" fusePerfectScrollbar>
+
+                <!-- WIDGET GROUP -->
+                <div class="widget-group" fxLayout="column" fxFlex="100" *fuseIfOnDom [@animateStagger]="{value:'50'}">
+
+                    <!-- NOW WIDGET -->
+                    <fuse-widget [@animate]="{value:'*',params:{y:'100%'}}" class="sidenav-widget p-0">
+
+                       
+                    </fuse-widget>
+                    <!-- / NOW WIDGET -->
+                   
+                </div>
+                <!-- / WIDGET GROUP -->
+            </div>
+
+        </mat-sidenav>
+        </div>
+        <!-- / SIDENAV -->
+
+
+    </mat-sidenav-container>
 
 </div>
