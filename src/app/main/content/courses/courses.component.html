@@ -8,23 +8,37 @@
             <!-- HEADER -->
             <div class="header mat-accent-bg p-24 pb-0" fxLayout="column" fxLayoutAlign="space-between">
 
-                <div fxLayout="row" fxLayoutAlign="space-between start">
+                <div fxLayout="row" fxLayoutAlign="center center">
 
                     <span class="mat-display-1 mb-0 welcome-message" *fuseIfOnDom [@animate]="{value:'*',params:{x:'50px'}}">
                       
                        <img src="assets/icons/sofia/books.png" alt="sup" width="45" height="45" border="0"> {{ 'COURSES.SLOGAN' | translate }}
                     </span>
 
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="end center">
+
+                    <!-- SEARCH -->
+                    <div class="search-input-wrapper mt-16 ml-8 m-sm-0" fxLayout="row" fxLayoutAlign="start center">
+                        <label for="search" class="mr-8">
+                            <mat-icon>search</mat-icon>
+                        </label>
+                        <mat-form-field mat-no-float class="m-0" floatPlaceholder="never">
+                            <input matInput  id="search" placeholder="Search for anything" [(ngModel)]="searchBarInput" [ngModelOptions]="{standalone: true}">
+                        </mat-form-field>
+                    </div>
+                    <!-- / SEARCH -->
 
                 </div>
 
                 <div fxLayout="row">
 
-                    <div *ngIf = "isCreator">
-                        <button  [routerLink]="['../course/create']" matTooltipPosition = "above" matTooltip="{{ 'COURSES.CREATEBUTTON' | translate }}" mat-icon-button>
-                          <mat-icon>add</mat-icon>
-                        </button>
-                    </div>
+ 
+                      <button *ngIf = "isCreator" class="project-selector"  [routerLink]="['../course/create']" matTooltipPosition = "above" matTooltip="{{ 'COURSES.CREATEBUTTON' | translate }}" mat-icon-button>
+                        <mat-icon>add</mat-icon>
+                      </button>
+
 
                     <div class="selected-project">{{categorySelected}}</div>
 
@@ -42,7 +56,6 @@
                         </button>
                     </mat-menu>
 
-
                 </div>
             </div>
             <!-- / HEADER -->
@@ -52,73 +65,76 @@
 
                 <mat-tab-group dynamicHeight>
 
-                    <mat-tab label="Home">
+                    <mat-tab label = "Home">
                         <!-- WIDGET GROUP -->
 
                         <div class="widget-group p-12" fxLayout="row" fxFlex="100" fxLayoutWrap *fuseIfOnDom [@animateStagger]="{value:'50'}">
 
                             <ng-container *ngFor="let course of courses | async">
-                              <fuse-widget *ngIf="(course.category == categorySelected) || categorySelected == 'All' "   [@animate]="{value:'*',params:{y:'100%'}}"  class="widget" fxLayout="column" fxFlex="100" fxFlex.gt-sm="50">
+                              <ng-container *ngIf="(course.category == categorySelected) || categorySelected == 'All' "  >
+                                
+                                <fuse-widget  *ngIf="testInput(course.name)"  [@animate]="{value:'*',params:{y:'100%'}}"  class="widget" fxLayout="column" fxFlex="100" fxFlex.gt-sm="50">
 
-                                  <!-- Front -->
-                                  <div class="fuse-widget-front mat-white-bg mat-elevation-z2">
+                                    <!-- Front -->
+                                    <div class="fuse-widget-front mat-white-bg mat-elevation-z2">
 
-                                      <div class="px-16 border-bottom" fxLayout="row" fxLayoutAlign="space-between center">
-                                          
-                                      </div>
+                                        <div class="px-16 border-bottom" fxLayout="row" fxLayoutAlign="space-between center">
+                                            
+                                        </div>
 
-                                      <div class="h-400 media" >
-
-
-                                          <img [src] = "course.imageData.url">
+                                        <div class="h-400 media" >
 
 
-                                      </div>
+                                            <img [src] = "course.imageData.url">
 
-                                      <div class="py-8 mh-16 border-top info-bar" fxLayout="row" fxLayoutAlign="center center" fxLayoutWrap>
-                                          <div class="py-8 border-right" fxLayout="column" fxLayoutAlign="center center" fxFlex="100">
-                                              <span class="mat-display-1 mb-0">{{course.name}}</span>
-                                              <span class="h4">By: {{course.author}}</span>
 
-                                              <button mat-button  class="cardColors m-12"  (click)="redirectToGames(course.id)">
-                                                  <mat-icon class="mat-24">play_arrow</mat-icon> Start
-                                              </button>
-                                          </div>
-                                      </div>
+                                        </div>
 
-                                      <div class="py-8 mh-8 border-top info-bar" fxLayout="row" fxLayoutAlign="center center" fxLayoutWrap>
-                                          <div class="py-8 border-right" fxLayout="column" fxLayoutAlign="center center" fxFlex="100" fxFlex.gt-sm="50">
-                                              <span class="h4 ml-8"> <mat-icon>thumb_up_outline</mat-icon> {{course.rating.positive}} </span>
-                                              <span class="h4 ml-8"> <mat-icon>thumb_down_outline</mat-icon> {{course.rating.negative}} </span>
-                                          </div>
+                                        <div class="py-8 mh-16 border-top info-bar" fxLayout="row" fxLayoutAlign="center center" fxLayoutWrap>
+                                            <div class="py-8 border-right" fxLayout="column" fxLayoutAlign="center center" fxFlex="100">
+                                                <span class="mat-display-1 mb-0">{{course.name}}</span>
+                                                <span class="h4">By: {{course.author}}</span>
 
-                                          <div class="py-8 border-right" fxLayout="column" fxLayoutAlign="center center" fxFlex="100" fxFlex.gt-sm="50">
-                                              <div *ngIf="!course.isRatedByUser && !isCreator" fxLayout="row" style="width: 100%" fxLayoutAlign="center center" >
-                                                  <button mat-button fxFlex="100%" [routerLink]="['../course/rate/', course.id]">Rate it ⭐️</button>
-                                              </div>
+                                                <button mat-button  class="cardColors m-12"  (click)="redirectToGames(course.id)">
+                                                    <mat-icon class="mat-24">play_arrow</mat-icon> Start
+                                                </button>
+                                            </div>
+                                        </div>
 
-                                              <div *ngIf="isCreator" fxLayout="row" style="width: 100%" fxLayoutAlign="center center" >
-                                                  
+                                        <div class="py-8 mh-8 border-top info-bar" fxLayout="row" fxLayoutAlign="center center" fxLayoutWrap>
+                                            <div class="py-8 border-right" fxLayout="column" fxLayoutAlign="center center" fxFlex="100" fxFlex.gt-sm="50">
+                                                <span class="h4 ml-8"> <mat-icon>thumb_up_outline</mat-icon> {{course.rating.positive}} </span>
+                                                <span class="h4 ml-8"> <mat-icon>thumb_down_outline</mat-icon> {{course.rating.negative}} </span>
+                                            </div>
 
-                                                  <button mat-raised-button  class="cardColors m-12"  [routerLink]="['../course/edit/', course.id]">
-                                                    <mat-icon>mode_edit</mat-icon>
-                                                      {{'COURSES.EDITBUTTON' | translate }}
-                                                  </button>
+                                            <div class="py-8 border-right" fxLayout="column" fxLayoutAlign="center center" fxFlex="100" fxFlex.gt-sm="50">
+                                                <div *ngIf="!course.isRatedByUser && !isCreator" fxLayout="row" style="width: 100%" fxLayoutAlign="center center" >
+                                                    <button mat-button fxFlex="100%" [routerLink]="['../course/rate/', course.id]">Rate it ⭐️</button>
+                                                </div>
 
-                                                  <button mat-raised-button color="warn" (click) = "deleteCourse(course.id)">
-                                                      <mat-icon >delete_forever</mat-icon>
-                                                        {{'COURSES.DELETEBUTTON' | translate }}
-                                                  </button>
+                                                <div *ngIf="isCreator" fxLayout="row" style="width: 100%" fxLayoutAlign="center center" >
+                                                    
 
-                                              </div>
-                                              
-                                          </div>
-                                      </div>
+                                                    <button mat-raised-button  class="cardColors m-12"  [routerLink]="['../course/edit/', course.id]">
+                                                      <mat-icon>mode_edit</mat-icon>
+                                                        {{'COURSES.EDITBUTTON' | translate }}
+                                                    </button>
 
-                                  </div>
-                                  <!-- / Front -->
+                                                    <button mat-raised-button color="warn" (click) = "deleteCourse(course.id)">
+                                                        <mat-icon >delete_forever</mat-icon>
+                                                          {{'COURSES.DELETEBUTTON' | translate }}
+                                                    </button>
 
-                              </fuse-widget>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- / Front -->
+
+                                </fuse-widget>
+                              </ng-container>
                             </ng-container>
 
 
@@ -132,38 +148,20 @@
   
                 </mat-tab-group>
 
+                
+
             </div>
             <!-- / CONTENT -->
+
 
         </div>
         <!-- / CENTER -->
 
-        <!-- SIDENAV -->
-
-        <div *ngIf="!isCreator" >
-        <mat-sidenav class="sidenav" align="start" mode="side" opened="true" fuseMatSidenavHelper="dashboards-left-sidenav" mat-is-locked-open="gt-md">
-
-            <div class="sidenav-content" fusePerfectScrollbar>
-
-                <!-- WIDGET GROUP -->
-                <div class="widget-group" fxLayout="column" fxFlex="100" *fuseIfOnDom [@animateStagger]="{value:'50'}">
-
-                    <!-- NOW WIDGET -->
-                    <fuse-widget [@animate]="{value:'*',params:{y:'100%'}}" class="sidenav-widget p-0">
-
-                       
-                    </fuse-widget>
-                    <!-- / NOW WIDGET -->
-                   
-                </div>
-                <!-- / WIDGET GROUP -->
-            </div>
-
-        </mat-sidenav>
-        </div>
-        <!-- / SIDENAV -->
-
 
     </mat-sidenav-container>
 
+
+
 </div>
+
+
