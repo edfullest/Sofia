@@ -1,91 +1,156 @@
 <div *ngIf = "!isRateViewActive" class="page-layout blank grey-100-bg ps ps--active-y" fuseperfectscrollbar>
     <mat-card class="viewGameCard">
+      <!-- <HEADER> -->
       <mat-card-header [style.backgroundColor]="'orange'" [style.color]="'white'" >
         <mat-card-title>
           <div class="layout-row layout-align-end-start">
-            <h1>{{gameData.name}}</h1>
+            <h1>{{gameData?.name}}</h1>
           </div>
         </mat-card-title>
       </mat-card-header>
+      <!-- </HEADER> -->
+
+      <!-- <CONTENT> -->
       <mat-card-content style="padding: 40px;">
-          <form [formGroup]="gameForm">
-            <mat-horizontal-stepper formArrayName="questions">
-              <mat-step *ngFor = "let q of gameData.questions; let i= index" [stepControl]="q">
-                
-                <div *ngIf="q.type == 'multiple_choice'; else fillBlankAnswer" > 
-                    <h2>{{q.question}}</h2>
-                    <mat-grid-list cols="2" rowHeight="400px">
-                      <mat-grid-tile *ngFor = "let ans of q.answers">
-                        <mat-card class="question-card">
-                          <mat-card-content>
-                            <p>{{ans.answer}}</p>
-                          </mat-card-content>
-                          <mat-card-actions>
-                            <mat-checkbox align="end"></mat-checkbox>
-                          </mat-card-actions>
-                        </mat-card>
-                      </mat-grid-tile>
-                    </mat-grid-list>
-                  </div>
+
+        <form [formGroup]="gameForm"  (ngSubmit)="onSubmit()">
+
+          <mat-horizontal-stepper #stepper="matHorizontalStepper" linear>
+
+            <div *ngFor = "let q of gameData?.questions; let i = index">
+
+              <mat-step [stepControl]="q" formArrayName="questions">
+
+
+                <div [formGroupName]="i">
+                <div *ngIf="q.type == 'multiple_choice'; else fillBlankAnswer" >
+
+                  <h2>{{q.question}}</h2>
+                  <mat-grid-list cols="2" rowHeight="200px" formArrayName="answers" >
+                    <mat-grid-tile *ngFor = "let ans of q.answers; let j = index" [formGroupName]="j">
+
+                      <mat-card class="question-card">
+                        <mat-card-content>
+                          <p>{{ans.answer}}</p>
+                        </mat-card-content>
+                        <mat-card-actions>
+                          <mat-checkbox formControlName="isCorrect"  align="end"></mat-checkbox>
+                        </mat-card-actions>
+                      </mat-card>
+                    </mat-grid-tile>
+                  </mat-grid-list>
+                </div>
 
                   <ng-template #fillBlankAnswer>
-                      <form >
-                        <div *ngFor = "let ans of q.answers; let j = index" >
-                            <mat-card *ngIf = "ans.isBlank == false; else blankAnswer"> {{ans.name}} </mat-card>
-                            <ng-template #blankAnswer>
-                                <mat-card>
-    
-                                        <mat-form-field class="full-width">
-                                          <input matInput [placeholder] = "j">
-                                        </mat-form-field>
 
+                    <div  formArrayName="answers" >
+                      <div *ngFor = "let ans of q.answers; let j = index" [formGroupName]="j" >
 
-                                  </mat-card>
-                            </ng-template>
-                        </div>
-                    </form>
+                        <mat-card *ngIf = "ans.isBlank == false; else blankAnswer"> {{ans.name}} </mat-card>
+                        <ng-template #blankAnswer>
+                          <mat-card>
+                            <mat-form-field class="full-width">
+                              <input formControlName="name" matInput data-placeholder = "{{'GAME.PLACEHOLDER_ANS' | translate}}">
+                            </mat-form-field>
+                          </mat-card>
+                        </ng-template>
+                      </div>
+                    </div>
 
                   </ng-template>
 
-                  <div>
-                      <button *ngIf="i >= 1" mat-button matStepperPrevious type="button"><img src="assets/icons/sofia/left_nav.png" alt="sup" width="30" height="30" border="0"></button>
-                      <button *ngIf="i < gameData.questions.length - 1" mat-button matStepperNext type="button"><img src="assets/icons/sofia/right_nav.png" alt="sup" width="30" height="30" border="0"></button>
+                </div>
 
-                    </div>
-                    <div *ngIf = "i == gameData.questions.length - 1">
-                      <button class="mat-raised-button mat-accent" color="accent" mat-raised-button="" (click)="isRateViewActive = true">
-                        <span class="mat-button-wrapper">
-                            Enviar
-                        </span><div class="mat-button-ripple mat-ripple" matripple=""></div><div class="mat-button-focus-overlay"></div>
-                      </button>
-                    </div>
+                <div>
+                  <button *ngIf="i >= 1" mat-button matStepperPrevious type="button"><img src="assets/icons/sofia/left_nav.png" alt="sup" width="30" height="30" border="0"></button>
+                  <button mat-button matStepperNext type="button"  *ngIf="i < gameData?.questions.length - 1" ><img src="assets/icons/sofia/right_nav.png" alt="sup" width="30" height="30" border="0"></button>
+                </div>
+
+                <div *ngIf = "i == gameData?.questions.length - 1">
+                  <button class="mat-raised-button mat-accent" type="submit" color="accent" mat-raised-button="">
+                    <span class="mat-button-wrapper">{{'GAME.SUBMITBUTTON' | translate}}</span>
+                    <div class="mat-button-ripple mat-ripple" matripple=""></div><div class="mat-button-focus-overlay"></div>
+                  </button>
+                </div>
+
+
               </mat-step>
-            </mat-horizontal-stepper>
-          </form>
 
+            </div>
+
+          </mat-horizontal-stepper>
+
+        </form>
 
       </mat-card-content>
+      <!-- </CONTENT> -->
     </mat-card>
 </div>
+
+<!-- <RATING + SCORE TEMPLATE> -->
 <div *ngIf = "isRateViewActive" class="page-layout blank grey-100-bg ps ps--active-y" fuseperfectscrollbar>
     <mat-card class="viewGameCard">
+
       <mat-card-header [style.backgroundColor]="'#039be5'" [style.color]="'white'" >
         <mat-card-title>
-            <div class="layout-row layout-align-end-start">
-            <h1>You did it! 🎉</h1>
+          <div class="layout-row layout-align-end-start">
+            <h1>{{'GAME.END_MSG' | translate}} 🎉</h1>
           </div>
         </mat-card-title>
       </mat-card-header>
+
       <mat-card-content style="padding: 40px;">
-          <h2>You got this score:</h2>
+        <h2>{{'GAME.SCORE_MSG' | translate}} {{score}}</h2>
 
-          <rate-game [document]="gameDoc" returnURL="{{'courses/'.concat(courseID,'/games')}}"></rate-game>
+        <h3>{{ 'GAME.FEEDBACK' | translate}}</h3>
 
+        <mat-grid-list cols="1" rowHeight="150px" >
+            <div *ngFor = "let q of gameData?.questions; let i = index">
+              <h4>{{ 'GAME.QUESTION' | translate }} {{i+1}}</h4>
+              <div *ngIf="q.type == 'multiple_choice'; else fillBlankFeedback" >
+                  <mat-card>
+                    {{q.question}}
+                    <div *ngFor = "let ans of q.answers; let j = index">
+                      <div *ngIf="ans.isCorrect == true">
+                        <b>{{ans.answer}}</b>
+                      </div>
+                    </div>
+                  </mat-card>
+              </div>
 
+              <ng-template #fillBlankFeedback>
+                <mat-card>
+                    <div *ngFor = "let ans of q.answers; let j = index">
 
+                        <div *ngIf="ans.isBlank == true; else textFeedback">
+                          <b>{{ans.name}}</b>
+                        </div>
 
+                        <ng-template #textFeedback>
+                          {{ans.name}}
+                        </ng-template>
+                    </div>
+                </mat-card>
 
+              </ng-template>
+
+            </div>
+
+            <div>
+              <rate-game [document]="gameDoc"></rate-game>
+
+              <div class="exitButton">
+                  <button class="mat-raised-button mat-accent" (click)="redirectToGames()" color="accent" mat-raised-button="">
+                      <span class="mat-button-wrapper">{{'GAME.EXIT' | translate}}</span>
+                      <div class="mat-button-ripple mat-ripple" matripple=""></div><div class="mat-button-focus-overlay"></div>
+                  </button>
+              </div>
+            </div>
+
+        </mat-grid-list>
 
       </mat-card-content>
+
     </mat-card>
 </div>
+<!-- </RATING + SCORE TEMPLATE> -->

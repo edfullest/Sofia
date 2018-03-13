@@ -5,6 +5,7 @@ export interface GameData{
   name?: string;
   questions: [
     {
+      type: string,
       question: string;
       answers: [
         {

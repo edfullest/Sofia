@@ -18,7 +18,7 @@
           <mat-horizontal-stepper [linear]="isLinear" #stepper="matHorizontalStepper">
             <mat-step [stepControl]="firstFormGroup">
 
-                <ng-template matStepLabel>Select a Category</ng-template>
+                <ng-template matStepLabel>{{'COURSES.SELECT_CATEGORY' | translate}}</ng-template>
 
                 <fuse-widget *ngFor="let category of categories | async" [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxLayout="column" fxFlex="200" fxFlex.gt-xs="500" fxFlex.gt-md="500">
 
@@ -43,35 +43,35 @@
             </mat-step>
             <mat-step [stepControl]="secondFormGroup" fxLayoutAlign="center center">
               <form>
-                <ng-template matStepLabel>Fill out Your Course Information</ng-template>
+                <ng-template matStepLabel>{{'COURSES.FILL_COURSE_INFO' | translate}}</ng-template>
 
                 <mat-form-field class="form-component-full-width">
-                   <input matInput placeholder="Course Title" [(ngModel)]="model.name" [ngModelOptions]="{standalone: true}">
+                   <input matInput placeholder="{{'COURSES.COURSE_TITLE' | translate}}" [(ngModel)]="model.name" [ngModelOptions]="{standalone: true}">
                 </mat-form-field>
 
                 <mat-form-field class="form-component-full-width">
-                 <textarea matInput placeholder="Course Description">{{model.description}}</textarea>
+                 <textarea matInput placeholder="{{'COURSES.COURSE_DESCRIPTION' | translate}}">{{model.description}}</textarea>
                </mat-form-field>
 
                <mat-form-field class="form-component-half-width">
-                  <input matInput placeholder="Course Length"type = "number" min="0" [(ngModel)]="model.timeEstimate.time" [ngModelOptions]="{standalone: true}">
+                  <input matInput placeholder="{{'COURSES.COURSE_LENGTH' | translate}}" type = "number" min="0" [(ngModel)]="model.timeEstimate.time" [ngModelOptions]="{standalone: true}">
                </mat-form-field>
 
                <mat-form-field class="form-component-half-width">
-                       <mat-select placeholder="Time Unit" [(ngModel)]="model.timeEstimate.scale" [ngModelOptions]="{standalone: true}">
-                           <mat-option value="meses">Meses</mat-option>
-                           <mat-option value="dias">Días</mat-option>
+                       <mat-select placeholder="{{'COURSES.TIME_UNIT' | translate}}" [(ngModel)]="model.timeEstimate.scale" [ngModelOptions]="{standalone: true}">
+                           <mat-option value="meses">{{'COURSES.MONTHS' | translate}}</mat-option>
+                           <mat-option value="dias">{{'COURSES.DAYS' | translate}}</mat-option>
                        </mat-select>
                </mat-form-field>
                <mat-form-field class="form-component-half-width">
-                       <mat-select placeholder="Course Difficulty" [(ngModel)]="model.difficulty" [ngModelOptions]="{standalone: true}">
-                           <mat-option value= "1">Easy</mat-option>
-                           <mat-option value= "2"  >Medium</mat-option>
-                           <mat-option value= "3" >Hard</mat-option>
+                       <mat-select placeholder="{{'COURSES.COURSE_DIFF' | translate}}" [(ngModel)]="model.difficulty" [ngModelOptions]="{standalone: true}">
+                           <mat-option value= "1">{{'COURSES.EASY' | translate}}</mat-option>
+                           <mat-option value= "2"  >{{'COURSES.MEDIUM' | translate}}</mat-option>
+                           <mat-option value= "3" >{{'COURSES.HARD' | translate}}</mat-option>
                        </mat-select>
                </mat-form-field>
                <mat-form-field class="form-component-half-width">
-                  <input matInput placeholder="Course Price" [(ngModel)]="model.price" [ngModelOptions]="{standalone: true}">
+                  <input matInput placeholder="{{'COURSES.COURSE_PRICE' | translate}}" [(ngModel)]="model.price" [ngModelOptions]="{standalone: true}">
                </mat-form-field>
 
 
@@ -79,8 +79,8 @@
 
 
                 <div>
-                  <button mat-button matStepperPrevious>Back</button>
-                  <button mat-button matStepperNext (click)="onSubmit()">Save</button>
+                  <button mat-button matStepperPrevious>{{'COURSES.BACK_BUTTON' | translate}}</button>
+                  <button mat-button matStepperNext (click)="onSubmit()">{{'COURSES.SAVE_BUTTON' | translate}}</button>
                 </div>
               </form>
             </mat-step>
