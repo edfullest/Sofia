@@ -8,7 +8,7 @@ import { FuseWidgetModule } from '../../../core/components/widget/widget.module'
 import { GamesViewComponent } from '../games/games-view.component';
 import { RateModule } from '../rate/rate.module';
 import { RateCourseComponent } from '../rate/rate-course/rate-course.component';
-import{ AuthGuard, StudentGuard, ProfessorGuard, CanUpdateCourseGuard } from '../../../../app/auth/auth_guard/auth.guard';
+import { AuthGuard, StudentGuard, ProfessorGuard, CanUpdateCourseGuard } from '../../../../app/auth/auth_guard/auth.guard';
 import { ViewerCoursesComponent } from './viewer-courses/viewer-courses.component';
 import { CreatorCoursesComponent } from './creator-courses/creator-courses.component';
 
@@ -51,7 +51,7 @@ const routes = [
 
   },
 
-]
+];
 
 
 @NgModule({

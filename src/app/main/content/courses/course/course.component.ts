@@ -1,5 +1,5 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import {I18nSelectPipe} from '@angular/common'
+import {I18nSelectPipe} from '@angular/common' ;
 import { FuseTranslationLoaderService } from '../../../../core/services/translation-loader.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
@@ -8,10 +8,15 @@ import {MatSnackBar} from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../../../../auth/auth.service';
 
-//routing
+import { UploadService } from './shared/upload.service';
+import { Upload } from './shared/upload';
+import * as _ from 'lodash';
+
+
+// routing
 import { ActivatedRoute, Router } from '@angular/router';
 
-//firestore
+// firestore
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 
 
@@ -22,12 +27,13 @@ import { locale as spanish } from './i18n/es';
 enum ComponentState {IsEditing, IsCreating}
 
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: 'app-course',
   templateUrl: './course.component.html',
   styleUrls: ['./course.component.scss'],
   animations   : fuseAnimations,
   providers: [
-  // {provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: myCustomTooltipDefaults}
+    UploadService
     ]
 })
 export class CourseComponent implements OnInit {
@@ -36,33 +42,38 @@ export class CourseComponent implements OnInit {
   isLinear = false;
 
   public ComponentState = ComponentState;
-  public currentState : ComponentState = ComponentState.IsCreating;
+  public currentState: ComponentState = ComponentState.IsCreating;
 
-//This references the whole collection
+// Parameters used to upload files
+  selectedFiles: FileList;
+  currentUpload: Upload;
+
+
+// This references the whole collection
   courseCollectionFB:  AngularFirestoreCollection<any> = this.db.collection('courses');
 
-//This references the document itself
-  currentCourseFB : AngularFirestoreDocument<any>;
+// This references the document itself
+  currentCourseFB: AngularFirestoreDocument<any>;
 
-  //Couse variables
-  courseID : string;
-  userUID : string;
-  author : string;
+  // Couse variables
+  courseID: string;
+  userUID: string;
+  author: string;
 
 
   model = {
-    author:"",
-    category: "",
-    description: "",
+    author: '',
+    category: '',
+    description: '',
     difficulty: 1,
-    name: "",
-    price: "",
+    name: '',
+    price: '',
     rating: {
       negative: 0,
       positive: 0
     },
     timeEstimate: {
-      scale : "",
+      scale : '',
       time: 0
     },
     usersThatRated: {
@@ -71,12 +82,16 @@ export class CourseComponent implements OnInit {
     students: {
 
     },
-    createdBy: ''
+    createdBy: '',
+    imageData: {
+        url: '',
+        name: ''
+    }
 
   };
 
 
-  //Course definition variables
+  // Course definition variables
 
     category: string;
 
@@ -87,6 +102,7 @@ export class CourseComponent implements OnInit {
               private db: AngularFirestore,
               private route: ActivatedRoute,
               private router: Router,
+              private upSvc: UploadService,
               public snackBar: MatSnackBar,
               public auth: AuthService) {
 
@@ -94,8 +110,8 @@ export class CourseComponent implements OnInit {
 
     this.categories = this.db.collection('categories').valueChanges();
     this.auth.user.subscribe(userData => {
-      this.userUID = userData.uid
-      this.author = userData.displayName
+      this.userUID = userData.uid;
+      this.author = userData.displayName;
     });
 
   }
@@ -106,13 +122,13 @@ export class CourseComponent implements OnInit {
           this.currentState = ComponentState.IsEditing;
 
           this.route.params.subscribe(params => {
-              this.courseID = params["course_id"]
+              this.courseID = params['course_id'];
               this.currentCourseFB = this.db.collection('courses').doc(this.courseID);
               const doc: Observable<any> = this.currentCourseFB.valueChanges();
 
               doc.subscribe(data => {
                 this.dataToModel(data);
-              })
+              });
 
            });
       }else{
@@ -132,30 +148,46 @@ export class CourseComponent implements OnInit {
 
 
     onSubmit(){
-      if (this.currentState == ComponentState.IsCreating){
-        this.model.createdBy = this.userUID
-        this.model.author = this.author
-        let data = this.model;
+      if (this.currentState === ComponentState.IsCreating){
+        this.model.createdBy = this.userUID;
+        this.model.author = this.author;
+        this.model.imageData.name = this.currentUpload.name;
+        this.model.imageData.url = this.currentUpload.url;
+        const data = this.model;
 
           this.courseCollectionFB.add(data);
-          this.snackBar.open("¡Se ha creado el juego con éxito!",'',{
+          this.snackBar.open('¡Se ha creado el juego con éxito!', '', {
             duration: 2000,
-            verticalPosition:'top'
+            verticalPosition: 'top'
           });
       }else{
-        if(this.currentState == ComponentState.IsEditing){
+        if (this.currentState === ComponentState.IsEditing){
 
-            let data = this.model;
+            this.model.imageData.name = this.currentUpload.name;
+            this.model.imageData.url = this.currentUpload.url;
+            const data = this.model;
             this.courseCollectionFB.doc(this.courseID).set(data);
-            this.snackBar.open("¡Se ha editado exitosamente el juego con éxito!",'',{
+            this.snackBar.open('¡Se ha editado exitosamente el juego con éxito!', '', {
               duration: 2000,
-              verticalPosition:'top'
+              verticalPosition: 'top'
             });
 
         }
       }
     }
 
+
+  detectFiles(event) {
+      this.selectedFiles = event.target.files;
+  }
+
+  uploadSingle() {
+    const file = this.selectedFiles.item(0);
+    this.currentUpload = new Upload(file);
+    this.upSvc.pushUpload(this.currentUpload);
+    console.log(this.currentUpload);
+  }
+  
 
 
 

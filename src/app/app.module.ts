@@ -104,7 +104,8 @@ const appRoutes: Routes = [
         FuseConfigService,
         FuseNavigationService,
         AngularFireDatabase,
-        AngularFireDatabaseModule
+        AngularFireDatabaseModule,
+        AngularFirestore
     ],
     bootstrap   : [
         AppComponent
