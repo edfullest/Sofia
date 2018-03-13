@@ -25,8 +25,8 @@ export class RateComponent {
                 var positive = data.data().rating.positive
                 var negative = data.data().rating.negative
                 if (isThumbsUp){
-                    positive += 1; 
-                } 
+                    positive += 1;
+                }
                 else{
                     negative += 1;
                 }
@@ -41,16 +41,16 @@ export class RateComponent {
                 usersThatRated:users
              })
         })
-        
+
      }
 
      giveThumbsUp(){
          this.makeTransaction(true)
-         this.router.navigate([this.returnURL])
+         // this.router.navigate([this.returnURL])
      }
 
      giveThumbsDown(){
          this.makeTransaction(false)
-         this.router.navigate([this.returnURL])
+         // this.router.navigate([this.returnURL])
      }
 }

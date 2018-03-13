@@ -8,7 +8,11 @@ export const locale = {
           'CLEARBUTTON' : 'Limpiar',
           'PLACEHOLDER_ANS' : 'Escribe tu respuesta aquí',
           'END_MSG' : '¡Lo lograste! ',
-          'SCORE_MSG' : 'Obtuviste este resultado: '
+          'SCORE_MSG' : 'Obtuviste este resultado: ',
+          'FEEDBACK' : 'Compara tu resultado con las respuestas correctas',
+          'QUESTION' : 'Pregunta ',
+          'YOURANSWER' : 'Tu respuesta: ',
+          'EXIT' : 'Regresar a Juegos'
       }
   }
 };

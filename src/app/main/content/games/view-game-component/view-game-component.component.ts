@@ -10,6 +10,7 @@ import { RateGameComponent } from '../../rate/rate-game/rate-game.component';
 import { locale as english } from './i18n/en';
 import { locale as spanish } from './i18n/es';
 import { AuthService } from '../../../../auth/auth.service';
+import { PlatformLocation } from '@angular/common';
 
 import { GameData } from '../models/gameData';
 
@@ -27,11 +28,14 @@ export class ViewGameComponentComponent implements OnInit {
   gameCollection: AngularFirestoreCollection<GameData>;
   gameData: GameData;
   gameDoc: AngularFirestoreDocument<GameData>;
+  roleType: string;
   courseID: string;
   gameID: string;
 
   userUID: string;
   student: string;
+  author: string;
+
 
   score: number;
   totalScore: number;
@@ -46,6 +50,7 @@ export class ViewGameComponentComponent implements OnInit {
     public snackBar: MatSnackBar,
     private translationLoader: FuseTranslationLoaderService,
     private router: Router,
+    private platformLocation: PlatformLocation,
     private ngZone: NgZone,
     private auth: AuthService) {
 
@@ -69,9 +74,12 @@ export class ViewGameComponentComponent implements OnInit {
         doc.subscribe(data => {
           this.dataToForm(data);
         });
-
     });
-
+    const document = this.db.collection('courses').doc(this.courseID);
+    const observable = document.snapshotChanges().map(docData => {
+      const data = docData.payload.data();
+      this.author = data.createdBy;
+    });
   }
 
   // This parses the data received from Firebase to a FormGroup
@@ -240,7 +248,7 @@ export class ViewGameComponentComponent implements OnInit {
             verticalPosition: 'top'
           });
           this.isRateViewActive = true;
-        this.resetForm();
+
     }
 
   }
@@ -257,5 +265,19 @@ export class ViewGameComponentComponent implements OnInit {
     });
   }
 
+  redirectToGames(){
+    this.resetForm();
+    // Checamos que el creador del curso sea el mismo que quiera realizar un submission
+      if (this.userUID === this.author)
+      {
+        this.router.navigate(['/teacher/courses/' + this.courseID + '/games' ]);
+      }
+      // si no es, se redirige a un estudiante
+      else
+      {
+        this.router.navigate(['/student/courses/' + this.courseID + '/games' ]);
+      }
+
+  }
 
 }
