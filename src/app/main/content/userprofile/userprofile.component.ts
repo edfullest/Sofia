@@ -22,6 +22,10 @@ export class UserprofileComponent implements OnInit {
   userId:string;
   profilePicURL:string;
   task: AngularFireUploadTask;
+  isEdit:boolean;
+  about:string;
+  
+  settingsForm: FormGroup;
   
    // Progress monitoring
   snapshot: Observable<any>;
@@ -35,8 +39,8 @@ export class UserprofileComponent implements OnInit {
                 private route : ActivatedRoute,
                 private formBuilder: FormBuilder, 
                 private storage: AngularFireStorage) {
-  
-  
+                
+       this.isEdit = false;
   }
 
   ngOnInit(){
@@ -47,11 +51,12 @@ export class UserprofileComponent implements OnInit {
        });
        
       // console.log(this.myUser)
-      /*
+      
            this.settingsForm = this.formBuilder.group({
-            email   : ['', [Validators.required, Validators.email]],
-            password: ['', Validators.required]
-        });*/
+            about: ['', []]
+            /*email   : ['', [Validators.required, Validators.email]],
+            password: ['', Validators.required]*/
+        });
         
         
         
@@ -65,6 +70,7 @@ export class UserprofileComponent implements OnInit {
               const data = documentData.payload.data();
             const id = documentData.payload.id;
             this.profilePicURL = documentData.payload.get("photoURL");
+            this.about = documentData.payload.get("bio");
             //console.log(data)
             return { id, ...data };
           });
@@ -117,6 +123,22 @@ export class UserprofileComponent implements OnInit {
     //this.downloadURL = this.task.downloadURL();
     //let url = this.downloadURL.subscribe();
     
+  }
+  
+  editAbout(){
+      
+      if(this.isEdit){
+      const userRef: AngularFirestoreDocument<any> = this.db.collection('users').doc(this.userId);
+      //console.log(this.settingsForm.value['about']);
+      
+      const data = {
+          'bio': this.settingsForm.value['about'];
+      };
+      
+      userRef.set(data, { merge: true });
+      }
+      
+      this.isEdit = !this.isEdit;
   }
   
   

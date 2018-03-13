@@ -36,8 +36,31 @@
   
   <div fxFlex="80" fxLayout="column" style="">
           <mat-card style="">
-              <mat-card-title>Acerca de mi</mat-card-title>
-              <mat-card-content>Soy usuario asiduo de esta plataforma. Tengo tres gatos y dos perros.</mat-card-content>
+              <mat-card-title>
+                  Acerca de mi 
+                  <!--button mat-button (click)="isEdit=!isEdit"-->
+                  <button mat-button (click)="editAbout()">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+              </mat-card-title>
+              <mat-card-content>
+              <div *ngIf="!isEdit">
+                  {{about}}
+                  <!--p *ngIf="!about">Soy usuario asiduo de esta plataforma. Tengo tres gatos y dos perros.<p-->
+              </div>
+                  
+              <div fxFlex *ngIf="isEdit" >
+                   <form name="settingsForm" [formGroup]="settingsForm" novalidate>
+                  <mat-form-field fxFlex>
+                    <textarea matInput fxFlex (key7down.enter)="isEdit=false"
+                        matTextareaAutosize matAutosizeMinRows="2"
+                              matAutosizeMaxRows="5" type="text" formControlName="about">{{about}}</textarea>
+                  </mat-form-field>
+                  </form>
+              </div>
+                  
+              
+              </mat-card-content>
           </mat-card>
       
           <mat-card style="">
