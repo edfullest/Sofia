@@ -13,7 +13,7 @@ import { FuseNavigationService } from './core/components/navigation/navigation.s
 import { GamesViewModule } from './main/content/games/games-view.module';
 import { CoursesViewModule } from './main/content/courses/courses-view.module';
 import { UserprofileModule } from './main/content/userprofile/userprofile.module';
-
+import { LandingPageModule } from './main/content/landing-page/landing-page-view.module';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { AngularFireModule } from 'angularfire2';
@@ -91,6 +91,7 @@ const appRoutes: Routes = [
         CoursesViewModule,
         UserLoginModule,
         UserprofileModule,
+        LandingPageModule,
         AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule,
         AngularFireStorageModule,
