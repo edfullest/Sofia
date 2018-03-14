@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { FuseTranslationLoaderService } from '../../../core/services/translation-loader.service';
-import { AngularFirestore} from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreDocument} from 'angularfire2/firestore';
 import { AngularFireStorage, AngularFireUploadTask } from 'angularfire2/storage';
 
 import { AuthService } from '../../../auth/auth.service';
@@ -24,9 +24,7 @@ export class UserprofileComponent implements OnInit {
   task: AngularFireUploadTask;
   isEdit:boolean;
   about:string;
-  
-  settingsForm: FormGroup;
-  
+   
    // Progress monitoring
   snapshot: Observable<any>;
   // Download URL
@@ -132,7 +130,7 @@ export class UserprofileComponent implements OnInit {
       //console.log(this.settingsForm.value['about']);
       
       const data = {
-          'bio': this.settingsForm.value['about'];
+          'bio': this.settingsForm.value['about']
       };
       
       userRef.set(data, { merge: true });
