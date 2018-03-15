@@ -8,22 +8,23 @@
         </ng-container>
         <!-- / TOOLBAR: Above -->
 
-        <!-- NAVBAR: Top -->
+
+        <!-- NAVBAR: Top
         <fuse-navbar-horizontal class="top-navbar" fxHide fxShow.gt-md
                                 [ngClass]="fuseSettings.colorClasses.navbar"
                                 *ngIf="fuseSettings.layout.navigation === 'top'">
         </fuse-navbar-horizontal>
-        <!-- / NAVBAR: Top -->
+        -->
 
         <div id="wrapper">
 
-            <!-- NAVBAR: Left -->
+            <!-- NAVBAR: Left
             <fuse-navbar-vertical [folded]="fuseSettings.layout.navigationFolded"
                                   class="left-navbar"
                                   [ngClass]="fuseSettings.colorClasses.navbar"
                                   *ngIf="fuseSettings.layout.navigation === 'left' || fuseSettings.layout.navigation === 'top'">
             </fuse-navbar-vertical>
-            <!-- / NAVBAR: Left -->
+             -->
 
             <div class="content-wrapper">
 
@@ -43,13 +44,14 @@
 
             </div>
 
-            <!-- NAVBAR: Right -->
+
+            <!-- NAVBAR: Right
             <fuse-navbar-vertical [folded]="fuseSettings.layout.navigationFolded"
                                   class="right-navbar"
                                   [ngClass]="fuseSettings.colorClasses.navbar"
                                   *ngIf="fuseSettings.layout.navigation === 'right'">
             </fuse-navbar-vertical>
-            <!-- / NAVBAR: Right -->
+            -->
 
         </div>
 
@@ -61,11 +63,12 @@
 
     </div>
 
-    <!-- QUICK PANEL -->
+
+    <!-- QUICK PANEL
     <mat-sidenav fuseMatSidenavHelper="quick-panel" align="end">
         <fuse-quick-panel></fuse-quick-panel>
     </mat-sidenav>
-    <!-- / QUICK PANEL -->
+     -->
 
 </mat-sidenav-container>
 
