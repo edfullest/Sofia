@@ -1,0 +1,41 @@
+<div id="products" class="page-layout carded fullwidth mat-grey-bg" fusePerfectScrollbar>
+
+  <!-- TOP BACKGROUND -->
+  <!--div class="top-bg mat-accent-bg"></div-->
+  <!-- / TOP BACKGROUND -->
+
+  <!-- CENTER -->
+  <div class="center">
+
+      <!-- HEADER -->
+      <!--div class="header white-fg" fxLayoutAlign="center center">
+      </div-->
+      <!-- / HEADER -->
+
+      <!-- CONTENT CARD -->
+      <div class="content-card mat-white-bg">
+          <h1 style="text-align:center">Selecciona tus categorias preferidas </h1>
+                
+                <mat-grid-list cols="4" rowHeight="2:1" fxLayoutAlign="center center">
+                    <!--mat-grid-tile *ngFor="let category of categories | async, let i = index" [class.highlight]="hightlightStatus[i]" (click)="hightlightStatus[i]=!hightlightStatus[i]"-->
+                    <mat-grid-tile *ngFor="let category of categories | async; let i = index" [class.highlight]="hightlightStatus[i]" (click)="markCategory(i,category?.id)">
+                        <div fxFlex="25" fxLayout="column" fxLayoutAlign="center center">
+                            <button mat-fab (click)="markCategory(category)">
+                                <mat-icon class="mat-24" >{{category.icon}}</mat-icon>
+                            </button>
+                            
+                            <div class="pl-16 pr-8 py-16 h-52">
+                            <!--div class="pl-16 pr-8 py-16 h-52"  fxFlex="20" fxLayoutAlign="end center"-->
+                                <div class="h3 secondary-text font-weight-500">{{category.name}}</div>
+                            </div>
+                        </div>
+                    </mat-grid-tile>
+                </mat-grid-list>
+          <div fxLayout="row" fxLayoutAlign="end end">
+                <button class="sub" mat-button (click)="goNext()" [routerLink]="['/student/courses']">Siguiente</button>
+          </div>
+      </div>
+      <!-- / CONTENT CARD -->
+  </div>
+  <!-- / CENTER -->
+</div>
