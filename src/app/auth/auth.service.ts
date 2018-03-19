@@ -131,8 +131,8 @@ export class AuthService {
         uid: user.uid,
         email: this.emailUserModel.email,
         displayName: this.emailUserModel.name,
-        photoURL: user.photoURL,
-        roles: user.roles
+        photoURL: '',//user.photoURL,
+        roles: {'student':true} //user.roles
       };
 
       this.cleanModel();
