@@ -8,7 +8,7 @@
           <div class="content">
                 <div fxLayout="column" style="margin-left: 20px; margin-top: 10px;" dynamicHeight>
                     <div class="widget-group" fxLayout="row" fxFlex="100" fxLayoutWrap *fuseIfOnDom [@animateStagger]="{value:'50'}">
-                         <span class="mat-display-1 mb-0">Courses for you</span>
+                         <span class="mat-display-1 mb-0">{{ "LPSTUDENT.COURSESFORYOU" | translate }}</span>
                     </div>
                     <div id = "non-reg-landing-page" class="widget-group p-10" fxLayout="row" fxFlex="100" fxLayoutWrap *fuseIfOnDom [@animateStagger]="{value:'50'}" dynamicHeight>
                         <ng-container *ngFor="let course of coursesForYou$ | async">
@@ -28,7 +28,7 @@
                                               <span class="h5">{{course.category}}</span>
 
                                               <button mat-button  class="cardColors m-12" >
-                                                  <mat-icon class="mat-24">info</mat-icon>More Info
+                                                  <mat-icon class="mat-24">info</mat-icon>{{ "LPSTUDENT.MOREINFO" | translate }}
                                               </button>
                                           </div>
                                       </div>
@@ -36,7 +36,7 @@
                               </fuse-widget>
                           </ng-container>
                     </div>
-                    <span class="mat-display-1 mb-0">Other courses</span>
+                    <span class="mat-display-1 mb-0">{{ "LPSTUDENT.OTHERCOURSES" | translate }}</span>
                     <div id = "non-reg-landing-page" class="widget-group p-10" fxLayout="row" fxFlex="100" fxLayoutWrap *fuseIfOnDom [@animateStagger]="{value:'50'}" dynamicHeight>
                         <ng-container *ngFor="let course of otherCourses | async">
                               <fuse-widget [@animate]="{value:'*',params:{y:'100%'}}"  class="widget" fxLayout="column" fxFlex="100" fxFlex.gt-sm="30" >
@@ -55,7 +55,7 @@
                                               <span class="h5">{{course.category}}</span>
 
                                               <button mat-button  class="cardColors m-12" >
-                                                  <mat-icon class="mat-24">info</mat-icon>More Info
+                                                  <mat-icon class="mat-24">info</mat-icon>{{ "LPSTUDENT.MOREINFO" | translate }}
                                               </button>
                                           </div>
                                       </div>
