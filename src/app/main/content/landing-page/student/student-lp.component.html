@@ -1,1 +1,72 @@
-<h1>STUDENT LANDING PAGE</h1>
+<div id="non-reg-landing-page" class="page-layout simple right-sidenav" fxLayout="row">
+  <mat-sidenav-container>
+      <!-- CENTER -->
+      <div class="center" fusePerfectScrollbar>
+          <!-- / HEADER -->
+
+          <!-- CONTENT -->
+          <div class="content">
+                <div fxLayout="column" style="margin-left: 20px; margin-top: 10px;" dynamicHeight>
+                    <div class="widget-group" fxLayout="row" fxFlex="100" fxLayoutWrap *fuseIfOnDom [@animateStagger]="{value:'50'}">
+                         <span class="mat-display-1 mb-0">Courses for you</span>
+                    </div>
+                    <div id = "non-reg-landing-page" class="widget-group p-10" fxLayout="row" fxFlex="100" fxLayoutWrap *fuseIfOnDom [@animateStagger]="{value:'50'}" dynamicHeight>
+                        <ng-container *ngFor="let course of coursesForYou$ | async">
+                              <fuse-widget [@animate]="{value:'*',params:{y:'100%'}}"  class="widget" fxLayout="column" fxFlex="100" fxFlex.gt-sm="30" >
+                                  <!-- Front -->
+                                  <div class="fuse-widget-front mat-white-bg mat-elevation-z2" style="cursor: pointer;">
+                                      <div class="h-300 media" >
+                                          <img [src] = "course.imageData.url">
+                                      </div>
+
+                                      <div class="border-top info-bar" fxLayout="row" fxLayoutAlign="center center" fxLayoutWrap>
+                                          <div class="py-8 border-right" fxLayout="column" fxLayoutAlign="center center" fxFlex="100">
+                                            <div class="pb-24 font-size-18 font-weight-300">
+                                                {{course.name}}
+                                             </div>
+                                              
+                                              <span class="h5">{{course.category}}</span>
+
+                                              <button mat-button  class="cardColors m-12" >
+                                                  <mat-icon class="mat-24">info</mat-icon>More Info
+                                              </button>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </fuse-widget>
+                          </ng-container>
+                    </div>
+                    <span class="mat-display-1 mb-0">Other courses</span>
+                    <div id = "non-reg-landing-page" class="widget-group p-10" fxLayout="row" fxFlex="100" fxLayoutWrap *fuseIfOnDom [@animateStagger]="{value:'50'}" dynamicHeight>
+                        <ng-container *ngFor="let course of otherCourses | async">
+                              <fuse-widget [@animate]="{value:'*',params:{y:'100%'}}"  class="widget" fxLayout="column" fxFlex="100" fxFlex.gt-sm="30" >
+                                  <!-- Front -->
+                                  <div class="fuse-widget-front mat-white-bg mat-elevation-z2" style="cursor: pointer;">
+                                      <div class="h-300 media" >
+                                          <img [src] = "course.imageData.url">
+                                      </div>
+
+                                      <div class="border-top info-bar" fxLayout="row" fxLayoutAlign="center center" fxLayoutWrap>
+                                          <div class="py-8 border-right" fxLayout="column" fxLayoutAlign="center center" fxFlex="100">
+                                            <div class="pb-24 font-size-18 font-weight-300">
+                                                {{course.name}}
+                                             </div>
+                                              
+                                              <span class="h5">{{course.category}}</span>
+
+                                              <button mat-button  class="cardColors m-12" >
+                                                  <mat-icon class="mat-24">info</mat-icon>More Info
+                                              </button>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </fuse-widget>
+                          </ng-container>
+                    </div>
+                </div>
+            </div>
+          <!-- / CONTENT -->
+      </div>
+      <!-- / CENTER -->
+  </mat-sidenav-container>
+</div>

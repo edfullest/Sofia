@@ -11,4 +11,5 @@ export interface User{
   displayName?: string;
   favoriteColor?: string;
   roles: Roles;
+  myCategories: [string];
 }

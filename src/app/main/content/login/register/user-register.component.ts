@@ -7,6 +7,7 @@ import { locale as spanish } from '../i18n/es';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { fuseAnimations } from '../../../../core/animations';
 import { FuseConfigService } from '../../../../core/services/config.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-register',
@@ -24,7 +25,8 @@ export class UserRegisterComponent implements OnInit {
     private translationLoader: FuseTranslationLoaderService,
     public auth: AuthService,
     private fuseConfig: FuseConfigService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private router : Router) {
 
     this.translationLoader.loadTranslations(english, spanish);
 
@@ -64,7 +66,10 @@ export class UserRegisterComponent implements OnInit {
     }
 
     signup(): void {
-      this.auth.emailSignUp(this.registerForm);
+      this.auth.emailSignUp(this.registerForm).then(()=>{
+          this.router.navigate(['/choose_categories']);
+      });
+
     }
 
     onRegisterFormValuesChanged()
