@@ -4,8 +4,9 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from '../../../core/modules/shared.module';
 
 import { FuseWidgetModule } from '../../../core/components/widget/widget.module';
-import { NRLandingPageComponent } from './non-registered/non-registered.component';
+import { NRLandingPageComponent, SortCoursesPipe } from './non-registered/non-registered.component';
 import { StudentLPageComponent } from './student/student-lp.component';
+import { CarouselComponent, PrintSlideComponent, SafeHtmlPipe } from './non-registered/carousel/carousel.component';
 
 const routes = [
   {
@@ -27,7 +28,18 @@ const routes = [
     RouterModule.forChild(routes),
     FuseWidgetModule,
   ],
-  declarations: [NRLandingPageComponent, StudentLPageComponent],
-  exports : [NRLandingPageComponent, StudentLPageComponent]
+  declarations: [NRLandingPageComponent,
+                  StudentLPageComponent,
+                  CarouselComponent,
+                  PrintSlideComponent,
+                  SafeHtmlPipe,
+                  SortCoursesPipe],
+
+  exports : [NRLandingPageComponent,
+              StudentLPageComponent,
+              CarouselComponent,
+              PrintSlideComponent,
+              SafeHtmlPipe,
+              SortCoursesPipe]
 })
 export class LandingPageModule { }
