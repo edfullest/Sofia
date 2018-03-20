@@ -61,7 +61,7 @@
 
                       <div class="widget-group p-12" fxLayout="row" fxFlex="100" fxLayoutWrap *fuseIfOnDom [@animateStagger]="{value:'50'}">
 
-                        <div *ngIf=" ((categorySelected != 'popular' && categorySelected != 'rated') || categorySelected == 'All')">
+                        <ng-container *ngIf=" ((categorySelected != 'popular' && categorySelected != 'rated') || categorySelected == 'All')">
 
 
                             <ng-container *ngFor="let course of courses | async ">
@@ -117,10 +117,10 @@
 
                               </ng-container>
 
-                        </div>
+                        </ng-container>
 
 
-                      <div *ngIf="categorySelected == 'rated'">
+                      <ng-container *ngIf="categorySelected == 'rated'">
 
                             <ng-container *ngFor="let courseRated of coursesMostRated | async ">
 
@@ -175,9 +175,9 @@
 
 
 
-                          </div>
+                          </ng-container>
 
-                          <div *ngIf="categorySelected == 'popular'">
+                          <ng-container *ngIf="categorySelected == 'popular'">
                               <ng-container *ngFor="let courseRated of coursesByPrice | async ">
 
                                   <fuse-widget  *ngIf="testInput(courseRated.name)"  [@animate]="{value:'*',params:{y:'100%'}}"  class="widget" fxLayout="column" fxFlex="100" fxFlex.gt-sm="50">
@@ -228,7 +228,7 @@
 
 
                             </ng-container>
-                          </div>
+                          </ng-container>
 
 
 
