@@ -27,6 +27,14 @@
     align-content: center;
   }
 
+  .title{
+    align-content: center;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 50%;
+  }
+
   mat-sidenav-container {
 
       .mat-drawer-content,
@@ -85,4 +93,6 @@
           max-width: 250px !important;
       }
   }
+
+
 }

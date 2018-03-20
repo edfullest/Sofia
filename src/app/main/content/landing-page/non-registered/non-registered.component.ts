@@ -16,20 +16,6 @@ import { FirebaseApp, FirebaseAppProvider } from 'angularfire2';
 import { FirebaseFirestore, DocumentReference } from '@firebase/firestore-types';
 import { AngularFireDatabase } from 'angularfire2/database';
 
-export interface CoursesData{
-  author: string;
-  category: string;
-  categoryId: string;
-  createdBy: string;
-  description?: string;
-  difficulty: number;
-  imageData: [{ name: string; url: string; }];
-  name: string;
-  price: number;
-  rating: [ { negative: number; positive: number } ];
-}
-
-
 @Component({
   selector   : 'landing-page-view',
   templateUrl: './non-registered.component.html',
@@ -42,7 +28,13 @@ export interface CoursesData{
 
     coursesCollection: AngularFirestoreCollection<any[]>;
     courses: Observable<any[]>;
-    coursesData: CoursesData[];
+
+    coursesByRateCollection: AngularFirestoreCollection<any[]>;
+    coursesMostRated: Observable<any[]>;
+
+    coursesByPriceCollection: AngularFirestoreCollection<any[]>;
+    coursesByPrice: Observable<any[]>;
+
     categoriesCollection: AngularFirestoreCollection<any[]>;
     categories: Observable<any[]>;
     categorySelected = 'All';
@@ -73,14 +65,31 @@ export interface CoursesData{
       this.translationLoader.loadTranslations(english, spanish);
 
       this.coursesCollection = this.db.collection('courses');
-
       this.courses = this.coursesCollection.snapshotChanges().map(document => {
             return document.map(documentData => {
               const data = documentData.payload.doc.data();
               const id = documentData.payload.doc.id;
               return { id, ...data };
             });
-         });
+      });
+
+      this.coursesByRateCollection = this.db.collection('courses', ref => ref.orderBy('rating.positive', 'desc'));
+      this.coursesMostRated = this.coursesByRateCollection.snapshotChanges().map(document => {
+        return document.map(documentData => {
+          const data = documentData.payload.doc.data();
+          const id = documentData.payload.doc.id;
+          return { id, ...data };
+        });
+      });
+
+      this.coursesByPriceCollection = this.db.collection('courses', ref => ref.orderBy('price', 'asc'));
+      this.coursesByPrice = this.coursesByPriceCollection.snapshotChanges().map(document => {
+        return document.map(documentData => {
+          const data = documentData.payload.doc.data();
+          const id = documentData.payload.doc.id;
+          return { id, ...data };
+        });
+      });
 
       this.categoriesCollection = this.db.collection('categories');
       this.categories = this.categoriesCollection.valueChanges();
@@ -94,18 +103,6 @@ export interface CoursesData{
       const searchBarInputComparison = this.searchBarInput.toLowerCase();
 
       return courseNameComparison.indexOf(searchBarInputComparison) !== -1;
-    }
-
-
-    sortByPopularity()
-    {
-      // Get the most popular courses
-    }
-
-    sortByRating()
-    {
-      // Get the most rated courses
-      console.log('sort by rating');
     }
 
 

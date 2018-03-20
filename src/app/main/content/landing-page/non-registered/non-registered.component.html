@@ -20,7 +20,6 @@
                       </mat-form-field>
                   </div>
                   <!-- / SEARCH -->
-
               </div>
 
               <div fxLayout="row">
@@ -30,8 +29,8 @@
                       <mat-option value = "All">{{ "LP.CATEGORY_ALL" | translate }}</mat-option>
 
                       <mat-optgroup label = "{{ 'LP.COURSES' | translate }}">
-                        <mat-option (click)="sortByPopularity()" value = "All">{{ "LP.POPULAR" | translate }}</mat-option>
-                        <mat-option (click)="sortByRating()" value = "All">{{ "LP.BEST_RATED" | translate }}</mat-option>
+                        <mat-option value = "popular">{{ "LP.POPULAR" | translate }}</mat-option>
+                        <mat-option value = "rated">{{ "LP.BEST_RATED" | translate }}</mat-option>
                       </mat-optgroup>
 
                       <mat-optgroup label = "{{ 'LP.CATEGORIES' | translate }}">
@@ -62,61 +61,180 @@
 
                       <div class="widget-group p-12" fxLayout="row" fxFlex="100" fxLayoutWrap *fuseIfOnDom [@animateStagger]="{value:'50'}">
 
+                        <div *ngIf=" ((categorySelected != 'popular' && categorySelected != 'rated') || categorySelected == 'All')">
 
-                          <ng-container *ngFor="let course of courses | async ">
 
-                            <ng-container *ngIf="((course.category == categorySelected) || categorySelected == 'All')"  >
+                            <ng-container *ngFor="let course of courses | async ">
 
-                              <fuse-widget  *ngIf="testInput(course.name)"  [@animate]="{value:'*',params:{y:'100%'}}"  class="widget" fxLayout="column" fxFlex="100" fxFlex.gt-sm="25">
+                                <ng-container *ngIf="((course.category == categorySelected) || categorySelected == 'All')"  >
 
-                                  <!-- Front -->
-                                  <div class="fuse-widget-front mat-white-bg mat-elevation-z2">
+                                  <fuse-widget  *ngIf="testInput(course.name)"  [@animate]="{value:'*',params:{y:'100%'}}"  class="widget" fxLayout="column" fxFlex="100" fxFlex.gt-sm="50">
 
-                                      <div class="px-16 border-bottom" fxLayout="row" fxLayoutAlign="space-between center">
+                                      <!-- Front -->
+                                      <div class="fuse-widget-front mat-white-bg mat-elevation-z2">
 
-                                      </div>
-
-                                      <div class="h-400 media" >
-                                          <img [src] = "course.imageData.url">
-                                      </div>
-
-                                      <div class="py-8 mh-16 border-top info-bar" fxLayout="row" fxLayoutAlign="center center" fxLayoutWrap>
-                                          <div class="py-8 border-right" fxLayout="column" fxLayoutAlign="center center" fxFlex="100">
-                                              <span class="mat-display-1 mb-0">{{course.name}}</span>
-                                              <span class="h4">{{'LP.BY_AUTHOR' | translate }} {{course.author}}</span>
-
-                                              <button mat-button  class="cardColors m-12" >
-                                                  <mat-icon class="mat-24">info</mat-icon>{{ 'LP.MORE_INFO' | translate }}
-                                              </button>
-
+                                          <div class="px-16 border-bottom" fxLayout="row" fxLayoutAlign="space-between center">
 
                                           </div>
-                                      </div>
 
-                                      <div class="py-8 mh-8 border-top info-bar" fxLayout="row" fxLayoutAlign="center center" fxLayoutWrap>
-                                          <div class="py-8 border-right" fxLayout="column" fxLayoutAlign="center center" fxFlex="100" fxFlex.gt-sm="50">
-                                              <span class="h4 ml-8"> <mat-icon>thumb_up_outline</mat-icon> {{course.rating.positive}} </span>
-                                              <span class="h4 ml-8"> <mat-icon>thumb_down_outline</mat-icon> {{course.rating.negative}} </span>
+                                          <div class="h-400 media" >
+                                              <img [src] = "course.imageData.url">
                                           </div>
 
-                                          <div class="py-8 border-right" fxLayout="column" fxLayoutAlign="center center" fxFlex="100" fxFlex.gt-sm="50">
-                                              <span class="h4 ml-8"> <mat-icon>attach_money</mat-icon> {{course.price}} </span>
-                                              <span class="h4 ml-8"> <mat-icon>alarm</mat-icon> {{course.timeEstimate.time}}  {{course.timeEstimate.scale}}  </span>
-                                         </div>
+                                          <div class="py-8 mh-16 border-top info-bar" fxLayout="row" fxLayoutAlign="center center" fxLayoutWrap>
+                                              <div class="py-8 border-right" fxLayout="column" fxLayoutAlign="center center" fxFlex="100">
+                                                  <span class="mat-display-1 mb-0">{{course.name}}</span>
+                                                  <span class="h4">{{'LP.BY_AUTHOR' | translate }} {{course.author}}</span>
+
+                                                  <button mat-button  class="cardColors m-12" >
+                                                      <mat-icon class="mat-24">info</mat-icon>{{ 'LP.MORE_INFO' | translate }}
+                                                  </button>
+
+
+                                              </div>
+                                          </div>
+
+                                          <div class="py-8 mh-8 border-top info-bar" fxLayout="row" fxLayoutAlign="center center" fxLayoutWrap>
+                                              <div class="py-8 border-right" fxLayout="column" fxLayoutAlign="center center" fxFlex="100" fxFlex.gt-sm="50">
+                                                  <span class="h4 ml-8"> <mat-icon>thumb_up_outline</mat-icon> {{course.rating.positive}} </span>
+                                                  <span class="h4 ml-8"> <mat-icon>thumb_down_outline</mat-icon> {{course.rating.negative}} </span>
+                                              </div>
+
+                                              <div class="py-8 border-right" fxLayout="column" fxLayoutAlign="center center" fxFlex="100" fxFlex.gt-sm="50">
+                                                  <span class="h4 ml-8"> <mat-icon>attach_money</mat-icon> {{course.price}} </span>
+                                                  <span class="h4 ml-8"> <mat-icon>alarm</mat-icon> {{course.timeEstimate.time}}  {{course.timeEstimate.scale}}  </span>
+                                             </div>
+
+                                          </div>
+
+
 
                                       </div>
+                                      <!-- / Front -->
+
+                                  </fuse-widget>
+                                </ng-container>
+
+                              </ng-container>
+
+                        </div>
+
+
+                      <div *ngIf="categorySelected == 'rated'">
+
+                            <ng-container *ngFor="let courseRated of coursesMostRated | async ">
+
+                                  <fuse-widget  *ngIf="testInput(courseRated.name)"  [@animate]="{value:'*',params:{y:'100%'}}"  class="widget" fxLayout="column" fxFlex="100" fxFlex.gt-sm="50">
+
+                                      <!-- Front -->
+                                      <div class="fuse-widget-front mat-white-bg mat-elevation-z2">
+
+                                          <div class="px-16 border-bottom" fxLayout="row" fxLayoutAlign="space-between center">
+
+                                          </div>
+
+                                          <div class="h-400 media" >
+                                              <img [src] = "courseRated.imageData.url">
+                                          </div>
+
+                                          <div class="py-8 mh-16 border-top info-bar" fxLayout="row" fxLayoutAlign="center center" fxLayoutWrap>
+                                              <div class="py-8 border-right" fxLayout="column" fxLayoutAlign="center center" fxFlex="100">
+                                                  <span class="mat-display-1 mb-0">{{courseRated.name}}</span>
+                                                  <span class="h4">{{'LP.BY_AUTHOR' | translate }} {{courseRated.author}}</span>
+
+                                                  <button mat-button  class="cardColors m-12" >
+                                                      <mat-icon class="mat-24">info</mat-icon>{{ 'LP.MORE_INFO' | translate }}
+                                                  </button>
+
+
+                                              </div>
+                                          </div>
+
+                                          <div class="py-8 mh-8 border-top info-bar" fxLayout="row" fxLayoutAlign="center center" fxLayoutWrap>
+                                              <div class="py-8 border-right" fxLayout="column" fxLayoutAlign="center center" fxFlex="100" fxFlex.gt-sm="50">
+                                                  <span class="h4 ml-8"> <mat-icon>thumb_up_outline</mat-icon> {{courseRated.rating.positive}} </span>
+                                                  <span class="h4 ml-8"> <mat-icon>thumb_down_outline</mat-icon> {{courseRated.rating.negative}} </span>
+                                              </div>
+
+                                              <div class="py-8 border-right" fxLayout="column" fxLayoutAlign="center center" fxFlex="100" fxFlex.gt-sm="50">
+                                                  <span class="h4 ml-8"> <mat-icon>attach_money</mat-icon> {{courseRated.price}} </span>
+                                                  <span class="h4 ml-8"> <mat-icon>alarm</mat-icon> {{courseRated.timeEstimate.time}}  {{courseRated.timeEstimate.scale}}  </span>
+                                             </div>
+
+                                          </div>
 
 
 
-                                  </div>
-                                  <!-- / Front -->
+                                      </div>
+                                      <!-- / Front -->
 
-                              </fuse-widget>
+                                  </fuse-widget>
+
+
                             </ng-container>
 
-                          </ng-container>
+
+
+                          </div>
+
+                          <div *ngIf="categorySelected == 'popular'">
+                              <ng-container *ngFor="let courseRated of coursesByPrice | async ">
+
+                                  <fuse-widget  *ngIf="testInput(courseRated.name)"  [@animate]="{value:'*',params:{y:'100%'}}"  class="widget" fxLayout="column" fxFlex="100" fxFlex.gt-sm="50">
+
+                                      <!-- Front -->
+                                      <div class="fuse-widget-front mat-white-bg mat-elevation-z2">
+
+                                          <div class="px-16 border-bottom" fxLayout="row" fxLayoutAlign="space-between center">
+
+                                          </div>
+
+                                          <div class="h-400 media" >
+                                              <img [src] = "courseRated.imageData.url">
+                                          </div>
+
+                                          <div class="py-8 mh-16 border-top info-bar" fxLayout="row" fxLayoutAlign="center center" fxLayoutWrap>
+                                              <div class="py-8 border-right" fxLayout="column" fxLayoutAlign="center center" fxFlex="100">
+                                                  <span class="mat-display-1 mb-0">{{courseRated.name}}</span>
+                                                  <span class="h4">{{'LP.BY_AUTHOR' | translate }} {{courseRated.author}}</span>
+
+                                                  <button mat-button  class="cardColors m-12" >
+                                                      <mat-icon class="mat-24">info</mat-icon>{{ 'LP.MORE_INFO' | translate }}
+                                                  </button>
+
+
+                                              </div>
+                                          </div>
+
+                                          <div class="py-8 mh-8 border-top info-bar" fxLayout="row" fxLayoutAlign="center center" fxLayoutWrap>
+                                              <div class="py-8 border-right" fxLayout="column" fxLayoutAlign="center center" fxFlex="100" fxFlex.gt-sm="50">
+                                                  <span class="h4 ml-8"> <mat-icon>thumb_up_outline</mat-icon> {{courseRated.rating.positive}} </span>
+                                                  <span class="h4 ml-8"> <mat-icon>thumb_down_outline</mat-icon> {{courseRated.rating.negative}} </span>
+                                              </div>
+
+                                              <div class="py-8 border-right" fxLayout="column" fxLayoutAlign="center center" fxFlex="100" fxFlex.gt-sm="50">
+                                                  <span class="h4 ml-8"> <mat-icon>attach_money</mat-icon> {{courseRated.price}} </span>
+                                                  <span class="h4 ml-8"> <mat-icon>alarm</mat-icon> {{courseRated.timeEstimate.time}}  {{courseRated.timeEstimate.scale}}  </span>
+                                             </div>
+
+                                          </div>
+
+
+
+                                      </div>
+                                      <!-- / Front -->
+
+                                  </fuse-widget>
+
+
+                            </ng-container>
+                          </div>
+
+
 
                       </div>
+
+
 
                       <!-- / WIDGET GROUP -->
                   </mat-tab>
