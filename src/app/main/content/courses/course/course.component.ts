@@ -87,14 +87,15 @@ export class CourseComponent implements OnInit {
     imageData: {
         url: '',
         name: ''
-    }
+    },
+    categoryID : '',
 
   };
 
 
   // Course definition variables
 
-    category: string;
+  category: any;
 
 
   constructor(
@@ -109,7 +110,13 @@ export class CourseComponent implements OnInit {
 
     this.translationLoader.loadTranslations(english, spanish);
 
-    this.categories = this.db.collection('categories').valueChanges();
+    this.categories = this.db.collection('categories').snapshotChanges().map(document => {
+        return document.map(documentData => {
+          const data = documentData.payload.doc.data();
+          const id = documentData.payload.doc.id;
+          return { id, ...data };
+        });
+     });
     this.auth.user.subscribe(userData => {
       this.userUID = userData.uid;
       this.author = userData.displayName;
@@ -142,8 +149,9 @@ export class CourseComponent implements OnInit {
     }
 
 
-    setCategory(category: string){
-      this.model.category = category;
+    setCategory(category){
+      this.model.category = category.name;
+      this.model.categoryID = category.id;
     }
 
 

@@ -44,10 +44,8 @@ export class AuthService {
       return this.afAuth.auth.createUserWithEmailAndPassword(this.emailUserModel.email, this.emailUserModel.password)
         .then((user) => {
             let auth = firebase.auth();
-         auth.currentUser.sendEmailVerification();
-            
-            
-          return this.updateUserEmailData(user); // if using firestore
+            auth.currentUser.sendEmailVerification();
+            return this.updateUserEmailData(user); // if using firestore
         })
         .catch((error) => this.handleError(error) );
     }
@@ -105,7 +103,8 @@ export class AuthService {
         email: user.email,
         displayName: user.displayName,
         photoURL: user.photoURL,
-        roles: user.roles
+        roles: user.roles,
+        myCategories : user.myCategories
       };
 
       return userRef.set(data, { merge: true });
@@ -124,7 +123,6 @@ export class AuthService {
 
     private updateUserEmailData(user) {
       // Sets user data to firestore on login
-
       const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
 
       const data: User = {
@@ -132,9 +130,9 @@ export class AuthService {
         email: this.emailUserModel.email,
         displayName: this.emailUserModel.name,
         photoURL: '',//user.photoURL,
-        roles: {'student':true} //user.roles
+        roles: {student:true},
+        myCategories : ['']
       };
-
       this.cleanModel();
       return userRef.set(data, { merge: true });
 

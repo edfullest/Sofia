@@ -1,9 +1,12 @@
 export const locale = {
   lang: 'es',
   data: {
-      'LP' : {
-          'COURSES' : 'Cursos',
-      }
+      'LPSTUDENT' : {
+        'COURSESFORYOU' : 'Cursos para ti ',
+        'OTHERCOURSES' : 'Otros cursos',
+        'MOREINFO' : 'Más info'
+      },
+
 
   }
 };
