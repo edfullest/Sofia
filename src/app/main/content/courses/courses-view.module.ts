@@ -33,7 +33,7 @@ const routes = [
                   ]
   },
   {
-      path     : 'course/rate/:course_id',
+      path     : 'student/course/rate/:course_id',
       component: RateCourseComponent,
       canActivate: [AuthGuard,
                     StudentGuard,

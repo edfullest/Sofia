@@ -6,7 +6,5 @@ export const locale = {
         'OTHERCOURSES' : 'Otros cursos',
         'MOREINFO' : 'Más info'
       },
-
-
   }
 };
