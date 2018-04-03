@@ -61,24 +61,11 @@ import { AuthService } from '../../../../auth/auth.service';
     }
 
     subscribeToCourse(course){
-      console.log(course)
       this.auth.user.subscribe(userData => {
             course.students[userData.uid] = true;
             this.coursesCollection.doc(course.id).update(course)
         })
-
-      
-      // this.auth.user.subscribe( userData => {
-      //     console.log(userData)
-          
-      //     this.coursesForYou$ = this.courses.map(courses => courses.filter(course => {
-      //       return userData.myCategories.includes(course.categoryID)
-      //     }));
-      //     this.otherCourses = this.courses.map(courses => courses.filter(course => {
-      //       return !userData.myCategories.includes(course.categoryID)
-      //     }));
-
-      // })
+      this.router.navigate(['/student/courses']);
     }
 
  }
