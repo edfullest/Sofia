@@ -41,8 +41,8 @@ export class ViewGameComponentComponent implements OnInit {
   totalScore: number;
 
   answer_array: number[];
-
-
+  
+  firstTime:boolean;
 
   constructor(private formBuilder: FormBuilder,
     private db: AngularFirestore,
@@ -58,6 +58,7 @@ export class ViewGameComponentComponent implements OnInit {
       this.auth.user.subscribe(userData => {
         this.userUID = userData.uid;
         this.student = userData.displayName;
+        this.hasBeenTaken()
       });
   }
 
@@ -227,7 +228,6 @@ export class ViewGameComponentComponent implements OnInit {
 
 
   onSubmit(){
-
     if (this.gameForm.valid){
       // get the student 'grade' depending of the correct answers
       this.calculateScore();
@@ -240,8 +240,9 @@ export class ViewGameComponentComponent implements OnInit {
             studentId: this.userUID,
             studentName: this.student,
             score: this.score,
+            firstTime: this.firstTime,
             questions: data.questions
-
+            
           });
           this.snackBar.open('¡Se ha subido el juego con éxito!', '', {
             duration: 2000,
@@ -279,5 +280,16 @@ export class ViewGameComponentComponent implements OnInit {
       }
 
   }
-
+  
+  hasBeenTaken(){
+      let x:Promise<any>;
+      x = this.db.collection('courses').doc(this.courseID).collection('games')
+          .doc(this.gameID).collection('submissions').ref
+          .where("studentId", "==", this.userUID).get()
+              
+      x.then((col) => {console.log(col)
+      this.firstTime = col.empty;
+      console.log("firstTime:" + this.firstTime);
+      });
+  }
 }

@@ -15,7 +15,8 @@ import { FuseWidgetModule } from '../../../core/components/widget/widget.module'
 import { ViewGameComponentComponent } from './view-game-component/view-game-component.component';
 import{ AuthGuard, StudentGuard, ProfessorGuard, CanUpdateCourseGuard, CanViewGame } from '../../../../app/auth/auth_guard/auth.guard';
 import { CreatorGamesViewComponent } from './creator-games-view/creator-games-view.component';
-import { ViewerGamesViewComponent } from './viewer-games-view/viewer-games-view.component'
+import { ViewerGamesViewComponent } from './viewer-games-view/viewer-games-view.component';
+import { GameTopScoresComponent } from './game-top-scores/game-top-scores.component'
 
 
 const routes = [
@@ -44,6 +45,10 @@ const routes = [
         component: ViewerGamesViewComponent
     },
     {
+        path     : 'student/courses/:course_id/game/:game_id/topscores',
+        component: GameTopScoresComponent
+    },
+    {
         path     : 'teacher/courses/:course_id/game/create/reload',
         redirectTo : 'student/courses/:course_id/games'
     },
@@ -55,6 +60,11 @@ const routes = [
         path     : 'teacher/courses/:course_id/game/edit/:game_id/reload',
         redirectTo : 'student/courses/:course_id/games'
     },
+    {
+        path     : 'teacher/courses/:course_id/game/:game_id/topscores/reload',
+        redirectTo: 'student/courses/:course_id/game/:game_id/topscores'
+        
+    },
 ];
 
 @NgModule({
@@ -63,7 +73,8 @@ const routes = [
         GameComponent,
         ViewGameComponentComponent,
         CreatorGamesViewComponent,
-        ViewerGamesViewComponent
+        ViewerGamesViewComponent,
+        GameTopScoresComponent
     ],
     imports     : [
         SharedModule,
