@@ -28,7 +28,22 @@
                         {{generalQuestion.Question}}
                     </mat-panel-title>
                 </mat-expansion-panel-header>
-                {{generalQuestion.Answer}}
+
+                    <ng-container *ngFor="let answer of generalQuestion.Answer" >
+
+                            <ng-container *ngIf="answer.isText" >
+
+                                {{answer.text}}
+                            </ng-container>
+
+
+                            <ng-container *ngIf="!answer.isText" >
+
+                                    <img src="{{answer.text}}">
+                                </ng-container>
+                               
+                    </ng-container>
+
             </mat-expansion-panel>
         </mat-accordion>
     </div>
