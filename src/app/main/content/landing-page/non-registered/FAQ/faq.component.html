@@ -31,17 +31,18 @@
                     <ng-container *ngFor="let answer of generalQuestion.Answer" >
 
                             <ng-container *ngIf="answer.isText" >
-
+                                <br>
                                 {{answer.text}}
                                 <br>
                             </ng-container>
 
-
                             <ng-container *ngIf="!answer.isText" >
-
+                                <div fxLayout="row" fxLayoutAlign="center center">
+                                    <br>
                                     <img class="img" src="{{answer.text}}">
                                     <br>
-                                </ng-container>
+                                </div>
+                            </ng-container>
 
                     </ng-container>
 
@@ -72,17 +73,19 @@
                         <ng-container *ngFor="let answer of generalQuestion.Answer" >
 
                                 <ng-container *ngIf="answer.isText" >
-
+                                    <br>
                                     {{answer.text}}
                                     <br>
                                 </ng-container>
 
 
                                 <ng-container *ngIf="!answer.isText" >
-
+                                    <div fxLayout="row" fxLayoutAlign="center center">
+                                        <br>
                                         <img class="img" src="{{answer.text}}">
                                         <br>
-                                    </ng-container>
+                                    </div>
+                                </ng-container>
 
                         </ng-container>
 
@@ -111,17 +114,19 @@
                             <ng-container *ngFor="let answer of generalQuestion.Answer" >
 
                                     <ng-container *ngIf="answer.isText" >
-
+                                        <br>
                                         {{answer.text}}
                                         <br>
                                     </ng-container>
 
 
-                                    <ng-container *ngIf="!answer.isText" >
-
-                                            <img class="img" src="{{answer.text}}">
-                                            <br>
-                                        </ng-container>
+                                <ng-container *ngIf="!answer.isText" >
+                                    <div fxLayout="row" fxLayoutAlign="center center">
+                                        <br>
+                                        <img class="img" src="{{answer.text}}">
+                                        <br>
+                                    </div>
+                                </ng-container>
 
                             </ng-container>
 
