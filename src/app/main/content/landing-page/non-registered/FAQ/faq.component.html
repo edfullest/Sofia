@@ -8,17 +8,16 @@
             <h3>{{'FAQ.TITLE' | translate }}</h3>
         </div>
 
-        <div class="search mat-white-bg mat-elevation-z7" flex fxLayout="row" fxLayoutAlign="start center">
-            <mat-icon>search</mat-icon>
-            <input [formControl]="searchInput" placeholder="{{'FAQ.SEARCH' | translate }}" fxFlex>
-        </div>
-
     </div>
     <!-- / HEADER -->
 
     <!-- CONTENT -->
     <div class="content px-16 py-24 px-sm-24 py-sm-32">
 
+
+        <div class="hero-text mb-32">
+            <h1>General</h1>
+        </div>
         <mat-accordion class="faqs-accordion">
 
             <mat-expansion-panel *ngFor="let generalQuestion of faqGeneral | async">
@@ -34,12 +33,14 @@
                             <ng-container *ngIf="answer.isText" >
 
                                 {{answer.text}}
+                                <br>
                             </ng-container>
 
 
                             <ng-container *ngIf="!answer.isText" >
 
                                     <img src="{{answer.text}}">
+                                    <br>
                                 </ng-container>
                                
                     </ng-container>
@@ -47,6 +48,90 @@
             </mat-expansion-panel>
         </mat-accordion>
     </div>
+
+
+
+    <div class="content px-16 py-24 px-sm-24 py-sm-32">
+
+
+            <div class="hero-text mb-32">
+                    <h1>Professor</h1>
+             </div>
+        
+
+            <mat-accordion class="faqs-accordion">
+    
+                <mat-expansion-panel *ngFor="let generalQuestion of faqProfessor | async">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title flex fxLayout="row" fxLayoutAlign="start center">
+                            <mat-icon class="mr-8">help_outline</mat-icon>
+                            {{generalQuestion.Question}}
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+    
+                        <ng-container *ngFor="let answer of generalQuestion.Answer" >
+    
+                                <ng-container *ngIf="answer.isText" >
+    
+                                    {{answer.text}}
+                                    <br>
+                                </ng-container>
+    
+    
+                                <ng-container *ngIf="!answer.isText" >
+    
+                                        <img src="{{answer.text}}">
+                                        <br>
+                                    </ng-container>
+                                   
+                        </ng-container>
+    
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+
+        <div class="content px-16 py-24 px-sm-24 py-sm-32">
+
+
+
+                <div class="hero-text mb-32">
+                        <h1>Student</h1>
+                </div>
+
+                <mat-accordion class="faqs-accordion">
+        
+                    <mat-expansion-panel *ngFor="let generalQuestion of faqStudent | async">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title flex fxLayout="row" fxLayoutAlign="start center">
+                                <mat-icon class="mr-8">help_outline</mat-icon>
+                                {{generalQuestion.Question}}
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+        
+                            <ng-container *ngFor="let answer of generalQuestion.Answer" >
+        
+                                    <ng-container *ngIf="answer.isText" >
+        
+                                        {{answer.text}}
+                                        <br>
+                                    </ng-container>
+        
+        
+                                    <ng-container *ngIf="!answer.isText" >
+        
+                                            <img src="{{answer.text}}">
+                                            <br>
+                                        </ng-container>
+                                       
+                            </ng-container>
+        
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+
+    
+
+
     <!-- / CONTENT -->
 
 </div>

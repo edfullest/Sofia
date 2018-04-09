@@ -44,9 +44,9 @@ export class FAQComponent{
     faqStudent: Observable<any[]>;
 
   faqs: any;
-    faqsFiltered: any;
-    step = 0;
-    searchInput;
+
+  step = 0;
+
 
   constructor(public translationLoader: FuseTranslationLoaderService,
               public router: Router,
@@ -66,7 +66,26 @@ export class FAQComponent{
             });
       });
 
-    this.searchInput = new FormControl('');
+      this.faqProfessorCollection = this.faqCollection.doc('lCMZamzb03mQ3AGHK5i4').collection('ES');
+
+      this.faqProfessor = this.faqProfessorCollection.snapshotChanges().map(document => {
+            return document.map(documentData => {
+              const data = documentData.payload.doc.data();
+              const id = documentData.payload.doc.id;
+              return { id, ...data };
+            });
+      });
+
+      this.faqStudentCollection = this.faqCollection.doc('lCMZamzb03mQ3AGHK5i4').collection('ES');
+
+      this.faqStudent = this.faqStudentCollection.snapshotChanges().map(document => {
+            return document.map(documentData => {
+              const data = documentData.payload.doc.data();
+              const id = documentData.payload.doc.id;
+              return { id, ...data };
+            });
+      });
+
 
   }
 
