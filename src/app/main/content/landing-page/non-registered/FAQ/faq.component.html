@@ -4,8 +4,8 @@
     <div class="header mat-accent-bg p-16 p-sm-24" fxLayout="column" fxLayoutAlign="center center">
 
         <div class="hero-text mb-32">
-            <h1>We're here to help</h1>
-            <h3>Frequently asked questions</h3>
+            <h1>{{'FAQ.SUBTITLE' | translate }}</h1>
+            <h3>{{'FAQ.TITLE' | translate }}</h3>
         </div>
 
         <div class="search mat-white-bg mat-elevation-z7" flex fxLayout="row" fxLayoutAlign="start center">
@@ -21,14 +21,14 @@
 
         <mat-accordion class="faqs-accordion">
 
-            <mat-expansion-panel >
+            <mat-expansion-panel *ngFor="let generalQuestion of faqGeneral | async">
                 <mat-expansion-panel-header>
                     <mat-panel-title flex fxLayout="row" fxLayoutAlign="start center">
                         <mat-icon class="mr-8">help_outline</mat-icon>
-                        How to Hate Andrea?
+                        {{generalQuestion.Question}}
                     </mat-panel-title>
                 </mat-expansion-panel-header>
-                Just look at her face 
+                {{generalQuestion.Answer}}
             </mat-expansion-panel>
         </mat-accordion>
     </div>
