@@ -4,6 +4,7 @@ export const locale = {
     'FAQ' : {
         'TITLE' : 'Preguntas más frecuentes',
         'SUBTITLE' : 'Estamos para ayudarte',
+        'SEARCH' : 'Buscar en FAQs..',
     }
 
   }
