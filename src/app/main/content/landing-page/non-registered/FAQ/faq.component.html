@@ -16,7 +16,7 @@
 
 
         <div class="hero-text mb-32">
-            <h1>General</h1>
+            <h1>{{'FAQ.GENERAL_FAQ' | translate }}</h1>
         </div>
         <mat-accordion class="faqs-accordion">
 
@@ -39,10 +39,10 @@
 
                             <ng-container *ngIf="!answer.isText" >
 
-                                    <img src="{{answer.text}}">
+                                    <img class="img" src="{{answer.text}}">
                                     <br>
                                 </ng-container>
-                               
+
                     </ng-container>
 
             </mat-expansion-panel>
@@ -55,12 +55,12 @@
 
 
             <div class="hero-text mb-32">
-                    <h1>Professor</h1>
+                    <h1>{{'FAQ.PROF_FAQ' | translate }}</h1>
              </div>
-        
+
 
             <mat-accordion class="faqs-accordion">
-    
+
                 <mat-expansion-panel *ngFor="let generalQuestion of faqProfessor | async">
                     <mat-expansion-panel-header>
                         <mat-panel-title flex fxLayout="row" fxLayoutAlign="start center">
@@ -68,24 +68,24 @@
                             {{generalQuestion.Question}}
                         </mat-panel-title>
                     </mat-expansion-panel-header>
-    
+
                         <ng-container *ngFor="let answer of generalQuestion.Answer" >
-    
+
                                 <ng-container *ngIf="answer.isText" >
-    
+
                                     {{answer.text}}
                                     <br>
                                 </ng-container>
-    
-    
+
+
                                 <ng-container *ngIf="!answer.isText" >
-    
-                                        <img src="{{answer.text}}">
+
+                                        <img class="img" src="{{answer.text}}">
                                         <br>
                                     </ng-container>
-                                   
+
                         </ng-container>
-    
+
                 </mat-expansion-panel>
             </mat-accordion>
         </div>
@@ -95,11 +95,11 @@
 
 
                 <div class="hero-text mb-32">
-                        <h1>Student</h1>
+                        <h1>{{'FAQ.STUDENT_FAQ' | translate }}</h1>
                 </div>
 
                 <mat-accordion class="faqs-accordion">
-        
+
                     <mat-expansion-panel *ngFor="let generalQuestion of faqStudent | async">
                         <mat-expansion-panel-header>
                             <mat-panel-title flex fxLayout="row" fxLayoutAlign="start center">
@@ -107,29 +107,29 @@
                                 {{generalQuestion.Question}}
                             </mat-panel-title>
                         </mat-expansion-panel-header>
-        
+
                             <ng-container *ngFor="let answer of generalQuestion.Answer" >
-        
+
                                     <ng-container *ngIf="answer.isText" >
-        
+
                                         {{answer.text}}
                                         <br>
                                     </ng-container>
-        
-        
+
+
                                     <ng-container *ngIf="!answer.isText" >
-        
-                                            <img src="{{answer.text}}">
+
+                                            <img class="img" src="{{answer.text}}">
                                             <br>
                                         </ng-container>
-                                       
+
                             </ng-container>
-        
+
                     </mat-expansion-panel>
                 </mat-accordion>
             </div>
 
-    
+
 
 
     <!-- / CONTENT -->

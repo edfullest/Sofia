@@ -56,7 +56,7 @@ export class FAQComponent{
 
     this.faqCollection = this.db.collection('FAQ');
 
-    this.faqGeneralCollection = this.faqCollection.doc('lMstBI9frneTqiarj1hX').collection('ES');
+    this.faqGeneralCollection = this.faqCollection.doc('lMstBI9frneTqiarj1hX').collection('ES', ref => ref.orderBy('QuestionNum', 'asc'));
 
       this.faqGeneral = this.faqGeneralCollection.snapshotChanges().map(document => {
             return document.map(documentData => {
@@ -66,7 +66,7 @@ export class FAQComponent{
             });
       });
 
-      this.faqProfessorCollection = this.faqCollection.doc('lCMZamzb03mQ3AGHK5i4').collection('ES');
+      this.faqProfessorCollection = this.faqCollection.doc('lCMZamzb03mQ3AGHK5i4').collection('ES', ref => ref.orderBy('QuestionNum', 'asc'));
 
       this.faqProfessor = this.faqProfessorCollection.snapshotChanges().map(document => {
             return document.map(documentData => {
@@ -76,7 +76,7 @@ export class FAQComponent{
             });
       });
 
-      this.faqStudentCollection = this.faqCollection.doc('lCMZamzb03mQ3AGHK5i4').collection('ES');
+      this.faqStudentCollection = this.faqCollection.doc('KesPex9MZ64nYTuO4f13').collection('ES', ref => ref.orderBy('QuestionNum', 'asc'));
 
       this.faqStudent = this.faqStudentCollection.snapshotChanges().map(document => {
             return document.map(documentData => {
