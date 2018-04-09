@@ -7,6 +7,7 @@ import { FuseWidgetModule } from '../../../core/components/widget/widget.module'
 import { NRLandingPageComponent, SortCoursesPipe } from './non-registered/non-registered.component';
 import { StudentLPageComponent } from './student/student-lp.component';
 import { CarouselComponent, PrintSlideComponent, SafeHtmlPipe } from './non-registered/carousel/carousel.component';
+import { FAQComponent } from './non-registered/FAQ/faq.component';
 
 const routes = [
   {
@@ -16,8 +17,11 @@ const routes = [
   {
     path     : 'student/home',
     component: StudentLPageComponent,
+  },
+  {
+    path     : 'faq',
+    component: FAQComponent,
   }
-
 ];
 
 
@@ -33,13 +37,15 @@ const routes = [
                   CarouselComponent,
                   PrintSlideComponent,
                   SafeHtmlPipe,
-                  SortCoursesPipe],
+                  SortCoursesPipe,
+                  FAQComponent],
 
   exports : [NRLandingPageComponent,
               StudentLPageComponent,
               CarouselComponent,
               PrintSlideComponent,
               SafeHtmlPipe,
-              SortCoursesPipe]
+              SortCoursesPipe,
+              FAQComponent]
 })
 export class LandingPageModule { }
