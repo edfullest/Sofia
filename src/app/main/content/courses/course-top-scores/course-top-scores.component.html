@@ -1,0 +1,52 @@
+<div class="page-layout carded fullwidth mat-light-white-600-bg" fusePerfectScrollbar>
+    
+     <div fxLayout="column" fxLayoutAlign="center center" style="text-align:center;background:#ffa333;">
+      <h1>Puntajes de {{courseName | async}} </h1>
+      <!--h1>Puntajes</h1-->
+      <!--<h1> <img src="assets/icons/sofia/books.png" alt="sup" width="45" height="45" border="0">  {{ 'COURSES.SLOGAN' | translate }}</h1>-->
+      <!--<h1> <img src={{myUser.photoURL}} alt="sup" width="45" height="45" border="0">  {{ 'COURSES.SLOGAN' | translate }}</h1>-->
+     </div>
+    <mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="position">
+          <mat-header-cell *matHeaderCellDef> # </mat-header-cell>
+          <mat-cell *matCellDef="let user;let i=index;"> {{i + 1 + offset}} </mat-cell>
+        </ng-container>
+
+      <!--ng-container matColumnDef="userPic">
+        <mat-header-cell *matHeaderCellDef> Pic </mat-header-cell>
+        <mat-cell *matCellDef="let user"> {{user.name}} </mat-cell>
+     </ng-container-->
+
+     <ng-container matColumnDef="userName">
+        <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
+        <mat-cell *matCellDef="let user">{{user.studentName}} </mat-cell>
+     </ng-container>
+      
+     <ng-container matColumnDef="userGamesCompleted">
+        <mat-header-cell *matHeaderCellDef>Juegos</mat-header-cell>
+        <mat-cell *matCellDef="let user">{{user.gamesCompleted}}{{numGamesSt}}</mat-cell>
+        <!--mat-cell *matCellDef="let user">{{user.gamesCompleted}}/{{numOfGames}}</mat-cell-->
+     </ng-container>
+      
+     <!--ng-container matColumnDef="userAverage">
+        <mat-header-cell *matHeaderCellDef> Puntaje Promedio </mat-header-cell>
+        <mat-cell *matCellDef="let user"> {{user.gamesCompleted}} / {{numOfGames}}  </mat-cell>
+     </ng-container-->
+
+      <ng-container matColumnDef="userScore">
+        <mat-header-cell *matHeaderCellDef>Acumulado</mat-header-cell>
+        <mat-cell *matCellDef="let user"> {{user.totalScore}}</mat-cell>
+     </ng-container>
+
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns; let i=index;"></mat-row>
+    </mat-table>
+    
+   <mat-paginator #paginator
+                 [pageSize]="5"
+                 [pageSizeOptions]="[5, 10]"
+                 (page)="onPaginateChange($event)"
+                 >
+  </mat-paginator>
+<div>

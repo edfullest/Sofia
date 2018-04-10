@@ -11,6 +11,7 @@ import { RateCourseComponent } from '../rate/rate-course/rate-course.component';
 import { AuthGuard, StudentGuard, ProfessorGuard, CanUpdateCourseGuard } from '../../../../app/auth/auth_guard/auth.guard';
 import { ViewerCoursesComponent } from './viewer-courses/viewer-courses.component';
 import { CreatorCoursesComponent } from './creator-courses/creator-courses.component';
+import { CourseTopScoresComponent } from './course-top-scores/course-top-scores.component';
 
 const routes = [
   {
@@ -50,6 +51,10 @@ const routes = [
                   StudentGuard]
 
   },
+    {
+        path     : 'student/courses/:course_id/topscores',
+        component: CourseTopScoresComponent
+    },
 
 ];
 
@@ -67,7 +72,8 @@ const routes = [
     CoursesComponent,
     CourseComponent,
     ViewerCoursesComponent,
-    CreatorCoursesComponent
+    CreatorCoursesComponent,
+    CourseTopScoresComponent
   ],
   providers : [AuthGuard, StudentGuard, ProfessorGuard, CanUpdateCourseGuard],
   exports     :[
