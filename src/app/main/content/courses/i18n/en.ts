@@ -10,7 +10,11 @@ export const locale = {
           'SELECT_CATEGORY' : 'Choose a category',
           'EDITBUTTON' : 'Edit',
           'DELETEBUTTON' : 'Delete',
-          'TOOLTIP_DIFFICULTY' : 'Difficulty of the Course'
+          'TOOLTIP_DIFFICULTY' : 'Difficulty of the Course',
+          'START' : 'Start',
+          'BY' : 'By: ',
+          'RATE_IT' : 'Rate it!',
+          'SEARCH' : 'Search a Course'
       }
 
   }

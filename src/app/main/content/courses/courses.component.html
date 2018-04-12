@@ -11,7 +11,7 @@
                 <div fxLayout="row" fxLayoutAlign="center center">
 
                     <span class="mat-display-1 mb-0 welcome-message" *fuseIfOnDom [@animate]="{value:'*',params:{x:'50px'}}">
-                      
+
                        <img src="assets/icons/sofia/books.png" alt="sup" width="45" height="45" border="0"> {{ 'COURSES.SLOGAN' | translate }}
                     </span>
 
@@ -25,7 +25,7 @@
                             <mat-icon>search</mat-icon>
                         </label>
                         <mat-form-field mat-no-float class="m-0" floatPlaceholder="never">
-                            <input matInput  id="search" placeholder="Search for anything" [(ngModel)]="searchBarInput" [ngModelOptions]="{standalone: true}">
+                            <input matInput  id="search" placeholder="{{ 'COURSES.SEARCH'| translate }}" [(ngModel)]="searchBarInput" [ngModelOptions]="{standalone: true}">
                         </mat-form-field>
                     </div>
                     <!-- / SEARCH -->
@@ -34,7 +34,7 @@
 
                 <div fxLayout="row">
 
- 
+
                       <button *ngIf = "isCreator" class="project-selector"  [routerLink]="['../course/create']" matTooltipPosition = "above" matTooltip="{{ 'COURSES.CREATEBUTTON' | translate }}" mat-icon-button>
                         <mat-icon>add</mat-icon>
                       </button>
@@ -49,7 +49,7 @@
                     <mat-menu #projectsMenu="matMenu">
 
                         <button mat-menu-item (click)="categorySelected = 'All'">
-                            <span>All</span>
+                            <span>{{ 'COURSES.CATEGORY_ALL'| translate }}</span>
                         </button>
                         <button mat-menu-item *ngFor="let category of categories | async" (click)="categorySelected = category.name">
                             <span>{{category.name}}</span>
@@ -72,14 +72,14 @@
 
                             <ng-container *ngFor="let course of courses | async">
                               <ng-container *ngIf="(course.category == categorySelected) || categorySelected == 'All' "  >
-                                
+
                                 <fuse-widget  *ngIf="testInput(course.name)"  [@animate]="{value:'*',params:{y:'100%'}}"  class="widget" fxLayout="column" fxFlex="100" fxFlex.gt-sm="50">
 
                                     <!-- Front -->
                                     <div class="fuse-widget-front mat-white-bg mat-elevation-z2">
 
                                         <div class="px-16 border-bottom" fxLayout="row" fxLayoutAlign="space-between center">
-                                            
+
                                         </div>
 
                                         <div class="h-400 media" >
@@ -93,10 +93,10 @@
                                         <div class="py-8 mh-16 border-top info-bar" fxLayout="row" fxLayoutAlign="center center" fxLayoutWrap>
                                             <div class="py-8 border-right" fxLayout="column" fxLayoutAlign="center center" fxFlex="100">
                                                 <span class="mat-display-1 mb-0">{{course.name}}</span>
-                                                <span class="h4">By: {{course.author}}</span>
+                                                <span class="h4">{{ 'COURSES.BY'| translate }}{{course.author}}</span>
 
                                                 <button mat-button  class="cardColors m-12"  (click)="redirectToGames(course.id)">
-                                                    <mat-icon class="mat-24">play_arrow</mat-icon> Start
+                                                    <mat-icon class="mat-24">play_arrow</mat-icon> {{ 'COURSES.START'| translate }}
                                                 </button>
                                             </div>
                                         </div>
@@ -109,11 +109,11 @@
 
                                             <div class="py-8 border-right" fxLayout="column" fxLayoutAlign="center center" fxFlex="100" fxFlex.gt-sm="50">
                                                 <div *ngIf="!course.isRatedByUser && !isCreator" fxLayout="row" style="width: 100%" fxLayoutAlign="center center" >
-                                                    <button mat-button fxFlex="100%" [routerLink]="['../course/rate/', course.id]">Rate it ⭐️</button>
+                                                    <button mat-button fxFlex="100%" [routerLink]="['../course/rate/', course.id]">{{ 'COURSES.RATE_IT'| translate }} ⭐️</button>
                                                 </div>
 
                                                 <div *ngIf="isCreator" fxLayout="row" style="width: 100%" fxLayoutAlign="center center" >
-                                                    
+
 
                                                     <button mat-raised-button  class="cardColors m-12"  [routerLink]="['../course/edit/', course.id]">
                                                       <mat-icon>mode_edit</mat-icon>
@@ -126,7 +126,7 @@
                                                     </button>
 
                                                 </div>
-                                                
+
                                             </div>
                                         </div>
 
@@ -138,17 +138,17 @@
                             </ng-container>
 
 
-  
+
                         </div>
-                        
+
                         <!-- / WIDGET GROUP -->
                     </mat-tab>
 
 
-  
+
                 </mat-tab-group>
 
-                
+
 
             </div>
             <!-- / CONTENT -->

@@ -10,7 +10,12 @@ export const locale = {
           'SELECT_CATEGORY' : 'Selecciona una categoría',
           'EDITBUTTON' : 'Editar',
           'DELETEBUTTON' : 'Eliminar',
-          'TOOLTIP_DIFFICULTY' : 'Dificultad del Curso'
+          'TOOLTIP_DIFFICULTY' : 'Dificultad del Curso',
+          'START' : 'Iniciar Curso',
+          'BY' : 'Por: ',
+          'RATE_IT' : '¡Califícalo!',
+          'SEARCH' : 'Busca un Curso'
+
       }
 
   }
