@@ -11,7 +11,8 @@ import { FirebaseFirestore, DocumentReference } from '@firebase/firestore-types'
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AuthService } from '../../../../auth/auth.service';
 import { CoursesComponent } from '../courses.component';
-
+import { locale as english } from '../i18n/en';
+import { locale as spanish } from '../i18n/es';
 
 @Component({
   selector   : 'viewer-courses-view',
@@ -30,6 +31,7 @@ import { CoursesComponent } from '../courses.component';
                  router: Router,
                  auth : AuthService)
     {
+
         super(translationLoader,db,router,auth)
         this.auth.user.subscribe( userData => {
         this.coursesCollection = this.db.collection('courses', ref => 

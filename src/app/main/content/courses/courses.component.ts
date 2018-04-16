@@ -26,14 +26,14 @@ import { AuthService } from '../../../auth/auth.service';
   export class CoursesComponent{
 
 
-    isCreator = false ;
+    public isCreator = false ;
     coursesCollection: AngularFirestoreCollection<any[]>;
     courses: Observable<any[]>;
     categoriesCollection: AngularFirestoreCollection<any[]>;
     categories: Observable<any[]>;
     categorySelected = 'All';
 
-    searchBarInput = '';
+    public searchBarInput = '';
 
 
     
@@ -42,35 +42,14 @@ import { AuthService } from '../../../auth/auth.service';
                 public router: Router,
                 public auth: AuthService)
     {
-      this.auth.user.subscribe( userData => {
-        this.coursesCollection = this.db.collection('courses', ref => 
-                               ref.where('createdBy', '==', userData.uid));
-        this.courses = this.coursesCollection.snapshotChanges().map(document => {
-            return document.map(documentData => {
-              const data = documentData.payload.doc.data();
-              const id = documentData.payload.doc.id;
-              // We check if the user already rated that course
-              let isRatedByUser = false;
-              for (const uid in data.usersThatRated) {
-                if (uid === userData.uid){
-                  isRatedByUser = true;
-                  break;
-                }                    
-              }
-              return { id, isRatedByUser, ...data };
-            });
-         });
-       }
-      );
-      this.translationLoader.loadTranslations(english, spanish);
       
-
-      this.categoriesCollection = this.db.collection('categories');
-      this.categories = this.categoriesCollection.valueChanges();
+        this.translationLoader.loadTranslations(english, spanish);
+        this.categoriesCollection = this.db.collection('categories');
+        this.categories = this.categoriesCollection.valueChanges();
 
     }
 
-    testInput(courseName: String){
+    testInput(courseName: String) : boolean {
 
       const courseNameComparison = courseName.toLowerCase();
       const searchBarInputComparison = this.searchBarInput.toLowerCase();
@@ -83,9 +62,6 @@ import { AuthService } from '../../../auth/auth.service';
     redirectToGames(courseID){
       this.router.navigate(['/teacher/courses/' + courseID + '/games']);
     }
-
-
-
 
 
     deleteCourse(courseID: string){

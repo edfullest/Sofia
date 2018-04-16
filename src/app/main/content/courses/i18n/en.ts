@@ -3,7 +3,7 @@ export const locale = {
   data: {
       'COURSES' : {
           'TITLE' : 'My Courses',
-          'SLOGAN' : 'KEEP SHARING MORE KNOWLEDGE',
+          'SLOGAN' : 'Courses',
           'CREATEBUTTON' : 'Create Course',
           'CATEGORY_ALL' : 'All courses',
           'TOOLTIP' : 'Edit / Delete',
@@ -12,6 +12,7 @@ export const locale = {
           'DELETEBUTTON' : 'Delete',
           'TOOLTIP_DIFFICULTY' : 'Difficulty of the Course',
           'START' : 'Start',
+          'SEE' : 'View course',
           'BY' : 'By: ',
           'RATE_IT' : 'Rate it!',
           'SEARCH' : 'Search a Course'

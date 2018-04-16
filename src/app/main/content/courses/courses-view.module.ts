@@ -65,7 +65,7 @@ const routes = [
     SharedModule,
     RouterModule.forChild(routes),
     FuseWidgetModule,
-    RateModule
+    RateModule,
 
   ],
   declarations: [

@@ -95,8 +95,12 @@
                                                 <span class="mat-display-1 mb-0">{{course.name}}</span>
                                                 <span class="h4">{{ 'COURSES.BY'| translate }}{{course.author}}</span>
 
-                                                <button mat-button  class="cardColors m-12"  (click)="redirectToGames(course.id)">
+                                                <button *ngIf="!isCreator" mat-button  class="cardColors m-12"  (click)="redirectToGames(course.id)">
                                                     <mat-icon class="mat-24">play_arrow</mat-icon> {{ 'COURSES.START'| translate }}
+                                                </button>
+
+                                                <button *ngIf="isCreator" mat-button  class="cardColors m-12"  (click)="redirectToGames(course.id)">
+                                                    <mat-icon class="mat-24">play_arrow</mat-icon> {{ 'COURSES.SEE'| translate }}
                                                 </button>
                                             </div>
                                         </div>
