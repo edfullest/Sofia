@@ -1,13 +1,13 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FuseTranslationLoaderService } from '../../../core/services/translation-loader.service';
-import { RecentQuestionsModule } from '../recent-questions/recent-questions.module'
-import { RecentQuestionsComponent } from '../recent-questions/recent-questions.component'
-import {AddQuestionComponent} from '../recent-questions/add-question/add-question.component'
+import { RecentQuestionsModule } from '../recent-questions/recent-questions.module';
+import { RecentQuestionsComponent } from '../recent-questions/recent-questions.component';
+import { AddQuestionComponent } from '../recent-questions/add-question/add-question.component';
 
 import { locale as english } from './i18n/en';
 import { locale as spanish } from './i18n/es';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { fuseAnimations } from '../../../core/animations';
 import { AuthService } from '../../../auth/auth.service';
@@ -32,12 +32,12 @@ export const myCustomTooltipDefaults = {
 })
 
 export class GamesViewComponent implements OnInit{
-   
+
     games: Observable<any[]>;
     isPressed : boolean = false;
     courseID : string;
     isCreator : boolean = false
-    constructor(public translationLoader: FuseTranslationLoaderService, public db: AngularFirestore, 
+    constructor(public translationLoader: FuseTranslationLoaderService, public db: AngularFirestore,
                 public router: Router,
                 public route : ActivatedRoute,
                 public auth : AuthService)
@@ -81,13 +81,13 @@ export class GamesViewComponent implements OnInit{
       this.router.navigate(['/courses/' + this.courseID + '/game/view/' + gameID])
     }
     OnInit(){
-    
-    } 
+
+    }
 }
 
 // export class CreatorGamesViewComponent extends GamesViewComponent{
 //     isCreator : boolean = true
-//     constructor(translationLoader: FuseTranslationLoaderService, db: AngularFirestore, 
+//     constructor(translationLoader: FuseTranslationLoaderService, db: AngularFirestore,
 //                 router: Router,
 //                 route : ActivatedRoute,
 //                 auth : AuthService)
@@ -99,7 +99,7 @@ export class GamesViewComponent implements OnInit{
 
 // export class ViewerGamesViewComponent extends GamesViewComponent{
 //     isCreator : boolean = false
-//     constructor(translationLoader: FuseTranslationLoaderService, db: AngularFirestore, 
+//     constructor(translationLoader: FuseTranslationLoaderService, db: AngularFirestore,
 //                 router: Router,
 //                 route : ActivatedRoute,
 //                 auth : AuthService)
@@ -108,7 +108,7 @@ export class GamesViewComponent implements OnInit{
 //     }
 // }
 
-   // constructor(translationLoader: FuseTranslationLoaderService, db: AngularFirestore, 
+   // constructor(translationLoader: FuseTranslationLoaderService, db: AngularFirestore,
    //              router: Router,
    //              route : ActivatedRoute,
    //              auth : AuthService)

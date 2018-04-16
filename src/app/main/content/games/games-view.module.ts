@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { SharedModule } from '../../../core/modules/shared.module';
@@ -13,10 +13,10 @@ import { RateModule } from '../rate/rate.module';
 
 import { FuseWidgetModule } from '../../../core/components/widget/widget.module';
 import { ViewGameComponentComponent } from './view-game-component/view-game-component.component';
-import{ AuthGuard, StudentGuard, ProfessorGuard, CanUpdateCourseGuard, CanViewGame } from '../../../../app/auth/auth_guard/auth.guard';
+import { AuthGuard, StudentGuard, ProfessorGuard, CanUpdateCourseGuard, CanViewGame } from '../../../../app/auth/auth_guard/auth.guard';
 import { CreatorGamesViewComponent } from './creator-games-view/creator-games-view.component';
 import { ViewerGamesViewComponent } from './viewer-games-view/viewer-games-view.component';
-import { GameTopScoresComponent } from './game-top-scores/game-top-scores.component'
+import { GameTopScoresComponent } from './game-top-scores/game-top-scores.component';
 
 
 const routes = [
@@ -63,7 +63,7 @@ const routes = [
     {
         path     : 'teacher/courses/:course_id/game/:game_id/topscores/reload',
         redirectTo: 'student/courses/:course_id/game/:game_id/topscores'
-        
+
     },
 ];
 
@@ -86,7 +86,11 @@ const routes = [
     exports     : [
         GamesViewComponent
     ],
-    providers : [AuthGuard, StudentGuard, ProfessorGuard, CanUpdateCourseGuard, CanViewGame],
+    providers : [AuthGuard, StudentGuard, ProfessorGuard, CanUpdateCourseGuard, CanViewGame],,
+    schemas: [
+      CUSTOM_ELEMENTS_SCHEMA,
+      NO_ERRORS_SCHEMA
+    ],
 
 })
 

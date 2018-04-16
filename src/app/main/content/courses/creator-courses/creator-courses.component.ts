@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FuseTranslationLoaderService } from '../../../../core/services/translation-loader.service';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument, AngularFirestoreModule } from 'angularfire2/firestore';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { fuseAnimations } from '../../../../core/animations';
 import { FirebaseDatabase } from '@firebase/database-types';
@@ -24,17 +24,17 @@ import { locale as spanish } from '../i18n/es';
 
   export class CreatorCoursesComponent extends CoursesComponent{
 
-    isCreator : boolean = true 
-    
-    constructor( translationLoader: FuseTranslationLoaderService, 
-                 db: AngularFirestore, 
+    isCreator = true;
+
+    constructor( translationLoader: FuseTranslationLoaderService,
+                 db: AngularFirestore,
                  router: Router,
-                 auth : AuthService)
+                 auth: AuthService)
     {
-      
-        super(translationLoader,db,router,auth)
+
+        super(translationLoader, db, router, auth);
         this.auth.user.subscribe( userData => {
-        this.coursesCollection = this.db.collection('courses', ref => 
+        this.coursesCollection = this.db.collection('courses', ref =>
                                ref.where('createdBy', '==', userData.uid));
         this.courses = this.coursesCollection.snapshotChanges().map(document => {
             return document.map(documentData => {
@@ -46,14 +46,14 @@ import { locale as spanish } from '../i18n/es';
                 if (uid === userData.uid){
                   isRatedByUser = true;
                   break;
-                }                    
+                }
               }
               return { id, isRatedByUser, ...data };
             });
          });
        }
       );
-    } 
+    }
  }
 
 

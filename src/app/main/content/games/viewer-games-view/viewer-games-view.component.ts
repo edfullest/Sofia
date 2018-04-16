@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GamesViewComponent } from '../games-view.component';
 
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { fuseAnimations } from '../../../../core/animations';
 import { AuthService } from '../../../../auth/auth.service';
@@ -18,13 +18,13 @@ import { FuseTranslationLoaderService } from '../../../../core/services/translat
   ],
 })
 export class ViewerGamesViewComponent extends GamesViewComponent {
-    isCreator : boolean = false
-    constructor(translationLoader: FuseTranslationLoaderService, db: AngularFirestore, 
+    isCreator = false;
+    constructor(translationLoader: FuseTranslationLoaderService, db: AngularFirestore,
                 router: Router,
-                route : ActivatedRoute,
-                auth : AuthService)
+                route: ActivatedRoute,
+                auth: AuthService)
     {
-        super(translationLoader,db,router,route,auth)
+        super(translationLoader, db, router, route, auth);
     }
 
 

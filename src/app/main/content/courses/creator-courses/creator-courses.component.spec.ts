@@ -32,7 +32,7 @@ import { RateCourseComponent } from '../../rate/rate-course/rate-course.componen
 
 
 import { AuthGuard, StudentGuard, ProfessorGuard, CanUpdateCourseGuard } from '../../../../../app/auth/auth_guard/auth.guard';
-import { TranslateModule,TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireStorageModule } from 'angularfire2/storage';
@@ -74,7 +74,7 @@ describe('CreatorCoursesComponent', () => {
         AngularFireAuthModule,
     ],
 
-    providers : [AuthGuard, StudentGuard, ProfessorGuard, CanUpdateCourseGuard, TranslateService, 
+    providers : [AuthGuard, StudentGuard, ProfessorGuard, CanUpdateCourseGuard, TranslateService,
                  AngularFireDatabase,
                   AngularFireDatabaseModule,
                   AngularFirestore, AuthService, FuseSplashScreenService,
