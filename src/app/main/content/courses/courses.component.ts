@@ -44,8 +44,8 @@ import { AuthService } from '../../../auth/auth.service';
     {
       
         this.translationLoader.loadTranslations(english, spanish);
-        this.categoriesCollection = this.db.collection('categories');
-        this.categories = this.categoriesCollection.valueChanges();
+        // this.categoriesCollection = this.db.collection('categories');
+        // this.categories = this.categoriesCollection.valueChanges();
 
     }
 

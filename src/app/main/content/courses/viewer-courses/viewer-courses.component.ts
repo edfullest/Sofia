@@ -33,25 +33,29 @@ import { locale as spanish } from '../i18n/es';
     {
 
         super(translationLoader,db,router,auth)
+        this.categoriesCollection = this.db.collection('categories');
+        this.categories = this.categoriesCollection.valueChanges();
         this.auth.user.subscribe( userData => {
-        this.coursesCollection = this.db.collection('courses', ref => 
-                               ref.where("students." + userData.uid, '==', true));
-        this.courses = this.coursesCollection.snapshotChanges().map(document => {
-            return document.map(documentData => {
-              const data = documentData.payload.doc.data();
-              const id = documentData.payload.doc.id;
-              // We check if the user already rated that course
-              var isRatedByUser = false
-              for (var uid in data.usersThatRated) {
-                if (uid == userData.uid){
-                  isRatedByUser = true
-                  break;
-                }                    
-              }
-              return { id,isRatedByUser, ...data };
-            });
-         });
+            this.coursesCollection = this.db.collection('courses', ref => 
+                                   ref.where("students." + userData.uid, '==', true));
+            this.courses = this.coursesCollection.snapshotChanges().map(document => {
+                return document.map(documentData => {
+                      const data = documentData.payload.doc.data();
+                      const id = documentData.payload.doc.id;
+                      // We check if the user already rated that course
+                      var isRatedByUser = false
+                      for (var uid in data.usersThatRated) {
+                        if (uid == userData.uid){
+                          isRatedByUser = true
+                          break;
+                        }                    
+                      }
+                      return { id,isRatedByUser, ...data };
+                });
+             });
        })
+       
+
     }
 
     redirectToGames(courseID){

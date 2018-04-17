@@ -36,9 +36,14 @@ import { TranslateModule,TranslateService } from '@ngx-translate/core';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireStorageModule } from 'angularfire2/storage';
-  import { RouterTestingModule } from '@angular/router/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { User } from '../../../../auth/user';
+import * as firebase from 'firebase/app';
+import {AngularFireAuth} from 'angularfire2/auth';
 
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { Injectable } from '@angular/core';
+
 const environment = {
   production: false,
   hmr: false,
@@ -49,6 +54,32 @@ const environment = {
     projectId: "sofia-97b65",
     storageBucket: "sofia-97b65.appspot.com",
     messagingSenderId: "749913572579"
+  }
+}
+@Injectable()
+export class MockAuthService extends AuthService {
+  user: Observable<User>;
+
+  constructor(afAuth: AngularFireAuth,
+              afs: AngularFirestore,
+              router: Router) {
+      super(afAuth,afs,router)
+      //// Get auth data, then get firestore user document || null
+      
+      this.user = this.user.map(user => 
+      {
+         const data: User = {
+            uid: 'LoAAjOLUAlczXtQg08tBDyfBDFv2',
+            email: "lalotahoma@gmail.com",
+            displayName: "MockUp",
+            photoURL: "",
+            roles: {student:true, professor: true},
+            myCategories : ['']
+          };
+
+        return data
+
+      }) 
   }
 }
 
@@ -77,7 +108,11 @@ describe('ViewerCoursesComponent', () => {
     providers : [AuthGuard, StudentGuard, ProfessorGuard, CanUpdateCourseGuard, TranslateService, 
                  AngularFireDatabase,
                   AngularFireDatabaseModule,
-                  AngularFirestore, AuthService, FuseSplashScreenService,
+                  AngularFirestore, {
+                                      provide: AuthService,
+                                      useClass: MockAuthService
+                                    }, 
+                  FuseSplashScreenService,
                   FuseConfigService,
                   FuseNavigationService,FuseTranslationLoaderService]
   })
@@ -87,11 +122,13 @@ describe('ViewerCoursesComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ViewerCoursesComponent);
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+    done()
   });
 
   it('isCreator should default to false', () => {
