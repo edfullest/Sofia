@@ -8,6 +8,10 @@ import { FirebaseApp } from 'angularfire2';
 import { Router } from "@angular/router";
 import { AuthService } from '../../../../auth/auth.service';
 
+import { FuseTranslationLoaderService } from '../../../../core/services/translation-loader.service';
+import { locale as english } from '../i18n/en';
+import { locale as spanish } from '../i18n/es';
+
 @Component({
   selector: 'rate-game',
   templateUrl: './rate-game.component.html',
@@ -16,9 +20,11 @@ import { AuthService } from '../../../../auth/auth.service';
 export class RateGameComponent extends RateComponent implements OnInit {
    game : Observable<any>
 
-  constructor(db: AngularFirestore, fbApp: FirebaseApp,  router: Router, auth: AuthService) {
+  constructor(db: AngularFirestore, fbApp: FirebaseApp,  router: Router, auth: AuthService, public translationLoader: FuseTranslationLoaderService) {
       super(db, fbApp, router, auth);
-      
+
+      this.translationLoader.loadTranslations(english, spanish);
+
    }
 
   ngOnInit() {
@@ -37,12 +43,12 @@ export class RateGameComponent extends RateComponent implements OnInit {
               return { id,isRatedByUser,...data };
 
          });
-          
-    })       
+
+    })
   }
 
 
-  
+
 
 }
 

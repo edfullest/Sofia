@@ -7,7 +7,7 @@ import { fuseAnimations } from '../../../../../core/animations';
 
 import { FuseTranslationLoaderService } from '../../../../../core/services/translation-loader.service';
 import { FuseUtils } from '../../../../../core/fuseUtils';
-
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { locale as english } from './i18n/en';
 import { locale as spanish } from './i18n/es';
 
@@ -44,47 +44,36 @@ export class FAQComponent{
     faqStudent: Observable<any[]>;
 
   faqs: any;
-
+  currentLang = 'ES';
+  langChanged = false;
   step = 0;
 
 
   constructor(public translationLoader: FuseTranslationLoaderService,
+              private translate: TranslateService,
               public router: Router,
               public db: AngularFirestore)
   {
-    this.translationLoader.loadTranslations(english, spanish);
 
     this.faqCollection = this.db.collection('FAQ');
 
-    this.faqGeneralCollection = this.faqCollection.doc('lMstBI9frneTqiarj1hX').collection('ES', ref => ref.orderBy('QuestionNum', 'asc'));
+    this.ChangeFAQContent();
 
-      this.faqGeneral = this.faqGeneralCollection.snapshotChanges().map(document => {
-            return document.map(documentData => {
-              const data = documentData.payload.doc.data();
-              const id = documentData.payload.doc.id;
-              return { id, ...data };
-            });
-      });
+    this.translationLoader.loadTranslations(english, spanish);
 
-      this.faqProfessorCollection = this.faqCollection.doc('lCMZamzb03mQ3AGHK5i4').collection('ES', ref => ref.orderBy('QuestionNum', 'asc'));
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      this.langChanged = !this.langChanged;
+      if (this.translate.currentLang === 'es'){
+        this.currentLang = 'ES';
+      }
+      else if (this.translate.currentLang === 'en')
+      {
+        this.currentLang = 'EN';
+      }
+      this.ChangeFAQContent();
+  });
 
-      this.faqProfessor = this.faqProfessorCollection.snapshotChanges().map(document => {
-            return document.map(documentData => {
-              const data = documentData.payload.doc.data();
-              const id = documentData.payload.doc.id;
-              return { id, ...data };
-            });
-      });
 
-      this.faqStudentCollection = this.faqCollection.doc('KesPex9MZ64nYTuO4f13').collection('ES', ref => ref.orderBy('QuestionNum', 'asc'));
-
-      this.faqStudent = this.faqStudentCollection.snapshotChanges().map(document => {
-            return document.map(documentData => {
-              const data = documentData.payload.doc.data();
-              const id = documentData.payload.doc.id;
-              return { id, ...data };
-            });
-      });
 
 
   }
@@ -105,5 +94,36 @@ export class FAQComponent{
         this.step--;
     }
 
+    ChangeFAQContent()
+    {
+
+        this.faqGeneralCollection = this.faqCollection.doc('lMstBI9frneTqiarj1hX').collection(this.currentLang, ref => ref.orderBy('QuestionNum', 'asc'));
+        this.faqProfessorCollection = this.faqCollection.doc('lCMZamzb03mQ3AGHK5i4').collection(this.currentLang, ref => ref.orderBy('QuestionNum', 'asc'));
+        this.faqStudentCollection = this.faqCollection.doc('KesPex9MZ64nYTuO4f13').collection(this.currentLang, ref => ref.orderBy('QuestionNum', 'asc'));
+
+        this.faqGeneral = this.faqGeneralCollection.snapshotChanges().map(document => {
+          return document.map(documentData => {
+            const data = documentData.payload.doc.data();
+            const id = documentData.payload.doc.id;
+            return { id, ...data };
+          });
+        });
+
+        this.faqProfessor = this.faqProfessorCollection.snapshotChanges().map(document => {
+          return document.map(documentData => {
+            const data = documentData.payload.doc.data();
+            const id = documentData.payload.doc.id;
+            return { id, ...data };
+          });
+        });
+
+        this.faqStudent = this.faqStudentCollection.snapshotChanges().map(document => {
+          return document.map(documentData => {
+            const data = documentData.payload.doc.data();
+            const id = documentData.payload.doc.id;
+            return { id, ...data };
+          });
+        });
+    }
 
 }

@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { SharedModule } from '../../../core/modules/shared.module';
 import { RecentQuestionsComponent } from './recent-questions.component';
 import { MatChipsModule } from '@angular/material/chips';
 import {MatIconModule} from '@angular/material/icon';
@@ -16,6 +18,8 @@ import { AddQuestionComponent } from './add-question/add-question.component';
 @NgModule({
   imports: [
     CommonModule,
+    RouterModule,
+    SharedModule,
     MatChipsModule,
     MatIconModule,
     MatTabsModule,

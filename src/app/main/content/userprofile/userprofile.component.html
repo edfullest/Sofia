@@ -2,12 +2,12 @@
       <div class="header mat-accent-bg p-24 h-160" fxLayout="column">
 
     <div fxLayout="column" fxLayoutAlign="center center">
-      <h1>Mi Perfil</h1>
+      <h1>{{ 'PROFILE.PROFILE' | translate}}</h1>
       <!--<h1> <img src="assets/icons/sofia/books.png" alt="sup" width="45" height="45" border="0">  {{ 'COURSES.SLOGAN' | translate }}</h1>-->
       <!--<h1> <img src={{myUser.photoURL}} alt="sup" width="45" height="45" border="0">  {{ 'COURSES.SLOGAN' | translate }}</h1>-->
     </div>
   </div>
-  <!--/ END HEADER--->
+  <!--/ END HEADER-->
 <div flex fxlayout = "row">
   <div class="container" fxFlex="20" fxLayout="column" style="">
     <div >
@@ -17,27 +17,27 @@
        <h2>{{ (myUser | async)?.displayName }}</h2>
        <button (click)="fileInput.click()">
          <mat-icon>edit</mat-icon>
-         <span>Editar foto</span>
+         <span>{{ 'PROFILE.PHOTO' | translate}}</span>
        </button>
 
 
 
        <input #fileInput style="display:none;" class="file-input" type="file" (change)="uploadPicture($event.target.files)">
-           <span class="file-cta"> 
+           <span class="file-cta">
             <span class="file-icon">
                <i class="fa fa-upload"></i>
              </span>
           </span>
    </div>
  </div>
-        
-  
-        
-  
+
+
+
+
   <div fxFlex="80" fxLayout="column" style="">
           <mat-card style="">
               <mat-card-title>
-                  Acerca de mi 
+                {{ 'PROFILE.ABOUT' | translate}}
                   <!--button mat-button (click)="isEdit=!isEdit"-->
                   <button mat-button (click)="editAbout()">
                     <mat-icon>edit</mat-icon>
@@ -48,7 +48,7 @@
                   {{about}}
                   <!--p *ngIf="!about">Soy usuario asiduo de esta plataforma. Tengo tres gatos y dos perros.<p-->
               </div>
-                  
+
               <div fxFlex *ngIf="isEdit" >
                    <form name="settingsForm" [formGroup]="settingsForm" novalidate>
                   <mat-form-field fxFlex>
@@ -58,33 +58,33 @@
                   </mat-form-field>
                   </form>
               </div>
-                  
-              
+
+
               </mat-card-content>
           </mat-card>
-      
+
           <mat-card style="">
-              <mat-card-title>Datos como Profesor</mat-card-title>
+              <mat-card-title>{{ 'PROFILE.INFO_PROF' | translate}}</mat-card-title>
               <mat-card-content>-----</mat-card-content>
           </mat-card>
-      
+
           <mat-card>
-              <mat-card-title>Datos como Estudiante</mat-card-title>
+              <mat-card-title>{{ 'PROFILE.INFO_STUD' | translate}}</mat-card-title>
               <mat-card-content>-----</mat-card-content>
           </mat-card>
-      
-     
-      
+
+
+
      <!--form name="Form" novalidate>
         <mat-form-field>
      <label *ngIf="!isEdit" (click)="isEdit=true">Name</label>
      <input *ngIf="isEdit" (key7down.enter)="isEdit=false"  type="text" formControlName="displayName"
-    
+
         </mat-form-field>
      </form-->
-      
+
   </div>
 </div>
-    
-    
+
+
 </div>

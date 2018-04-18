@@ -1,9 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
-import { ActivatedRoute, Route, Router } from "@angular/router"
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import {MatButtonModule} from '@angular/material/button';
 import { AuthService } from '../../../auth/auth.service';
+
+import { FuseTranslationLoaderService } from '../../../core/services/translation-loader.service';
+import { locale as english } from './i18n/en';
+import { locale as spanish } from './i18n/es';
 
 @Component({
   selector: 'app-recent-questions',
@@ -19,10 +23,17 @@ export class RecentQuestionsComponent implements OnInit {
   selectedHashtags : any[] = new Array();
   @Input() isCreator : boolean;
   questionCollectionReference : AngularFirestoreCollection<any>;
+
+
   constructor(private db: AngularFirestore, private router: Router,
               private route : ActivatedRoute,
+              public translationLoader: FuseTranslationLoaderService,
               public auth : AuthService) {
+
+      this.translationLoader.loadTranslations(english, spanish);
   }
+
+
 
   triggerQuestionChanges(){
       this.questions = this.questionCollectionReference.snapshotChanges().map(document => {
@@ -44,7 +55,7 @@ export class RecentQuestionsComponent implements OnInit {
        if (hashtag.matChipClass == "mat-light-blue-900-bg" ){
           hashtag.matChipClass = "mat-accent-bg"
           // We remove the selected hashtag in case the user selects one that is already selected
-          this.selectedHashtags = this.selectedHashtags.filter(function(selectedHashtag) { 
+          this.selectedHashtags = this.selectedHashtags.filter(function(selectedHashtag) {
             return selectedHashtag !== hashtag.hashtag
           })
        }
@@ -84,7 +95,7 @@ export class RecentQuestionsComponent implements OnInit {
       return contains;
   }
 
-   // We only show a question if its hashtags are 
+   // We only show a question if its hashtags are
    shouldShowQuestion(hashtagsArray){
      // If there are no selected hashtags, return true (aka, we show that question)
      if (this.selectedHashtags.length == 0){
@@ -120,7 +131,7 @@ export class RecentQuestionsComponent implements OnInit {
     this.questionCollectionReference = this.db.collection('courses').doc(this.courseID).collection('questions')
     this.triggerQuestionChanges()
     this.getHashtags()
-    
+
   }
 
 }

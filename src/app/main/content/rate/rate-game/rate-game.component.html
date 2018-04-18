@@ -1,6 +1,6 @@
 <div *ngIf = "game | async as loadedGame;">
     <div *ngIf = "!loadedGame.isRatedByUser" fxLayout="direction" fxLayoutGap="100px" fxLayoutAlign="center center">
-        <span class="mat-title">Rate this game</span>
+        <span class="mat-title">{{ 'RATING.RATE' | translate}}</span>
     </div>
     <div *ngIf = "!loadedGame.isRatedByUser" fxLayout="direction" fxLayoutGap="100px" fxLayoutAlign="center center">
         <button style="cursor: pointer" (click) = "giveThumbsUp()" > <mat-icon>thumb_up_outline</mat-icon> </button>

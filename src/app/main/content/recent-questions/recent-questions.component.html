@@ -7,7 +7,7 @@
                 </div>
                 <div *ngIf = "hashtags | async as hashtags">
                     <button *ngIf = "selectedHashtags.length != 0" mat-raised-button style="cursor: pointer; margin-left: 5px;" (click) = "removeFilters(hashtags)">
-                        <mat-icon>delete_forever</mat-icon> 
+                        <mat-icon>delete_forever</mat-icon>
                     </button>
                 </div>
             </mat-chip-list>
@@ -41,13 +41,13 @@
                         </div>
                     </div>
                     <div class = "comment" fxflexfill="" fxlayout="row" style="height: 100%; margin: 0px; min-height: 100%; min-width: 100%; width: 100%; flex-direction: row; box-sizing: border-box; display: flex; padding-left: 20px;">
-                        
+
                         <img *ngIf = "isCreator" class="avatar" src="{{(auth.user | async)?.photoURL}}">
 
                         <div class="ng-tns-c80-126" fxflex="" fxlayout="column" style="flex: 1 1 1e-09px; box-sizing: border-box; flex-direction: column; display: flex;">
                             <div class="ng-tns-c80-126" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;">
                                 <div *ngIf = 'question.originalAnswer !== "" '>
-                                    <span class="mat-body-2">Creador</span>
+                                    <span class="mat-body-2">{{ 'RQ.CREATOR' | translate }}</span>
                                 </div>
                                 <div *ngIf='question.originalAnswer === "" && isCreator' style="width:100%">
                                     <mat-form-field style="width: 80%">
@@ -55,7 +55,7 @@
                                     </mat-form-field>
                                     <button class="mat-raised-button mat-accent" color="accent" mat-raised-button="" (click)="sendAnswer(question)">
                                     <span class="mat-button-wrapper">
-                                        Enviar
+                                      {{ 'RQ.SUBMIT' | translate }}
                                     </span><div class="mat-button-ripple mat-ripple" matripple=""></div><div class="mat-button-focus-overlay"></div></button>
                                 </div>
                             </div>
@@ -71,12 +71,12 @@
                     </div>
                 </div>
             </div>
-        </div>  
+        </div>
     </div>
     <div>
         <ng-template #loading><mat-progress-bar mode="buffer"></mat-progress-bar></ng-template>
-    </div>    
-</div>                    
+    </div>
+</div>
 
 
 

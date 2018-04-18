@@ -3,9 +3,15 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Observable } from 'rxjs/Observable';
 import {MatChipInputEvent} from '@angular/material';
 import {ENTER, COMMA, SPACE} from '@angular/cdk/keycodes';
-import { ActivatedRoute, Route, Router } from "@angular/router"
+import { ActivatedRoute, Route, Router } from '@angular/router';
+
+
+import { FuseTranslationLoaderService } from '../../../../core/services/translation-loader.service';
+import { locale as english } from '../i18n/en';
+import { locale as spanish } from '../i18n/es';
 
 import 'rxjs/add/operator/first';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-add-question',
@@ -25,20 +31,23 @@ export class AddQuestionComponent implements OnInit {
   //hashtags : Observable<any[]>;
   hashtags = [
   ];
-    
+
   constructor(private db: AngularFirestore, private router: Router,
-              private route : ActivatedRoute) { }
+              public translationLoader: FuseTranslationLoaderService,
+              private route : ActivatedRoute) {
+                this.translationLoader.loadTranslations(english, spanish);
+               }
 
   ngOnInit() {
       this.route.params.subscribe(params => {
         this.courseID = params["course_id"]
     });
   }
-  
+
    submit(){
       this.addQuestion();
    }
-  
+
    addQuestion(){
     var hashtagObj  = {}
     for(var index in this.hashtags){
@@ -47,7 +56,7 @@ export class AddQuestionComponent implements OnInit {
       let col : AngularFirestoreCollection<any>;
       let id : Observable<any>;
       col = this.db.collection('courses').doc(this.courseID)
-                               .collection('hashtags', ref => 
+                               .collection('hashtags', ref =>
                                ref.where("hashtag", '==', htag));
 
     id = col.snapshotChanges().map( document => {
@@ -71,14 +80,14 @@ export class AddQuestionComponent implements OnInit {
              }
        });
     }
-    
+
     var question = {answer:"", hashtags:hashtagObj, question: this.pregunta}
     this.db.collection('courses').doc(this.courseID)
          .collection('questions').add(question);
     // Return to questions
     this.outputEvent.emit(false)
   }
-  
+
   add(event: MatChipInputEvent): void {
     let input = event.input;
     let value = event.value;
@@ -100,5 +109,5 @@ export class AddQuestionComponent implements OnInit {
       this.hashtags.splice(index, 1);
     }
   }
-  
+
 }

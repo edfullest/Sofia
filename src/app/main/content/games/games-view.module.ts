@@ -86,7 +86,7 @@ const routes = [
     exports     : [
         GamesViewComponent
     ],
-    providers : [AuthGuard, StudentGuard, ProfessorGuard, CanUpdateCourseGuard, CanViewGame],,
+    providers : [AuthGuard, StudentGuard, ProfessorGuard, CanUpdateCourseGuard, CanViewGame],
     schemas: [
       CUSTOM_ELEMENTS_SCHEMA,
       NO_ERRORS_SCHEMA

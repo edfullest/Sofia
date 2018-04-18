@@ -7,6 +7,9 @@ import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/dat
 import { FirebaseApp } from 'angularfire2';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../../auth/auth.service';
+import { FuseTranslationLoaderService } from '../../../../core/services/translation-loader.service';
+import { locale as english } from '../i18n/en';
+import { locale as spanish } from '../i18n/es';
 
 @Component({
   selector: 'app-rate-course',
@@ -17,8 +20,15 @@ export class RateCourseComponent extends RateComponent implements OnInit {
 
     courseID: string;
 
-  constructor(db: AngularFirestore, fbApp: FirebaseApp,  router: Router, private route: ActivatedRoute,  public auth: AuthService ) {
+  constructor(db: AngularFirestore, fbApp: FirebaseApp,  router: Router,
+              private route: ActivatedRoute,
+              public auth: AuthService,
+              public translationLoader: FuseTranslationLoaderService ) {
       super(db, fbApp, router, auth);
+
+
+      this.translationLoader.loadTranslations(english, spanish);
+
 
    }
 
