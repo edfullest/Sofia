@@ -172,11 +172,21 @@ export class CourseComponent implements OnInit {
 
         const data = this.model;
 
-          this.courseCollectionFB.add(data);
+        this.courseCollectionFB.add(data).then((s) =>{
           this.snackBar.open('¡Se ha creado el juego con éxito!', '', {
             duration: 2000,
             verticalPosition: 'top'
+          })
+          this.router.navigate(['/teacher/courses'];
+          
+          
+        },(fail) =>{
+          this.snackBar.open('Error al crear curso', '', {
+            duration: 1500,
+            verticalPosition: 'top'
           });
+        })
+          
       }else{
         if (this.currentState === ComponentState.IsEditing){
 
@@ -189,10 +199,18 @@ export class CourseComponent implements OnInit {
             console.log(this.model);
 
             let data = this.model;
-            this.courseCollectionFB.doc(this.courseID).set(data);
-            this.snackBar.open('¡Se ha editado exitosamente el juego con éxito!', '', {
+            this.courseCollectionFB.doc(this.courseID).set(data).then((s) =>{
+            this.snackBar.open('¡Se ha editado exitosamente el juego!', '', {
               duration: 2000,
               verticalPosition: 'top'
+            })
+            this.router.navigate(['/teacher/courses']
+            
+            },(fail) =>{
+              this.snackBar.open('Error al editar curso', '', {
+                duration: 1500,
+                verticalPosition: 'top'
+              });
             });
 
         }
