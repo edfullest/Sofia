@@ -14,7 +14,7 @@
       <!-- / HEADER -->
 
       <!-- CONTENT CARD -->
-      <div class="content-card mat-white-bg">
+      <div class="card-content mat-white-bg">
           <mat-horizontal-stepper [linear]="isLinear" #stepper="matHorizontalStepper">
             <mat-step [stepControl]="firstFormGroup">
 
@@ -73,29 +73,52 @@
                <mat-form-field class="form-component-half-width">
                   <input matInput placeholder="{{'COURSES.COURSE_PRICE' | translate}}" [(ngModel)]="model.price" [ngModelOptions]="{standalone: true}">
                </mat-form-field>
+                
+           
+               <!--Start EXPeriment-->
+               <h4>Foto de Curso</h4>
+               <div>
+               <div fxFlex="45" class="dropzone" 
+                    dropZone
+                    (hovered)="toggleHover($event)"
+                    (dropped)="startUpload($event)"
+                    [class.hovering]="isHovering">
 
+                    <h3>AngularFire Drop Zone</h3>
 
+                    <div class="file">
+                       <label class="file-label">
+                       <input class="file-input" type="file" (change)="uploadSingle($event.target.files)">
+
+                         <!--span class="file-cta">
+                           <span class="file-icon">
+                             <i class="fa fa-upload"></i>
+                           </span>
+                           <span class="file-label">
+                             or choose a file…
+                           </span>
+                       </span-->
+                       </label>
+                       <label> <span> or drag and drop... </span>
+                       </label>
+                       
+                     </div>
+                </div>
+               <div fxFlex fxFlexOffset="5"> <!--*ngIf="snapshot | async as snap"-->
+                 <div *ngIf="currentUpload?.url as url">
+                   <img class="uploaded-image" [src]="url"><br>
+                 </div>
                <div *ngIf="currentUpload">
-                    <div class="progress">
-                      <div class="progress-bar progress-bar-animated" [ngStyle]="{ 'width': currentUpload?.progress + '%' }"></div>
-                    </div>
-                    Progress: {{currentUpload?.name}} | {{currentUpload?.progress}}% Complete
-                  </div>
-                  
-                      <label>
-                         <input type="file" (change)="detectFiles($event)">
-                      </label>
-                  
-                      <button
-                              [disabled]="!selectedFiles"
-                              (click)="uploadSingle()">
-                  
-                        Upload Single
-                      </button>
-
-
-
-
+               <!--pct-->
+                 <progress class="progress is-info" 
+                           [value]="currentUpload?.progress"
+                           max="100">        
+                 </progress>
+                 {{ currentUpload?.progress | number }}%
+               </div>
+               </div>
+                   </div>
+               <!--End EXPeriment-->
                 <div>
                   <button mat-button matStepperPrevious>{{'COURSES.BACK_BUTTON' | translate}}</button>
                   <button mat-button matStepperNext (click)="onSubmit()">{{'COURSES.SAVE_BUTTON' | translate}}</button>

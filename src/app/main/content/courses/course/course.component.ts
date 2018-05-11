@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, ViewChild, AfterViewInit } from '@angular/core';
 import {I18nSelectPipe} from '@angular/common' ;
 import { FuseTranslationLoaderService } from '../../../../core/services/translation-loader.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -36,11 +36,13 @@ enum ComponentState {IsEditing, IsCreating}
     UploadService
     ]
 })
-export class CourseComponent implements OnInit {
+
+//AfterViewInit vs OnInit
+export class CourseComponent implements AfterViewInit {
 
   categories: Observable<any[]>;
   isLinear = false;
-
+  
   public ComponentState = ComponentState;
   public currentState: ComponentState = ComponentState.IsCreating;
 
@@ -143,6 +145,10 @@ export class CourseComponent implements OnInit {
         this.currentState = ComponentState.IsCreating;
       }
     }
+    
+  ngAfterViewInit() {
+      
+  }
 
     dataToModel(data: any){
       this.model = data;
@@ -177,7 +183,7 @@ export class CourseComponent implements OnInit {
             duration: 2000,
             verticalPosition: 'top'
           })
-          this.router.navigate(['/teacher/courses'];
+          this.router.navigate(['/teacher/courses'])
           
           
         },(fail) =>{
@@ -189,13 +195,14 @@ export class CourseComponent implements OnInit {
           
       }else{
         if (this.currentState === ComponentState.IsEditing){
-
+            
+            
           if (this.hasBeenUploaded){
             this.model.imageData.name = this.currentUpload.name;
             this.model.imageData.url = this.currentUpload.url;
           }
-
-
+          
+          
             console.log(this.model);
 
             let data = this.model;
@@ -204,9 +211,9 @@ export class CourseComponent implements OnInit {
               duration: 2000,
               verticalPosition: 'top'
             })
-            this.router.navigate(['/teacher/courses']
+            this.router.navigate(['/teacher/courses'])
             
-            },(fail) =>{
+            }, (fail) =>{
               this.snackBar.open('Error al editar curso', '', {
                 duration: 1500,
                 verticalPosition: 'top'
@@ -221,17 +228,18 @@ export class CourseComponent implements OnInit {
   detectFiles(event) {
       this.selectedFiles = event.target.files;
   }
-
-  uploadSingle() {
-    const file = this.selectedFiles.item(0);
+  
+    uploadSingle(event: FileList) {
+    //pasar file
+    const file = event.item(0);
+    if (file.type.split('/')[0] !== 'image') { 
+      console.error('unsupported file type :( ')
+      return;
+    }
     this.currentUpload = new Upload(file);
     this.upSvc.pushUpload(this.currentUpload);
     this.hasBeenUploaded = true;
 
   }
-  
-
-
-
 
 }

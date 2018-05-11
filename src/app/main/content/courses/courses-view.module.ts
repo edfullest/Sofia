@@ -12,6 +12,7 @@ import { AuthGuard, StudentGuard, ProfessorGuard, CanUpdateCourseGuard } from '.
 import { ViewerCoursesComponent } from './viewer-courses/viewer-courses.component';
 import { CreatorCoursesComponent } from './creator-courses/creator-courses.component';
 import { CourseTopScoresComponent } from './course-top-scores/course-top-scores.component';
+import { DropZoneDirective } from './course/drop-zone.directive';
 
 const routes = [
   {
@@ -73,7 +74,8 @@ const routes = [
     CourseComponent,
     ViewerCoursesComponent,
     CreatorCoursesComponent,
-    CourseTopScoresComponent
+    CourseTopScoresComponent,
+    DropZoneDirective
   ],
   providers : [AuthGuard, StudentGuard, ProfessorGuard, CanUpdateCourseGuard],
   exports     :[
