@@ -11,6 +11,7 @@ export const locale = {
             'TOOLTIP' : 'Editar / Borrar',
             'RECENTQUESTIONS' : 'Dudas?',
             'ADDQUESTION' : 'Añade tu duda',
+            'TOPSCORES':'Puntajes',
             'TOOLTIPNEWQUESTION' : 'Nueva Duda'
         }
     }

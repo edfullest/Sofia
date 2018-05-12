@@ -7,6 +7,10 @@
                   <mat-icon >add</mat-icon>
             </button>
           </div>
+            <button (click)="redirectToTopScores()" matTooltipPosition = "above" matTooltip="{{ 'GAMES.TOPSCORES' | translate }}" mat-icon-button>
+                <mat-icon>list</mat-icon>
+            </button>
+          
       </div>
       <div fxLayout="row" fxLayoutAlign="center center">
           <span class="mat-display-1 mb-0 welcome-message" *fuseIfOnDom [@animate]="{value:'*',params:{x:'50px'}}">
@@ -41,7 +45,12 @@
                           <div class="h3 secondary-text font-weight-500">{{game.name}}</div>
                       </div>
                       <div class="p-16 grey-50-bg border-top" fxLayout="row" fxLayoutAlign="start center">
-                          <span class="h4 ml-8">{{game.description}}</span>
+                          <span fxFlex="85" class="h4 ml-8">{{game.description}}</span>
+                          
+                          <button fxFlex (click)="redirectToGameTopScores(game.id)" matTooltipPosition = "above" matTooltip="{{ 'GAMES.TOPSCORES' | translate }}" mat-icon-button>
+                          <mat-icon>list</mat-icon>
+                          </button>
+                          
                       </div>
                   </div>
                   <!-- / Front -->

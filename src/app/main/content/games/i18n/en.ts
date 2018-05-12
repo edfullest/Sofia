@@ -11,6 +11,7 @@ export const locale = {
             'TOOLTIP' : 'Edit / Delete',
             'RECENTQUESTIONS' : 'Any doubts?',
             'ADDQUESTION' : 'What is your doubt?',
+            'TOPSCORES':'Scoreboard',
             'TOOLTIPNEWQUESTION' : 'New doubt'
         }
         

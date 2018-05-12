@@ -24,6 +24,7 @@ export const locale = {
           'EASY' : 'Easy',
           'MEDIUM' : 'Medium',
           'HARD' : 'Hard',
+          'TOP_SCORES':'Top Scores',
           'DRAGNDROP' : 'Drag and drop an image!'
       }
   }

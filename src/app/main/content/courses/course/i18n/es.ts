@@ -24,6 +24,7 @@ export const locale = {
           'EASY' : 'Fácil',
           'MEDIUM' : 'Moderado',
           'HARD' : 'Difícil',
+          'TOP_SCORES':'Puntajes',
           'DRAGNDROP' : 'Arrastra una imagen aquí!'
       }
 

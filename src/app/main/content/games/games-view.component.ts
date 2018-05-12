@@ -87,6 +87,17 @@ export class GamesViewComponent implements OnInit{
     redirectToGames(gameID : string){
       this.router.navigate(['/courses/' + this.courseID + '/game/view/' + gameID])
     }
+    
+    redirectToTopScores(){
+        console.log(this.courseID)
+       this.router.navigate(['/student/courses/' + this.courseID + '/topscores']);
+    }
+
+   redirectToGameTopScores(gameID:string){
+        console.log(gameID)
+       this.router.navigate(['/student/courses/' + this.courseID + '/game/'+ gameID+ '/topscores']);
+    }
+        
     OnInit(){
 
     }
