@@ -226,8 +226,9 @@ export class ViewGameComponentComponent implements OnInit {
     }
 
     this.score = Math.round(this.score * 100) / 100;
+
     if (this.score < 0){
-      this.score = this.score * -1;
+      this.score = 0;
     }
     else if (this.score > 100){
       this.score = 100;
