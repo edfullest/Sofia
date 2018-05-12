@@ -6,7 +6,8 @@ export const locale = {
             'PROFESSOR': 'Profesor',
             'SAMPLE'        : {
                 'TITLE': 'Tus Cursos',
-                'PROFESSOR_TITLE': 'Creados Por Ti'
+                'PROFESSOR_TITLE': 'Creados Por Ti',
+                'EXPLORE': 'Explorar'
             },
         }
     }

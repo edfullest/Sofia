@@ -20,6 +20,14 @@ export class FuseNavigationModel implements FuseNavigationModelInterface
                         'type' : 'item',
                         'icon' : 'home',
                         'url'  : '/student/courses',
+                    },
+                    {
+                        'id'   : 'sample',
+                        'title': 'Sample',
+                        'translate': 'NAV.SAMPLE.EXPLORE',
+                        'type' : 'item',
+                        'icon' : 'stars',
+                        'url'  : '/student/home',
                     }
                 ]
             },
