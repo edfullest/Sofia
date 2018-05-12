@@ -41,11 +41,11 @@ export class ViewGameComponentComponent implements OnInit {
   totalScore: number;
 
   answer_array: number[];
-  
+
   firstTime:boolean;
-  
+
   cumulativeDoc:Object;
-  
+
   constructor(private formBuilder: FormBuilder,
     private db: AngularFirestore,
     private route: ActivatedRoute,
@@ -62,7 +62,7 @@ export class ViewGameComponentComponent implements OnInit {
         this.student = userData.displayName;
         this.hasBeenTaken()
         this.getCumulative()
-      });      
+      });
   }
 
   ngOnInit() {
@@ -226,6 +226,12 @@ export class ViewGameComponentComponent implements OnInit {
     }
 
     this.score = Math.round(this.score * 100) / 100;
+    if (this.score < 0){
+      this.score = this.score * -1;
+    }
+    else if (this.score > 100){
+      this.score = 100;
+    }
 
   }
 
@@ -245,13 +251,13 @@ export class ViewGameComponentComponent implements OnInit {
             score: this.score,
             firstTime: this.firstTime,
             questions: data.questions
-            
+
           });
-          
+
           if(this.firstTime){
               this.cumulativeDoc['totalScore'] += this.score;
               this.cumulativeDoc['gamesCompleted'] +=1;
-              
+
                 if(this.cumulativeDoc['id']){
                     this.db.collection('courses').doc(this.courseID).collection('cumulatives').doc(this.cumulativeDoc['id']).set(this.cumulativeDoc, { merge: true });
                  }
@@ -261,8 +267,8 @@ export class ViewGameComponentComponent implements OnInit {
                  }
 
           }
-          
-          
+
+
           this.snackBar.open('¡Se ha subido el juego con éxito!', '', {
             duration: 2000,
             verticalPosition: 'top'
@@ -299,29 +305,29 @@ export class ViewGameComponentComponent implements OnInit {
       }
 
   }
-  
+
   hasBeenTaken(){
       let x:Promise<any>;
       x = this.db.collection('courses').doc(this.courseID).collection('games')
           .doc(this.gameID).collection('submissions').ref
           .where("studentId", "==", this.userUID).get()
-              
+
       x.then((col) => {console.log(col)
       this.firstTime = col.empty;
       console.log("firstTime:" + this.firstTime);
       });
   }
-  
+
   getCumulative(){
       /*
       // Create a reference to the SF doc.
       var sfDocRef = this.db.collection('courses').doc(this.courseID).collection('cumulatives').ref
           .where("studentId", "==", this.userUID)
-          
+
       sfDocRef.then((query) => {
           if (query.empty){
               this.cumulativeDoc = {
-                  studentName: this.student, 
+                  studentName: this.student,
                   studentId: this.userUID,
                   gameScore:0,
                   gamesCompleted:1
@@ -332,13 +338,13 @@ export class ViewGameComponentComponent implements OnInit {
           console.log(this.cumulativeDoc)
       });
       */
-      
+
       let col : AngularFirestoreCollection<any>;
       let cumulative : Observable<any>;
       col = this.db.collection('courses').doc(this.courseID)
-                               .collection('cumulatives', ref => 
+                               .collection('cumulatives', ref =>
                                ref.where("studentId", '==', this.userUID));
-                                   
+
    cumulative = col.snapshotChanges().map( document => {
        return document.map(a => {
            const data = a.payload.doc.data();
@@ -346,13 +352,13 @@ export class ViewGameComponentComponent implements OnInit {
            return { id, ...data };
            });
         });
-        
+
    cumulative.subscribe(docs => {
        console.log(docs);
        if(docs.length){this.cumulativeDoc=docs[0]}
        else{
            this.cumulativeDoc = {
-                  studentName: this.student, 
+                  studentName: this.student,
                   studentId: this.userUID,
                   totalScore:0,
                   gamesCompleted:0
@@ -360,11 +366,11 @@ export class ViewGameComponentComponent implements OnInit {
        }
        console.log(this.cumulativeDoc)
        });
-        
-      
-      
-          
+
+
+
+
       }
-      
-      
+
+
 }
