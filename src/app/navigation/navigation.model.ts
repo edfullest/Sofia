@@ -18,16 +18,34 @@ export class FuseNavigationModel implements FuseNavigationModelInterface
                         'title': 'Sample',
                         'translate': 'NAV.SAMPLE.TITLE',
                         'type' : 'item',
-                        'icon' : 'email',
-                        'url'  : '/sample',
-                        'badge': {
-                            'title': 25,
-                            'translate': 'NAV.SAMPLE.BADGE',
-                            'bg'   : '#F44336',
-                            'fg'   : '#FFFFFF'
-                        }
+                        'icon' : 'home',
+                        'url'  : '/student/courses',
                     }
                 ]
+            },
+            {
+                'id'      : 'professor',
+                'title'   : 'Professor',
+                'translate': 'NAV.PROFESSOR',
+                'type'    : 'group',
+                'children': [
+                    {
+                        'id'   : 'sample',
+                        'title': 'Sample',
+                        'translate': 'NAV.SAMPLE.PROFESSOR_TITLE',
+                        'type' : 'item',
+                        'icon' : 'class',
+                        'url'  : '/teacher/courses',
+                    }
+                ]
+            },
+            {
+                'id'      : 'faq',
+                'title'   : 'FAQ',
+                'translate': 'NAV.FAQ',
+                'type'    : 'item',
+                'icon' : 'help',
+                'url'  : '/teacher/courses',
             }
         ];
     }

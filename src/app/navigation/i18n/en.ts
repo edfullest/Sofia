@@ -2,11 +2,13 @@ export const locale = {
     lang: 'en',
     data: {
         'NAV': {
-            'APPLICATIONS': 'Applications',
+            'APPLICATIONS': 'Student',
+            'PROFESSOR': 'Teacher',
+            'FAQ': 'FAQ',
             'SAMPLE'        : {
-                'TITLE': 'Sample',
-                'BADGE': '25'
-            }
+                'TITLE': 'Your Courses',
+                'PROFESSOR_TITLE': 'Created By You'
+            },
         }
     }
 };

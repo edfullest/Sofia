@@ -6,7 +6,7 @@ import { FuseTranslationLoaderService } from './core/services/translation-loader
 import { FuseNavigationService } from './core/components/navigation/navigation.service';
 import { FuseNavigationModel } from './navigation/navigation.model';
 import { locale as navigationEnglish } from './navigation/i18n/en';
-import { locale as navigationTurkish } from './navigation/i18n/tr';
+import { locale as navigationTurkish } from './navigation/i18n/es';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 
@@ -28,7 +28,7 @@ export class AppComponent
     {
             this.courses = db.collection('courses').valueChanges();
         // Add languages
-        this.translate.addLangs(['en', 'tr']);
+        this.translate.addLangs(['en', 'es']);
 
         // Set the default language
         this.translate.setDefaultLang('en');

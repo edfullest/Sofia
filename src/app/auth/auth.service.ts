@@ -14,6 +14,7 @@ import {Observable} from 'rxjs/Observable';
 export class AuthService {
 
   user: Observable<User>;
+  isLogged = false;
 
   emailUserModel = {
     email : '',
@@ -29,8 +30,10 @@ export class AuthService {
       this.user = this.afAuth.authState
         .switchMap(user => {
           if (user) {
+            this.isLogged = true;
             return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
           } else {
+            this.isLogged = false;
             return Observable.of(null);
           }
         });
@@ -51,6 +54,7 @@ export class AuthService {
     }
 
     emailLogin(email: string, password: string) {
+      this.isLogged = true;
       return this.afAuth.auth.signInWithEmailAndPassword(email, password)
         .catch((error) => this.handleError(error) );
     }
@@ -65,21 +69,25 @@ export class AuthService {
 
     googleLogin() {
       const provider = new firebase.auth.GoogleAuthProvider();
+      this.isLogged = true;
       return this.oAuthLogin(provider);
     }
 
     githubLogin() {
       const provider = new firebase.auth.GithubAuthProvider();
+      this.isLogged = true;
       return this.oAuthLogin(provider);
     }
 
     twitterLogin() {
       const provider = new firebase.auth.TwitterAuthProvider();
+      this.isLogged = true;
       return this.oAuthLogin(provider);
     }
 
     facebookLogin() {
       const provider = new firebase.auth.FacebookAuthProvider();
+      this.isLogged = true;
       provider.addScope('user_birthday');
       return this.oAuthLogin(provider);
     }
@@ -87,6 +95,7 @@ export class AuthService {
 
 
     private oAuthLogin(provider) {
+      this.isLogged = true;
       return this.afAuth.auth.signInWithPopup(provider)
         .then((credential) => {
           this.updateUserData(credential.user);
@@ -141,11 +150,13 @@ export class AuthService {
 
     signOut(){
       this.afAuth.auth.signOut();
+      this.isLogged = false;
     }
 
     // If error, console log and notify user
     private handleError(error: Error) {
       console.error(error);
+      this.isLogged = false;
     }
 
 

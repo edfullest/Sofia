@@ -44,23 +44,6 @@ export class FuseThemeOptionsComponent implements OnInit, OnDestroy
         // Get the nav model and add customize nav item
         // that opens the bar programmatically
         const navModel = this.navigationService.getNavigationModel();
-
-        navModel.push({
-            'id'      : 'custom-function',
-            'title'   : 'Custom Function',
-            'type'    : 'group',
-            'children': [
-                {
-                    'id'      : 'customize',
-                    'title'   : 'Customize',
-                    'type'    : 'item',
-                    'icon'    : 'settings',
-                    'function': () => {
-                        this.openBar();
-                    }
-                }
-            ]
-        });
     }
 
     ngOnInit()
