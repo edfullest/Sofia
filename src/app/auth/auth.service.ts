@@ -99,7 +99,6 @@ export class AuthService {
         .then((credential) => {
                this.router.navigate(["/student/home"])
                this.updateUserData(credential.user);
-
         });
     }
 
@@ -113,8 +112,11 @@ export class AuthService {
         email: user.email,
         displayName: user.displayName,
         photoURL: user.photoURL,
-        roles: user.roles,
-        myCategories : user.myCategories
+        roles: {
+                'professor':true,
+                'student':true
+              },
+        myCategories : ['']
       };
 
       return userRef.set(data, { merge: true });
