@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { fuseAnimations } from '../../../../core/animations';
 import { FuseConfigService } from '../../../../core/services/config.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-user-register',
@@ -26,6 +27,7 @@ export class UserRegisterComponent implements OnInit {
     public auth: AuthService,
     private fuseConfig: FuseConfigService,
     private formBuilder: FormBuilder,
+    public snackBar: MatSnackBar,
     private router : Router) {
 
     this.translationLoader.loadTranslations(english, spanish);
@@ -66,6 +68,12 @@ export class UserRegisterComponent implements OnInit {
     }
 
     signup(): void {
+
+      this.snackBar.open('¡Ve a tu correo y confirma tu registro!', '', {
+        duration: 2000,
+        verticalPosition: 'top'
+      });
+
       this.auth.emailSignUp(this.registerForm).then(()=>{
           this.router.navigate(['/choose_categories']);
       });
@@ -93,7 +101,7 @@ export class UserRegisterComponent implements OnInit {
             }
         }
     }
-    
+
     checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
           return (group: FormGroup) => {
             let passwordInput = group.controls[passwordKey],
@@ -106,6 +114,6 @@ export class UserRegisterComponent implements OnInit {
             }
           }
         }
-    
+
 
 }
