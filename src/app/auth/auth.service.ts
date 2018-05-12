@@ -140,7 +140,10 @@ export class AuthService {
         email: this.emailUserModel.email,
         displayName: this.emailUserModel.name,
         photoURL: '',//user.photoURL,
-        roles: {student:true},
+        roles: {
+                'professor':true,
+                'student':true
+              },
         myCategories : ['']
       };
       this.cleanModel();

@@ -8,19 +8,21 @@ import { NRLandingPageComponent, SortCoursesPipe } from './non-registered/non-re
 import { StudentLPageComponent } from './student/student-lp.component';
 import { CarouselComponent, PrintSlideComponent, SafeHtmlPipe } from './non-registered/carousel/carousel.component';
 import { FAQComponent } from './non-registered/FAQ/faq.component';
+import { AuthGuard, StudentGuard, ProfessorGuard, CanUpdateCourseGuard } from '../../../../app/auth/auth_guard/auth.guard';
 
 const routes = [
   {
     path     : 'home',
-    component: NRLandingPageComponent,
+    component: NRLandingPageComponent
   },
   {
     path     : 'student/home',
     component: StudentLPageComponent,
+    canActivate: [AuthGuard]
   },
   {
     path     : 'faq',
-    component: FAQComponent,
+    component: FAQComponent
   }
 ];
 

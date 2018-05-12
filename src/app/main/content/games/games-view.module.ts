@@ -23,22 +23,22 @@ const routes = [
     {
         path     : 'teacher/courses/:course_id/games',
         component: CreatorGamesViewComponent,
-        canActivate: [CanUpdateCourseGuard]
+        canActivate: [AuthGuard,CanUpdateCourseGuard]
     },
     {
         path     : 'teacher/courses/:course_id/game/create',
         component: GameComponent,
-        canActivate: [CanUpdateCourseGuard]
+        canActivate: [AuthGuard,CanUpdateCourseGuard]
     },
     {
         path     : 'teacher/courses/:course_id/game/edit/:game_id',
         component: GameComponent,
-        canActivate: [CanUpdateCourseGuard]
+        canActivate: [AuthGuard,CanUpdateCourseGuard]
     },
     {
         path     : 'courses/:course_id/game/view/:game_id',
         component: ViewGameComponentComponent,
-        canActivate : [CanViewGame]
+        canActivate : [AuthGuard,CanViewGame]
     },
     {
         path     : 'student/courses/:course_id/games',
