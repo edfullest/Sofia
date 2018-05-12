@@ -141,7 +141,7 @@ export class AuthService {
         uid: user.uid,
         email: this.emailUserModel.email,
         displayName: this.emailUserModel.name,
-        photoURL: '',//user.photoURL,
+        photoURL: 'https://lh3.googleusercontent.com/-QKdHUx-GyrI/AAAAAAAAAAI/AAAAAAAAAAA/mJb6NuzUtdo/photo.jpg',//user.photoURL,
         roles: {
                 'professor':true,
                 'student':true

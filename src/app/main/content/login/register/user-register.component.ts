@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { AuthService } from '../../../../auth/auth.service';
 
 import { FuseTranslationLoaderService } from '../../../../core/services/translation-loader.service';
@@ -9,6 +9,7 @@ import { fuseAnimations } from '../../../../core/animations';
 import { FuseConfigService } from '../../../../core/services/config.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
+import {MatDialog, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-user-register',
@@ -68,14 +69,21 @@ export class UserRegisterComponent implements OnInit {
     }
 
     signup(): void {
-
-      this.snackBar.open('¡Ve a tu correo y confirma tu registro!', '', {
-        duration: 2000,
-        verticalPosition: 'top'
-      });
-
-      this.auth.emailSignUp(this.registerForm).then(()=>{
-          this.router.navigate(['/choose_categories']);
+      this.auth.emailSignUp(this.registerForm).then(response=>{
+          console.log(response)
+          if (response === undefined){
+            this.snackBar.open('Ese correo ya está registrado', '', {
+              duration: 4000,
+              verticalPosition: 'bottom'
+            });
+          }
+          else{
+            this.snackBar.open('¡Ve a tu correo y confirma tu registro!', '', {
+              duration: 2000,
+              verticalPosition: 'top'
+            });
+            this.router.navigate(['/choose_categories']);
+          }
       });
 
     }
