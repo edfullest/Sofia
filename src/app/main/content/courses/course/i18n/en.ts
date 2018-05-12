@@ -23,7 +23,8 @@ export const locale = {
           'DAYS' : 'Days',
           'EASY' : 'Easy',
           'MEDIUM' : 'Medium',
-          'HARD' : 'Hard'
+          'HARD' : 'Hard',
+          'DRAGNDROP' : 'Drag and drop an image!'
       }
   }
 };

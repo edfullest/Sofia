@@ -27,13 +27,13 @@
 
                     </div>
                     <div class = "comment" fxflexfill="" fxlayout="row" style="height: 100%; margin: 0px; min-height: 100%; min-width: 100%; width: 100%; flex-direction: row; box-sizing: border-box; display: flex;">
-                        <img  class="avatar" src="assets/images/avatars/Abbott.jpg">
+                        <img  class="avatar" src="{{question.photoURL}}">
 
                         <div class="ng-tns-c80-126" fxflex="" fxlayout="column" style="flex: 1 1 1e-09px; box-sizing: border-box; flex-direction: column; display: flex;">
                             <div  class="ng-tns-c80-126" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;">
-                                <span class="mat-body-2">Juan Pérez</span>
+                                <span class="mat-body-2">{{question.username}}</span>
                             </div>
-                            <span  class="mat-caption">Junio 10, 2018</span>
+                            <span  class="mat-caption">{{question.dateQuestion}}</span>
                             <span class="mat-body-1" style="margin: 5px 0px 5px 0px;">
                                 {{question.question}}
 
@@ -41,8 +41,9 @@
                         </div>
                     </div>
                     <div class = "comment" fxflexfill="" fxlayout="row" style="height: 100%; margin: 0px; min-height: 100%; min-width: 100%; width: 100%; flex-direction: row; box-sizing: border-box; display: flex; padding-left: 20px;">
-
                         <img *ngIf = "isCreator" class="avatar" src="{{(auth.user | async)?.photoURL}}">
+
+                        <img *ngIf = "!isCreator && question.originalAnswer !== '' " class="avatar" src="{{question.professorPhotoURL}}">
 
                         <div class="ng-tns-c80-126" fxflex="" fxlayout="column" style="flex: 1 1 1e-09px; box-sizing: border-box; flex-direction: column; display: flex;">
                             <div class="ng-tns-c80-126" fxlayout="row" fxlayoutalign="start center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center;">
@@ -60,7 +61,7 @@
                                 </div>
                             </div>
                             <div *ngIf = 'question.originalAnswer !== "" '>
-                                <span  class="mat-caption">Junio 10, 2018</span>
+                                <span  class="mat-caption">{{question.dateAnswer}}</span>
                             </div>
                             <div *ngIf = 'question.originalAnswer !== "" ' style="margin: 5px 0px 5px 0px;">
                                 <span class="mat-body-1" >

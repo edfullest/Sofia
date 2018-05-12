@@ -53,6 +53,7 @@ import { AuthService } from '../../../../auth/auth.service';
           this.coursesForYou$ = this.courses.map(courses => courses.filter(course => {
             return userData.myCategories.includes(course.categoryID) && !course.students[userData.uid]
           }));
+
           this.otherCourses = this.courses.map(courses => courses.filter(course => {
             return !userData.myCategories.includes(course.categoryID) && !course.students[userData.uid]
           }));

@@ -9,7 +9,7 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
 import { FuseTranslationLoaderService } from '../../../../core/services/translation-loader.service';
 import { locale as english } from '../i18n/en';
 import { locale as spanish } from '../i18n/es';
-
+import { AuthService } from '../../../../auth/auth.service';
 import 'rxjs/add/operator/first';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -34,7 +34,7 @@ export class AddQuestionComponent implements OnInit {
 
   constructor(private db: AngularFirestore, private router: Router,
               public translationLoader: FuseTranslationLoaderService,
-              private route : ActivatedRoute) {
+              private route : ActivatedRoute, public auth : AuthService) {
                 this.translationLoader.loadTranslations(english, spanish);
                }
 
@@ -59,16 +59,15 @@ export class AddQuestionComponent implements OnInit {
                                .collection('hashtags', ref =>
                                ref.where("hashtag", '==', htag));
 
-    id = col.snapshotChanges().map( document => {
-       return document.map(a => {
-           const data = a.payload.doc.data();
-           const idDoc = a.payload.doc.id;
-           return { idDoc, ...data };
-           });
-    });
+      id = col.snapshotChanges().map( document => {
+         return document.map(a => {
+             const data = a.payload.doc.data();
+             const idDoc = a.payload.doc.id;
+             return { idDoc, ...data };
+             });
+      });
 
      id.first().subscribe(data => {
-         console.log(data);
              if (data.length==0){
                    console.log(htag);
                    this.db.collection('courses').doc(this.courseID)
@@ -81,11 +80,40 @@ export class AddQuestionComponent implements OnInit {
        });
     }
 
-    var question = {answer:"", hashtags:hashtagObj, question: this.pregunta}
-    this.db.collection('courses').doc(this.courseID)
-         .collection('questions').add(question);
-    // Return to questions
-    this.outputEvent.emit(false)
+    this.auth.user.subscribe( userData => {
+          var today = new Date();
+          var dd = today.getDate();
+          var mm = today.getMonth()+1; //January is 0!
+          var strDd : string, strMm : string
+          var yyyy = today.getFullYear();
+          if(dd<10){
+              strDd = '0' + dd;
+          }
+          else{
+            strDd = '' + dd;
+          } 
+          if(mm<10){
+              strMm = '0' + mm;
+          } 
+          else{
+            strMm = '' + mm;
+          }
+          var todayStr = strDd+'/'+strMm+'/'+yyyy;
+          var question = {
+            answer:"", 
+            hashtags:hashtagObj, 
+            question: this.pregunta,
+            username : userData.displayName,
+            photoURL : userData.photoURL,
+            professorPhotoURL : "",
+            dateAnswer : "",
+            dateQuestion: todayStr}
+          this.db.collection('courses').doc(this.courseID)
+               .collection('questions').add(question);
+          // Return to questions
+          this.outputEvent.emit(false)
+     })
+    
   }
 
   add(event: MatChipInputEvent): void {

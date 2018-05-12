@@ -37,7 +37,6 @@ export class AuthService {
   }
 
     emailSignUp(registerForm: any) {
-
       this.emailUserModel.email = registerForm.value['email'];
       this.emailUserModel.password = registerForm.value['password'];
       this.emailUserModel.name = registerForm.value['name'];
@@ -65,6 +64,7 @@ export class AuthService {
 
     googleLogin() {
       const provider = new firebase.auth.GoogleAuthProvider();
+      
       return this.oAuthLogin(provider);
     }
 
@@ -89,7 +89,9 @@ export class AuthService {
     private oAuthLogin(provider) {
       return this.afAuth.auth.signInWithPopup(provider)
         .then((credential) => {
-          this.updateUserData(credential.user);
+               this.router.navigate(["/student/home"])
+               this.updateUserData(credential.user);
+
         });
     }
 
@@ -140,7 +142,9 @@ export class AuthService {
 
 
     signOut(){
-      this.afAuth.auth.signOut();
+      this.afAuth.auth.signOut().then(data =>{
+          this.router.navigate(["/login"])
+      });
     }
 
     // If error, console log and notify user

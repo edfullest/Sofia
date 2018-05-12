@@ -23,7 +23,8 @@ export const locale = {
           'DAYS' : 'Días',
           'EASY' : 'Fácil',
           'MEDIUM' : 'Moderado',
-          'HARD' : 'Difícil'
+          'HARD' : 'Difícil',
+          'DRAGNDROP' : 'Arrastra una imagen aquí!'
       }
 
   }

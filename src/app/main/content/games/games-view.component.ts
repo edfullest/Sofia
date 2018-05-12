@@ -37,6 +37,7 @@ export class GamesViewComponent implements OnInit{
     isPressed : boolean = false;
     courseID : string;
     isCreator : boolean = false
+    courseName : string = ""
     constructor(public translationLoader: FuseTranslationLoaderService, public db: AngularFirestore,
                 public router: Router,
                 public route : ActivatedRoute,
@@ -53,6 +54,12 @@ export class GamesViewComponent implements OnInit{
             return { id, ...data };
           });
        });
+
+      this.db.collection('courses').doc(this.courseID).snapshotChanges().subscribe(document => {
+        const data = document.payload.data();
+        this.courseName = data.name
+      })
+
     }
 
     pressButton(){

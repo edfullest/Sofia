@@ -52,10 +52,10 @@ const routes = [
                   StudentGuard]
 
   },
-    {
-        path     : 'student/courses/:course_id/topscores',
-        component: CourseTopScoresComponent
-    },
+  {
+      path     : 'student/courses/:course_id/topscores',
+      component: CourseTopScoresComponent
+  },
 
 ];
 

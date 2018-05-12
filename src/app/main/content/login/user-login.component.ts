@@ -7,6 +7,8 @@ import { fuseAnimations } from '../../../core/animations';
 import { FuseTranslationLoaderService } from '../../../core/services/translation-loader.service';
 import { locale as english } from './i18n/en';
 import { locale as spanish } from './i18n/es';
+import { Router } from "@angular/router";
+
 
 @Component({
   selector: 'app-user-login',
@@ -23,7 +25,8 @@ export class UserLoginComponent implements OnInit{
     private translationLoader: FuseTranslationLoaderService,
     public auth: AuthService,
     private fuseConfig: FuseConfigService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private router: Router) {
 
       this.translationLoader.loadTranslations(english, spanish);
 
@@ -56,9 +59,23 @@ export class UserLoginComponent implements OnInit{
 
     signin(): void
     {
-      this.auth.emailLogin(this.loginForm.value['email'], this.loginForm.value['password']);
+      let res = this.auth.emailLogin(this.loginForm.value['email'], this.loginForm.value['password']).then(data => {
+        console.log(data)
+        if (data.uid !== ''){
+            this.router.navigate(["/student/home"])
+        }
+      })
+    }
+    googleLogin(){
+      console.log(this.auth.googleLogin())
+
     }
 
+    facebookLogin(){
+      this.auth.facebookLogin().then(data =>{
+        console.log(data)
+      })
+    }
     onLoginFormValuesChanged()
     {
         for ( const field in this.loginFormErrors )

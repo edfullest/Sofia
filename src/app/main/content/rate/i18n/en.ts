@@ -3,7 +3,7 @@ export const locale = {
   data: {
       'RATING' : {
         'TITLE_COURSES' : 'Congratulations!',
-        'END_MSG' : 'You finished all the games of this course!',
+        'END_MSG' : '',
         'EXP' : 'How was your experience?',
         'RATE' : 'Rate this game'
       },

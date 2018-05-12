@@ -8,7 +8,10 @@ export const locale = {
             'TITLE' : 'Juegos',
             'EDITBUTTON' : 'Editar',
             'DELETEBUTTON' : 'Borrar',
-            'TOOLTIP' : 'Editar / Borrar'
+            'TOOLTIP' : 'Editar / Borrar',
+            'RECENTQUESTIONS' : 'Dudas?',
+            'ADDQUESTION' : 'Añade tu duda',
+            'TOOLTIPNEWQUESTION' : 'Nueva Duda'
         }
     }
 };

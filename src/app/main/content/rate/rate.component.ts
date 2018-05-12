@@ -46,11 +46,11 @@ export class RateComponent {
 
      giveThumbsUp(){
          this.makeTransaction(true)
-         // this.router.navigate([this.returnURL])
+         this.router.navigate(["/student/courses"])
      }
 
      giveThumbsDown(){
          this.makeTransaction(false)
-         // this.router.navigate([this.returnURL])
+         this.router.navigate(["/student/courses"])
      }
 }

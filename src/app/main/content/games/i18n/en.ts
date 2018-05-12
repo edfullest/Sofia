@@ -8,7 +8,10 @@ export const locale = {
             'TITLE' : 'Games',
             'EDITBUTTON' : 'Edit',
             'DELETEBUTTON' : 'Delete',
-            'TOOLTIP' : 'Edit / Delete'
+            'TOOLTIP' : 'Edit / Delete',
+            'RECENTQUESTIONS' : 'Any doubts?',
+            'ADDQUESTION' : 'What is your doubt?',
+            'TOOLTIPNEWQUESTION' : 'New doubt'
         }
         
     }

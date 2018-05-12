@@ -3,7 +3,7 @@ export const locale = {
   data: {
       'RQ' : {
           'SUBMIT' : 'Enviar',
-          'CREATOR' : 'Creador',
+          'CREATOR' : 'Profesor',
           'ADD' : 'Añadir Pregunta'
       }
 

@@ -44,10 +44,6 @@ export class RateCourseComponent extends RateComponent implements OnInit {
                 return { id, ...data };
 
             });
-            // doc.subscribe(data => {
-            //    console.log(data)
-
-            // });
          });
   }
   makeTransaction(isThumbsUp){

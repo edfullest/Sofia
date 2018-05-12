@@ -74,13 +74,33 @@ export class RecentQuestionsComponent implements OnInit {
    sendAnswer(question){
      this.auth.user.subscribe( userData => {
          this.db.collection('courses').doc(this.courseID).snapshotChanges().subscribe(doc => {
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth()+1; //January is 0!
+            var strDd : string, strMm : string
+            var yyyy = today.getFullYear();
+            if(dd<10){
+                strDd = '0' + dd;
+            }
+            else{
+              strDd = '' + dd;
+            } 
+            if(mm<10){
+                strMm = '0' + mm;
+            } 
+            else{
+              strMm = '' + mm;
+            }
+            var todayStr = strDd+'/'+strMm+'/'+yyyy;
+
            const data = doc.payload.data()
-           console.log(userData.uid == data.createdBy)
            if (userData.uid == data.createdBy){
              this.db.collection('courses').doc(this.courseID)
                                   .collection('questions')
                                   .doc(question.id).update({
-                                    answer: question.answer
+                                    answer: question.answer,
+                                    professorPhotoURL: userData.photoURL,
+                                    dateAnswer : todayStr
                                    })
            }
          })

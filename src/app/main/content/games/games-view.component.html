@@ -1,15 +1,17 @@
 <div class="page-layout simple fullwidth" fusePerfectScrollbar>
     <!-- HEADER -->
-    <div class="header mat-accent-bg p-24 h-160" fxLayout="row" fxLayoutAlign="start center">
-
-      <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="end center">
-          
-          <!--button *ngIf="auth.canCreate(user)" [routerLink]="['../game/create']" matTooltipPosition = "above" matTooltip="New Game" mat-icon-button-->
+    <div class="header mat-accent-bg p-24 h-160" fxLayout="column" fxLayoutAlign="space-between">
+      <div class="pl-16 pr-8 py-16 h-52" fxLayout="row" fxLayoutAlign="start">
           <div *ngIf = "isCreator">
             <button [routerLink]="['../game/create']" matTooltipPosition = "above" matTooltip="New Game" mat-icon-button>
                   <mat-icon >add</mat-icon>
             </button>
           </div>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="center center">
+          <span class="mat-display-1 mb-0 welcome-message" *fuseIfOnDom [@animate]="{value:'*',params:{x:'50px'}}">
+            {{courseName}}
+          </span>
       </div>
     </div>
     <!-- / HEADER -->
@@ -90,14 +92,17 @@
               <button *ngIf = "isPressed" (click)="pressButton()" matTooltipPosition = "above" matTooltip="Back" mat-icon-button>
                     <mat-icon>keyboard_backspace</mat-icon>
               </button>
-              <div class="pr-16">
-                  <div *ngIf = "!isPressed" class="h1 font-weight-300">Preguntas Frecuentes</div>
-                  <div *ngIf = "isPressed" class="h1 font-weight-300">Agregar Pregunta</div>
-
+              <div *ngIf = "isPressed" class="pr-16" >
+                  <div  class="h1 font-weight-300" style="text-align: center; vertical-align: middle;">{{'GAMES.ADDQUESTION' | translate }}</div>
               </div>
 
+              <div *ngIf = "!isPressed" class="pr-16">
+                  <div  class="h1 font-weight-300" style="text-align: center; vertical-align: middle;">{{'GAMES.RECENTQUESTIONS' | translate }}</div>
+              </div>
+              
+
               <div *ngIf = "!isCreator" class="ng-tns-c92-425">
-                  <button matTooltipPosition = "above" matTooltip="Nueva Pregunta" (click)="pressButton()" mat-icon-button>
+                  <button matTooltipPosition = "above" matTooltip="{{'GAMES.TOOLTIPNEWQUESTION' | translate }}" (click)="pressButton()" mat-icon-button>
                     <mat-icon>add</mat-icon>
                   </button> 
               </div>
@@ -111,9 +116,6 @@
 
         </div>                           
       </fuse-widget>
-    </div>
-
-    <div *ngIf = "isPressed">
     </div>
     <!-- / CONTENT -->
 
