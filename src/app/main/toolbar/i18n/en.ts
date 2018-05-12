@@ -6,6 +6,7 @@ export const locale = {
       'LOGIN_BUTTON' : 'Log in',
       'LOGOUT' : 'Log Out',
       'PROFILE' : 'My Profile',
+      'FAQ' : 'FAQ'
     }
   }
 };

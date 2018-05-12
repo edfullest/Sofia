@@ -9,22 +9,24 @@
         <!-- / TOOLBAR: Above -->
 
 
-        <!-- NAVBAR: Top
+ 
         <fuse-navbar-horizontal class="top-navbar" fxHide fxShow.gt-md
                                 [ngClass]="fuseSettings.colorClasses.navbar"
                                 *ngIf="fuseSettings.layout.navigation === 'top'">
         </fuse-navbar-horizontal>
-        -->
+    
 
         <div id="wrapper">
 
-            <!-- NAVBAR: Left
-            <fuse-navbar-vertical [folded]="fuseSettings.layout.navigationFolded"
-                                  class="left-navbar"
-                                  [ngClass]="fuseSettings.colorClasses.navbar"
-                                  *ngIf="fuseSettings.layout.navigation === 'left' || fuseSettings.layout.navigation === 'top'">
-            </fuse-navbar-vertical>
-             -->
+
+            <ng-container *ngIf="auth.isLogged == true">
+            
+                <fuse-navbar-vertical [folded]="fuseSettings.layout.navigationFolded"
+                                    class="left-navbar"
+                                    [ngClass]="fuseSettings.colorClasses.navbar"
+                                    *ngIf="fuseSettings.layout.navigation === 'left' || fuseSettings.layout.navigation === 'top'">
+                </fuse-navbar-vertical>
+            </ng-container>
 
             <div class="content-wrapper">
 

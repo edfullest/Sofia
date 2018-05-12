@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { FuseConfigService } from '../core/services/config.service';
 import { Platform } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
     selector     : 'fuse-main',
@@ -21,6 +22,7 @@ export class FuseMainComponent implements OnInit, OnDestroy
         private _elementRef: ElementRef,
         private fuseConfig: FuseConfigService,
         private platform: Platform,
+        public auth: AuthService,
         @Inject(DOCUMENT) private document: any
     )
     {
@@ -41,6 +43,7 @@ export class FuseMainComponent implements OnInit, OnDestroy
 
     ngOnInit()
     {
+        
     }
 
     ngOnDestroy()

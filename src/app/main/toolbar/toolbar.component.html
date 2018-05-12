@@ -22,7 +22,7 @@
                   <div fxLayout="row" fxLayoutAlign="center center">
                     <span class="username mr-12" fxHide fxShow.gt-sm>{{ 'TOOLBAR.REGISTER_BUTTON' | translate }}</span>
                   </div>
-                </button>
+              </button>
 
             </ng-template>
 
@@ -49,6 +49,8 @@
                   </button>
                 </mat-menu>
 
+
+
               </div>
             </ng-template>
             <!--
@@ -57,6 +59,12 @@
             <fuse-search-bar (onInput)="search($event)"></fuse-search-bar>
             -->
             <div class="toolbar-separator"></div>
+
+            <button mat-button class="user-button" [routerLink]="'/faq'">
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <span class="username mr-12" fxHide fxShow.gt-sm>{{ 'TOOLBAR.FAQ' | translate }}</span>
+              </div>
+          </button>
 
             <button mat-button fxHide fxShow.gt-xs
                     class="language-button"
