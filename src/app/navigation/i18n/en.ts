@@ -4,7 +4,6 @@ export const locale = {
         'NAV': {
             'APPLICATIONS': 'Student',
             'PROFESSOR': 'Teacher',
-            'FAQ': 'FAQ',
             'SAMPLE'        : {
                 'TITLE': 'Your Courses',
                 'PROFESSOR_TITLE': 'Created By You'

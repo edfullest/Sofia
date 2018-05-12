@@ -6,6 +6,7 @@ export const locale = {
       'LOGIN_BUTTON' : 'Iniciar sesión',
       'LOGOUT' : 'Cerrar sesión',
       'PROFILE' : 'Mi Perfil',
+      'FAQ' : 'Preguntas Frecuentes'
     }
   }
 };

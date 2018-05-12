@@ -38,14 +38,6 @@ export class FuseNavigationModel implements FuseNavigationModelInterface
                         'url'  : '/teacher/courses',
                     }
                 ]
-            },
-            {
-                'id'      : 'faq',
-                'title'   : 'FAQ',
-                'translate': 'NAV.FAQ',
-                'type'    : 'item',
-                'icon' : 'help',
-                'url'  : '/teacher/courses',
             }
         ];
     }
