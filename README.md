@@ -1,6 +1,5 @@
-# Fuse2
+# Sofia
 
-Material Design Admin Template with Angular 5+ and Angular Material 2
 
 ## Development server
 
